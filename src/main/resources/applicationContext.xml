@@ -12,24 +12,33 @@
 			
 	   <!--  Scan for both Jersey Rest Annotations a -->
        <context:component-scan base-package="org.bcc.cupboard.entity.jpa, org.bcc.cupboard.rest"/>
-       <context:annotation-config />
+       <context:property-placeholder location="classpath:cupboard.properties"/>
+       
+       <context:annotation-config proxy-target-class="true"/>
        <tx:annotation-driven />
        <bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-		p:driverClassName="org.postgresql.Driver" p:url="jdbc:mysql://localhost:3306/jpa"
-		p:username="user" p:password="password" />
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value=""/>
+		<property name="url" value=""/>
+		<property name="username" value=""/>
+		<property name="password" value=""/>
+	</bean>
 
 	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		p:dataSource-ref="dataSource" p:jpaVendorAdapter-ref="jpaAdapter">
-		<property name="loadTimeWeaver">
-			<bean
-				class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="persistenceUnitName" value="cupboardPU"/>
+		<property name="jpaVendorAdaptor">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="generateDdl" value="true"/>
+				<property name="showSql" value="true"/>
+				<property name="databasePlatform" value="${hibernate.dialect}"/>
+				<property name="database" value=""/>
+			</bean>
 		</property>
 	</bean>
+	
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
 		p:entityManagerFactory-ref="entityManagerFactory" />
-	<bean id="jpaAdapter"
-		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
-		p:database="MYSQL" p:showSql="true" />
+	
    </beans>
