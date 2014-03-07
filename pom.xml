@@ -9,7 +9,8 @@
     
     <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <hibernate.version>4.1.0.Final</hibernate>
+      <hibernate.version>4.1.0.Final</hibernate.version>
+      <spring-version>3.2.5.RELEASE</spring-version>
     </properties>
     <build>
         <finalName>cupboard</finalName>
@@ -38,17 +39,18 @@
         </dependency>
         <dependency>
           <groupId>log4j</groupId>
-          <artificatId>log4j</artificatId>
+          <artifactId>log4j</artifactId>
+          <version>1.2.16</version>
         </dependency>
         <dependency>
-        	<groupId>commons-logging</groupId>
-        	<artifactId>commons-logging</artifactId>
-        	<version>1.1.2</version>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+          <version>1.1.2</version>
         </dependency>
         <dependency>
-        	<groupId>org.springframework</groupId>
-        	<artifactId>spring-aop</artifactId>
-        	<version>4.0.2.RELEASE</version>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aop</artifactId>
+          <version>4.0.2.RELEASE</version>
         </dependency>
         <dependency>
           <groupId>org.springframework</groupId>
@@ -62,45 +64,45 @@
           </exclusions>
         </dependency>
         <dependency>
-        	<groupId>org.springframework</groupId>
-        	<artifactId>spring-web</artifactId>
-        	<version>4.0.2.RELEASE</version>
-        	<exclusions>
-        	  <exclusion>
-        	    <groupId>org.springframework</groupId>
-        	    <artifactId>spring-context</artifactId>
-        	  </exclusion>
-        	</exclusions>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-web</artifactId>
+          <version>4.0.2.RELEASE</version>
+          <exclusions>
+            <exclusion>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-context</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
         <dependency>
-        	<groupId>org.springframework</groupId>
-        	<artifactId>spring-core</artifactId>
-        	<version>4.0.2.RELEASE</version>
-        	<exclusions>
-        	  <exclusion>
-        	    <groupId>javax.servlet</groupId>
-        	    <artifactId>servlet-api</artifactId>
-        	  </exclusion>
-        	</exclusions>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+          <version>4.0.2.RELEASE</version>
+          <exclusions>
+            <exclusion>
+              <groupId>javax.servlet</groupId>
+              <artifactId>servlet-api</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
         <dependency>
-        	<groupId>org.springframework</groupId>
-        	<artifactId>spring-orm</artifactId>
-        	<version>4.0.2.RELEASE</version>
-        	<exclusions>
-        	  <exclusion>
-        	    <groupId>org.springframework</groupId>
-        	    <artifactId>spring-aop</artifactId>
-        	  </exclusion>
-        	  <exclusion>
-        	    <groupId>org.springframework</groupId>
-        	    <artifactId>spring-context</artifactId>
-        	  </exclusion>
-        	  <exclusion>
-        	    <groupId>org.springframework</groupId>
-        	    <artifactId>spring-jdbc</artifactId>
-        	  </exclusion>
-        	</exclusions>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-orm</artifactId>
+          <version>4.0.2.RELEASE</version>
+          <exclusions>
+            <exclusion>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-aop</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-context</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-jdbc</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
         <dependency>
           <groupId>org.springframework</groupId>
@@ -118,50 +120,45 @@
           <version>4.0.2.RELEASE</version>
         </dependency>
         <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>sprint-test</artifactId>
-          <version>4.0.2.RELEASE</version>
-        </dependency>
-        <dependency>
           <groupId>com.sun.jersey</groupId>
           <artifactId>jersey-core</artifactId>
           <version>1.18.1</version>
         </dependency>
         <dependency>
-        	<groupId>com.sun.jersey.contribs</groupId>
-        	<artifactId>jersey-spring</artifactId>
-        	<version>1.18.1</version>
-        	<exclusions>
-        		<exclusion>
-        			<groupId>org.springframework</groupId>
-        			<artifactId>spring-aop</artifactId>        			
-        		</exclusion>
-        		<exclusion>
-        			<groupId>org.springframework</groupId>
-        			<artifactId>spring-asm</artifactId>        			
-        		</exclusion>
-        		<exclusion>
-        			<groupId>org.springframework</groupId>
-        			<artifactId>spring-beans</artifactId>        			
-        		</exclusion>
-        		<exclusion>
-        			<groupId>org.springframework</groupId>
-        			<artifactId>spring-core</artifactId>        			
-        		</exclusion>
-        		<exclusion>
-        			<groupId>org.springframework</groupId>
-        			<artifactId>spring-context</artifactId>        			
-        		</exclusion>
-        		<exclusion>
-        			<groupId>org.springframework</groupId>
-        			<artifactId>spring-expression</artifactId>        			
-        		</exclusion>
-        	</exclusions>
+          <groupId>com.sun.jersey.contribs</groupId>
+          <artifactId>jersey-spring</artifactId>
+          <version>1.18.1</version>
+          <exclusions>
+            <exclusion>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-aop</artifactId>              
+            </exclusion>
+            <exclusion>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-asm</artifactId>              
+            </exclusion>
+            <exclusion>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-beans</artifactId>              
+            </exclusion>
+            <exclusion>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-core</artifactId>              
+            </exclusion>
+            <exclusion>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-context</artifactId>              
+            </exclusion>
+            <exclusion>
+              <groupId>org.springframework</groupId>
+              <artifactId>spring-expression</artifactId>              
+            </exclusion>
+          </exclusions>
         </dependency>
         <dependency>
-        	<groupId>com.sun.jersey</groupId>
-        	<artifactId>jersey-server</artifactId>
-        	<version>1.18.1</version>
+          <groupId>com.sun.jersey</groupId>
+          <artifactId>jersey-server</artifactId>
+          <version>1.18.1</version>
         </dependency>
         <dependency>
           <groupId>com.sun.jersey</groupId>
@@ -181,6 +178,7 @@
         <dependency>
           <groupId>commons-io</groupId>
           <artifactId>commons-io</artifactId>
+          <version>2.4</version>
         </dependency>
         <dependency>
           <groupId>commons-beanutils</groupId>
@@ -188,52 +186,51 @@
           <version>1.8.3</version>
         </dependency>
         <dependency>
-        	<groupId>org.hibernate</groupId>
-        	<artifactId>hibernate-core</artifactId>
-        	<version>${hibernate.version}</version>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-core</artifactId>
+          <version>${hibernate.version}</version>
         </dependency>
         <dependency>
-        	<groupId>org.hibernate</groupId>
-        	<artifactId>hibernate-entitymanager</artifactId>
-        	<version>${hibernate.version}</version>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-entitymanager</artifactId>
+          <version>${hibernate.version}</version>
         </dependency>
         <dependency>
-        	<groupId>org.hibernate</groupId>
-        	<artifactId>hibernate-validator</artifactId>
-        	<version>${hibernate.version}</version>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>${hibernate.version}</version>
         </dependency>
         <dependency>
           <groupId>javax.validation</groupId>
-          <artificatId>validation-api</artificatId>
+          <artifactId>validation-api</artifactId>
           <version>1.0.0.GA</version>
         </dependency>
         <dependency>
-        	<groupId>postgresql</groupId>
-        	<artifactId>postgresql</artifactId>
-        	<version>9.1-901-1.jdbc4</version>
+          <groupId>postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+          <version>9.1-901-1.jdbc4</version>
         </dependency>
         <dependency>
-        	<groupId>joda-time</groupId>
-        	<artifactId>joda-time</artifactId>
-        	<version>2.3</version>
+          <groupId>joda-time</groupId>
+          <artifactId>joda-time</artifactId>
+          <version>2.3</version>
         </dependency>
         <dependency>
-        	<groupId>javax.persistence</groupId>
-        	<artifactId>persistence-api</artifactId>
-        	<version>1.0.2</version>
+          <groupId>javax.persistence</groupId>
+          <artifactId>persistence-api</artifactId>
+          <version>1.0.2</version>
         </dependency>
         <dependency>
           <groupId>org.glassfish.grizzly</groupId>
           <artifactId>grizzly-http-server</artifactId>
+          <version>2.3.7</version>
         </dependency>
         <dependency>
           <groupId>org.glassfish.grizzly</groupId>
           <artifactId>grizzly-http-servlet</artifactId>
+          <version>2.3.7</version>
         </dependency>
     </dependencies>
-    <properties>
-        <spring-version>3.2.5.RELEASE</spring-version>
-    </properties>
     <repositories>
         <repository>
             <id>glassfish.java.net</id>
