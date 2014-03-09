@@ -1,53 +1,25 @@
-package org.bcc.cupboard.entity.jpa;
+package org.bcc.cupboard.entity;
 
-import java.io.Serializable;
-import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.bcc.cupboard.entity.Customer;
-import org.bcc.cupboard.entity.CustomerBean;
-import org.bcc.cupboard.entity.Order;
-import org.bcc.cupboard.entity.Tefap;
-
-@Entity
-@Table(name = "CUSTOMER")
-public class CustomerJpa extends CustomerBean implements Serializable, Customer {
-	private static final long serialVersionUID = 5808450971871741014L;
+@XmlRootElement
+public class CustomerBean implements Customer {
 	
-	private List<Order> orders;
-	private List<Tefap> tefaps;
-	
-	public CustomerJpa() {
-		
-	}
-	
-	public CustomerJpa(Customer customer) {
-		setId(customer.getId());
-		setFirstName(customer.getFirstName());
-		setLastName(customer.getLastName());
-		setNumOfAdults(customer.getNumOfAdults());
-		setNumOfKids(customer.getNumOfKids());
-		setPhone(customer.getPhone());
-		setStreet(customer.getStreet());
-		setCity(customer.getCity());
-		setState(customer.getState());
-		setZip(customer.getZip());
-	}
-	
+	protected long id;	
+	protected String lastName;	
+	protected String firstName;	
+	protected String street;
+	protected String city;
+	protected String state;
+	protected String zip;
+	protected String phone;
+	protected int numOfAdults;
+	protected int numOfKids;
 
 	/* (non-Javadoc)
 	 * @see org.bcc.cupboard.entity.jpa.Customer#getId()
 	 */
 	@Override
-	@Column(name="CUS_NUM")
-	@GeneratedValue()
 	public long getId() {
 		return id;
 	}
@@ -57,14 +29,13 @@ public class CustomerJpa extends CustomerBean implements Serializable, Customer 
 	 */
 	@Override
 	public void setId(long id) {
-		super.setId(id);
+		this.id = id;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.bcc.cupboard.entity.jpa.Customer#getLastName()
 	 */
 	@Override
-	@Column(name="CUS_LAST")
 	public String getLastName() {
 		return lastName;
 	}
@@ -74,14 +45,13 @@ public class CustomerJpa extends CustomerBean implements Serializable, Customer 
 	 */
 	@Override
 	public void setLastName(String lastName) {
-		super.setLastName(lastName);
+		this.lastName = lastName;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.bcc.cupboard.entity.jpa.Customer#getFirstName()
 	 */
 	@Override
-	@Column(name="CUS_FIRST")
 	public String getFirstName() {
 		return firstName;
 	}
@@ -91,14 +61,13 @@ public class CustomerJpa extends CustomerBean implements Serializable, Customer 
 	 */
 	@Override
 	public void setFirstName(String firstName) {
-		super.setFirstName(firstName);
+		this.firstName = firstName;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.bcc.cupboard.entity.jpa.Customer#getStreet()
 	 */
 	@Override
-	@Column(name="CUS_STREET")
 	public String getStreet() {
 		return street;
 	}
@@ -108,14 +77,13 @@ public class CustomerJpa extends CustomerBean implements Serializable, Customer 
 	 */
 	@Override
 	public void setStreet(String street) {
-		super.setStreet(street);
+		this.street = street;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.bcc.cupboard.entity.jpa.Customer#getCity()
 	 */
 	@Override
-	@Column(name="CUS_CITY")
 	public String getCity() {
 		return city;
 	}
@@ -125,14 +93,13 @@ public class CustomerJpa extends CustomerBean implements Serializable, Customer 
 	 */
 	@Override
 	public void setCity(String city) {
-		super.setCity(city);
+		this.city = city;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.bcc.cupboard.entity.jpa.Customer#getState()
 	 */
 	@Override
-	@Column(name="CUS_STATE")
 	public String getState() {
 		return state;
 	}
@@ -142,14 +109,13 @@ public class CustomerJpa extends CustomerBean implements Serializable, Customer 
 	 */
 	@Override
 	public void setState(String state) {
-		super.setState(state);
+		this.state = state;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.bcc.cupboard.entity.jpa.Customer#getZip()
 	 */
 	@Override
-	@Column(name="CUS_ZIP")
 	public String getZip() {
 		return zip;
 	}
@@ -159,14 +125,13 @@ public class CustomerJpa extends CustomerBean implements Serializable, Customer 
 	 */
 	@Override
 	public void setZip(String zip) {
-		super.setZip(zip);
+		this.zip = zip;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.bcc.cupboard.entity.jpa.Customer#getPhone()
 	 */
 	@Override
-	@Column(name="CUS_PHONE")
 	public String getPhone() {
 		return phone;
 	}
@@ -176,14 +141,13 @@ public class CustomerJpa extends CustomerBean implements Serializable, Customer 
 	 */
 	@Override
 	public void setPhone(String phone) {
-		super.setPhone(phone);
+		this.phone = phone;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.bcc.cupboard.entity.jpa.Customer#getNumOfAdults()
 	 */
 	@Override
-	@Column(name="CUS_NUM_ADULT")
 	public int getNumOfAdults() {
 		return numOfAdults;
 	}
@@ -193,14 +157,13 @@ public class CustomerJpa extends CustomerBean implements Serializable, Customer 
 	 */
 	@Override
 	public void setNumOfAdults(int numOfAdults) {
-		super.setNumOfAdults(numOfAdults);
+		this.numOfAdults = numOfAdults;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.bcc.cupboard.entity.jpa.Customer#getNumOfKids()
 	 */
 	@Override
-	@Column(name="CUS_NUM_CHILD")
 	public int getNumOfKids() {
 		return numOfKids;
 	}
@@ -210,25 +173,6 @@ public class CustomerJpa extends CustomerBean implements Serializable, Customer 
 	 */
 	@Override
 	public void setNumOfKids(int numOfKids) {
-		super.setNumOfKids(numOfKids);
+		this.numOfKids = numOfKids;
 	}
-
-	@OneToMany(mappedBy="customer", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
-
-	@OneToMany(mappedBy="customer", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	public List<Tefap> getTefaps() {
-		return tefaps;
-	}
-
-	public void setTefaps(List<Tefap> tefaps) {
-		this.tefaps = tefaps;
-	}	
-
 }

@@ -13,109 +13,76 @@ import javax.persistence.Table;
 
 import org.bcc.cupboard.entity.Customer;
 import org.bcc.cupboard.entity.Tefap;
+import org.bcc.cupboard.entity.TefapBean;
 
 @Entity
 @Table(name="TEFAP")
-public class TefapJpa implements Serializable, Tefap {
+public class TefapJpa extends TefapBean implements Serializable, Tefap {
 	private static final long serialVersionUID = -3618462910753933404L;
-
-	@Column(name="TEFAP_NUM")
-	@GeneratedValue()
-	private long id;
-	
-	@Column(name="TEFAP_WEIGHT")
-	private int weight;
-	
-	@Column(name="TEFAP_COUNT")
-	private int count;
-	
-	@Column(name="TEFAP_DATE")
-	private Date orderDate;
-	
-	@ManyToOne(targetEntity=CustomerJpa.class, fetch=FetchType.LAZY)
-	@JoinColumn(name="CUS_NUM")
 	private Customer customer;
 	
 	public TefapJpa() {
 		
 	}
+	
+	public TefapJpa(Tefap tefap) {
+		setId(tefap.getId());
+		setWeight(tefap.getWeight());
+		setCount(tefap.getCount());
+		setOrderDate(tefap.getOrderDate());
+	}
 
-	/* (non-Javadoc)
-	 * @see org.bcc.cupboard.entity.jpa.Tefap#getId()
-	 */
 	@Override
+	@Column(name="TEFAP_NUM")
+	@GeneratedValue()
 	public long getId() {
 		return id;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.bcc.cupboard.entity.jpa.Tefap#setId(long)
-	 */
 	@Override
 	public void setId(long id) {
-		this.id = id;
+		super.setId(id);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.bcc.cupboard.entity.jpa.Tefap#getWeight()
-	 */
 	@Override
+	@Column(name="TEFAP_WEIGHT")
 	public int getWeight() {
 		return weight;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.bcc.cupboard.entity.jpa.Tefap#setWeight(int)
-	 */
 	@Override
 	public void setWeight(int weight) {
-		this.weight = weight;
+		super.setWeight(weight);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.bcc.cupboard.entity.jpa.Tefap#getCount()
-	 */
 	@Override
+	@Column(name="TEFAP_COUNT")
 	public int getCount() {
 		return count;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.bcc.cupboard.entity.jpa.Tefap#setCount(int)
-	 */
 	@Override
 	public void setCount(int count) {
-		this.count = count;
+		super.setCount(count);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.bcc.cupboard.entity.jpa.Tefap#getOrderDate()
-	 */
 	@Override
+	@Column(name="TEFAP_DATE")
 	public Date getOrderDate() {
 		return orderDate;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.bcc.cupboard.entity.jpa.Tefap#setOrderDate(java.sql.Date)
-	 */
 	@Override
 	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
+		super.setOrderDate(orderDate);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.bcc.cupboard.entity.jpa.Tefap#getCustomer()
-	 */
-	@Override
+	@ManyToOne(targetEntity=CustomerJpa.class, fetch=FetchType.LAZY)
+	@JoinColumn(name="CUS_NUM")
 	public Customer getCustomer() {
 		return customer;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.bcc.cupboard.entity.jpa.Tefap#setCustomer(org.bcc.cupboard.entity.jpa.Customer)
-	 */
-	@Override
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
