@@ -59,7 +59,7 @@ public class CustomerDaoImpl extends BaseDao implements CustomerDao {
 		List<CustomerJpa> customers;
 		
 		try {
-			Query query = em.createQuery("from CustomerJpa c order by c.lastName asc", CustomerJpa.class);
+			Query query = em.createQuery("from CustomerJpa c order by c.lastName asc");
 			customers = (List<CustomerJpa>) query.getResultList();
 		} catch(Exception ex) {
 			Log.error("Error retrieving all Customers from DB", ex);

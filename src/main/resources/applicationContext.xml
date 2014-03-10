@@ -28,7 +28,7 @@
     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
     <property name="dataSource" ref="dataSource"/>
     <property name="persistenceUnitName" value="cupboardPU"/>
-    <property name="jpaVendorAdaptor">
+    <property name="jpaVendorAdapter">
       <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="generateDdl" value="${hibernate.generate.ddl}"/>
         <property name="showSql" value="${hibernate.show.sql}"/>

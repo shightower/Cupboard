@@ -7,19 +7,24 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.bcc.cupboard.entity.Customer;
 import org.bcc.cupboard.entity.Tefap;
-import org.bcc.cupboard.entity.TefapBean;
 
 @Entity
 @Table(name="TEFAP")
-public class TefapJpa extends TefapBean implements Serializable, Tefap {
+public class TefapJpa implements Serializable, Tefap {
 	private static final long serialVersionUID = -3618462910753933404L;
-	private Customer customer;
+	
+	private long id;
+	private int weight;
+	private int count;
+	private Date orderDate;	
+	private CustomerJpa customer;
 	
 	public TefapJpa() {
 		
@@ -32,58 +37,51 @@ public class TefapJpa extends TefapBean implements Serializable, Tefap {
 		setOrderDate(tefap.getOrderDate());
 	}
 
-	@Override
+	@Id
 	@Column(name="TEFAP_NUM")
-	@GeneratedValue()
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}
-
-	@Override
+	
 	public void setId(long id) {
-		super.setId(id);
+		this.id = id;
 	}
 
-	@Override
 	@Column(name="TEFAP_WEIGHT")
 	public int getWeight() {
 		return weight;
 	}
-
-	@Override
+	
 	public void setWeight(int weight) {
-		super.setWeight(weight);
+		this.weight = weight;
 	}
 
-	@Override
 	@Column(name="TEFAP_COUNT")
 	public int getCount() {
 		return count;
 	}
-
-	@Override
+	
 	public void setCount(int count) {
-		super.setCount(count);
+		this.count = count;
 	}
 
-	@Override
 	@Column(name="TEFAP_DATE")
 	public Date getOrderDate() {
 		return orderDate;
 	}
-
-	@Override
+	
 	public void setOrderDate(Date orderDate) {
-		super.setOrderDate(orderDate);
+		this.orderDate = orderDate;
 	}
 
 	@ManyToOne(targetEntity=CustomerJpa.class, fetch=FetchType.LAZY)
 	@JoinColumn(name="CUS_NUM")
-	public Customer getCustomer() {
+	public CustomerJpa getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(CustomerJpa customer) {
 		this.customer = customer;
 	}
 	
