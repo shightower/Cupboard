@@ -6,7 +6,7 @@ Ext.application({
     Ext.create('Ext.container.Viewport', {
       layout: 'border',
       items: [{
-        xtype: 'mainPanel'
+        xtype: 'mainpanel'
       }]
     } //end of viewport
   } //end of launch

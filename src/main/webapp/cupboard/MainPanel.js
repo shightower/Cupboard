@@ -34,7 +34,7 @@ Ext.define('Cupboard.MainPanel', {
   items: [{
     xtype: 'overviewpanel'
   },{
-    xtype: 'creteUserPanel'
+    xtype: 'customerpanel'
   }]
 
 });
