@@ -10,31 +10,59 @@ Ext.define('Cupboard.MainPanel', {
   tbar: {
     layout: {
       type: 'hbox',
-      pack: 'center'
+      pack: 'center',
+      align: 'middle'
     },
+    width: 500,
     defaults: {
       cls: 'boldText'
     },
     items: [{
       xtype: 'button',
-      text: Cupboard.label.overview,
+      width: 100,
+      text: Cupboard.constants.tab.label.overview,
       handler: function() {
         var panel = this.up('panel');
         panel.getLayout().setActiveItem(0);
       }
     },{
       xtype: 'button',
-      text: Cupboard.label.createUser,
+      width: 100,
+      text: Cupboard.constants.tab.label.customer,
       handler: function() {
         var panel = this.up('panel');
         panel.getLayout().setActiveItem(1);
       }
+    },{
+      xtype: 'button',
+      width: 100,
+      text: Cupboard.constants.tab.label.order,
+      handler: function() {
+        var panel = this.up('panel');
+        panel.getLayout().setActiveItem(2);
+      }
+    },{
+      xtype: 'button',
+      width: 100,
+      text: Cupboard.constants.tab.label.tefap,
+      handler: function() {
+        var panel = this.up('panel');
+        panel.getLayout().setActiveItem(3);
+      }
+    },{
+      xtype: 'button',
+      width: 100,
+      text: Cupboard.constants.tab.label.reports,
+      handler: function() {
+        var panel = this.up('panel');
+        panel.getLayout().setActiveItem(4);
+      }
     }]
   }, //end tbar
   items: [{
-    xtype: 'overviewpanel'
+  	xtype: 'overviewpanel'
   },{
-    xtype: 'customerpanel'
+  	xtype: 'customerpanel',
   }]
 
 });

@@ -8,7 +8,7 @@ Ext.application({
       items: [{
         xtype: 'mainpanel'
       }]
-    } //end of viewport
+    }); //end of viewport
   } //end of launch
 
 });
