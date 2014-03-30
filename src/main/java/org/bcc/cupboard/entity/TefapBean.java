@@ -5,12 +5,23 @@ import java.sql.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class TefapBean {
-
+public class TefapBean implements Tefap {
+	private static final long serialVersionUID = 5972164685859836735L;
 	private long id;
 	private int weight;
 	private int count;
 	private Date orderDate;	
+	
+	public TefapBean() {
+		
+	}
+	
+	public TefapBean(Tefap tefap) {
+		setId(tefap.getId());
+		setWeight(tefap.getWeight());
+		setCount(tefap.getCount());
+		setOrderDate(tefap.getOrderDate());
+	}
 
 	public long getId() {
 		return id;

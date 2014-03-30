@@ -1,8 +1,9 @@
 package org.bcc.cupboard.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public interface Order {
+public interface Order extends Serializable{
 
 	public abstract long getOrderNum();
 	public abstract void setOrderNum(long orderNum);

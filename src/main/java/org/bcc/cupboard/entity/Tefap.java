@@ -1,8 +1,9 @@
 package org.bcc.cupboard.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public interface Tefap {
+public interface Tefap extends Serializable {
 
 	public abstract long getId();
 	public abstract void setId(long id);

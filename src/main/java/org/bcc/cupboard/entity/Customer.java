@@ -1,7 +1,9 @@
 package org.bcc.cupboard.entity;
 
+import java.io.Serializable;
 
-public interface Customer {
+
+public interface Customer extends Serializable {
 
 	public abstract long getId();
 	public abstract void setId(long id);

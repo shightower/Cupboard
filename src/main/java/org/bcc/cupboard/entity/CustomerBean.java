@@ -5,8 +5,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @MappedSuperclass
-public class CustomerBean {
-	
+public class CustomerBean implements Customer {
+	private static final long serialVersionUID = -5324479997469196416L;
 	private long id;	
 	private String lastName;	
 	private String firstName;	
@@ -17,6 +17,22 @@ public class CustomerBean {
 	private String phone;
 	private int numOfAdults;
 	private int numOfKids;
+	
+	public CustomerBean() {
+		
+	}
+	
+	public CustomerBean(Customer customer) {
+		setFirstName(customer.getFirstName());
+		setLastName(customer.getLastName());
+		setStreet(customer.getStreet());
+		setCity(customer.getCity());
+		setState(customer.getState());
+		setZip(customer.getZip());
+		setPhone(customer.getPhone());
+		setNumOfAdults(customer.getNumOfAdults());
+		setNumOfKids(customer.getNumOfKids());
+	}
 
 	public long getId() {
 		return id;

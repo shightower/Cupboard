@@ -5,12 +5,23 @@ import java.sql.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class OrderBean {
-	
+public class OrderBean implements Order {
+	private static final long serialVersionUID = -5893472014559954025L;
 	private long orderNum;
 	private Date orderDate;
 	private int orderWeight;
 	private int numOfBags;
+	
+	public OrderBean() {
+		
+	}
+	
+	public OrderBean(Order order) {
+		setOrderNum(order.getOrderNum());
+		setOrderDate(order.getOrderDate());
+		setOrderWeight(order.getOrderWeight());
+		setNumOfBags(order.getNumOfBags());
+	}
 
 	public long getOrderNum() {
 		return orderNum;

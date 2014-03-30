@@ -11,7 +11,7 @@
       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
       
      <!--  Scan for both Jersey Rest Annotations a -->
-       <context:component-scan base-package="org.bcc.cupboard.entity.jpa, org.bcc.cupboard.rest"/>
+       <context:component-scan base-package="org.bcc.cupboard.entity.jpa, org.bcc.cupboard.rest, org.bcc.cupboard.dao"/>
        <context:property-placeholder location="classpath:cupboard.properties"/>
        
        <context:annotation-config proxy-target-class="true"/>
