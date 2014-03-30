@@ -3,8 +3,9 @@ Ext.namespace('Cupboard').constants = {
     title: 'BCC Cupboard'
   },
   url: {
-  	addCustomer: '/customer/add',
-  	getCustomers: '/customer/retrieveAll'
+  	addCustomer: '/cupboard/customer/add',
+	findCustomer: '/cupboard/customer/search',
+  	getCustomers: '/cupboard/customer/retrieveAll'
   },
   tab: {
   	label: {

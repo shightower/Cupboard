@@ -1,5 +1,11 @@
 var required = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
 
+Ext.require([
+	'Ext.form.*',
+	'Ext.Img',
+	'Ext.tip.QuickTipManager'
+]);
+
 Ext.define('Cupboard.CustomerPanel', {
   extend: 'Ext.panel.Panel',
   alias: 'widget.customerpanel',
@@ -27,6 +33,30 @@ Ext.define('Cupboard.CustomerPanel', {
   	defaults: {
   		labelAlign: 'right'
   	},
+	listeners: {
+		fieldvaliditychange: function() {
+			this.updateErrorState();
+		},
+		fielderrorchange: function() {
+			this.updateErrorState();
+		}
+	},
+	updateErrorState: function() {
+		var me = this, errorCmp, fields, errors;
+		
+		if(me.hasBeenDirty || me.getForm().isDirty()) { //prevents showing global error when form first loads
+			errorCmp = me.down('#formErrorState');
+			fields = me.getForm().getFields();
+			errors = [];
+			fields.each(function(field) {
+				Ext.Array.forEach(field.getErrors(), function(error) {
+					errors.push({name: field.getFieldLabel(), error: error});
+				});
+			});
+			errorCmp.setErrors(errors);
+			me.hasBeenDirty = true;
+		}
+	},
   	items: [{
   		fieldLabel: 'First Name',
   		afterLabelTextTpl: required,
@@ -84,9 +114,23 @@ Ext.define('Cupboard.CustomerPanel', {
   		tooltip: "# of Kids in Family"
   	}],
   	buttons: [{
-  		text: 'Save',
+		formBind: true,
+		disabled: true,
+  		text: 'Add New Customer',
   		handler: function() {
-  			this.up('form').getForm().isValid();
+  			var form this.up('form').getForm();
+			
+			form.submit({
+				clientValidation: true,
+				url: Cupboard.constants.url.addCustomer,
+				success: function(form, action) {
+				
+				},
+				failure: function(form, action) {
+				
+				}
+			});
+			
   		}
   	},{
   		text: 'Cancel',
