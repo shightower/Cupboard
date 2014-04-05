@@ -240,6 +240,11 @@
         	<artifactId>slf4j-api</artifactId>
         	<version>1.7.4</version>
         </dependency>
+        <dependency>
+        	<groupId>com.sun.jersey</groupId>
+        	<artifactId>jersey-json</artifactId>
+        	<version>1.18.1</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>

@@ -2,6 +2,7 @@ package org.bcc.cupboard.rest;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -26,11 +27,10 @@ public class CustomerService {
 	@Autowired
 	CustomerDao customerDao;
 	
-	@GET
+	@POST
 	@Path("add")
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
-	public Response addCustomer(@QueryParam("customer") CustomerBean customer) {
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+	public Response addCustomer(CustomerBean customer) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
 		try {
@@ -62,5 +62,25 @@ public class CustomerService {
 		rb.entity(customer);
 		return rb.build();
 		
+	}
+	
+	@POST
+	@Path("update")
+	@Consumes({MediaType.APPLICATION_JSON})
+	public Response updateCustomer(CustomerBean customer) {
+		ResponseBuilder rb = Response.status(Status.OK);
+		
+		try {
+			CustomerJpa customerJpa = customerDao.findById(customer.getId());
+			
+			if(customerJpa != null) {
+				customerDao.update(customerJpa);
+			}
+		} catch(Exception ex) {
+			Log.error(ex);
+		}
+		
+		rb.entity("Successfully Added New Customer");
+		return rb.build();
 	}
 }

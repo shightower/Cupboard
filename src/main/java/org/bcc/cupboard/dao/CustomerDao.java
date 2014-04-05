@@ -10,4 +10,5 @@ public interface CustomerDao {
 	public CustomerJpa update(CustomerJpa customer);
 	public CustomerJpa findByName(String firstName, String lastName);
 	public List<CustomerJpa> findAll();
+	public CustomerJpa findById(long id);
 }

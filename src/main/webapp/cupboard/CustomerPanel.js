@@ -33,30 +33,6 @@ Ext.define('Cupboard.CustomerPanel', {
   	defaults: {
   		labelAlign: 'right'
   	},
-	listeners: {
-		fieldvaliditychange: function() {
-			this.updateErrorState();
-		},
-		fielderrorchange: function() {
-			this.updateErrorState();
-		}
-	},
-	updateErrorState: function() {
-		var me = this, errorCmp, fields, errors;
-		
-		if(me.hasBeenDirty || me.getForm().isDirty()) { //prevents showing global error when form first loads
-			errorCmp = me.down('#formErrorState');
-			fields = me.getForm().getFields();
-			errors = [];
-			fields.each(function(field) {
-				Ext.Array.forEach(field.getErrors(), function(error) {
-					errors.push({name: field.getFieldLabel(), error: error});
-				});
-			});
-			errorCmp.setErrors(errors);
-			me.hasBeenDirty = true;
-		}
-	},
   	items: [{
   		fieldLabel: 'First Name',
   		afterLabelTextTpl: required,
@@ -70,14 +46,15 @@ Ext.define('Cupboard.CustomerPanel', {
   		allowBlank: false,
   		tooltip: "Enter Customer's Last Name"
   	},{
-  		fieldLabel: 'Address',
+  		fieldLabel: 'Street',
   		afterLabelTextTpl: required,
-  		name: 'address',
+  		name: 'street',
   		allowBlank: false,
   		tooltip: "Enter Customer's Street Information"
   	},{
   		xtype: 'combobox',
   		fieldLabel: 'State',
+  		name: 'state',
   		store: 'stateStore',
   		queryMode: 'local',
   		displayField: 'state',
@@ -91,14 +68,14 @@ Ext.define('Cupboard.CustomerPanel', {
   		tooltip: "Enter Zip Code"
   	},{
   		fieldLabel: 'Phone Number',
-  		name: 'phoneNumber',
+  		name: 'phone',
   		allowBlank: true,
   		tooltip: "Enter Customer's Phone Number"
   	},{
   		xtype: 'numberfield',
   		fieldLabel: '# Of Adults',
   		afterLabelTextTpl: required,
-  		name: 'numAdults',
+  		name: 'numOfAdults',
   		value: 0,
   		minValue: 0,
   		maxValue: 100,
@@ -107,7 +84,7 @@ Ext.define('Cupboard.CustomerPanel', {
   		xtype: 'numberfield',
   		fieldLabel: '# Of Kids',
   		afterLabelTextTpl: required,
-  		name: 'numKids',
+  		name: 'numOfKids',
   		value: 0,
   		minValue: 0,
   		maxValue: 100,
@@ -117,12 +94,26 @@ Ext.define('Cupboard.CustomerPanel', {
 		formBind: true,
 		disabled: true,
   		text: 'Add New Customer',
-  		handler: function() {
-  			var form this.up('form').getForm();
+  		handler: function(btn,event) {
+  			var form = this.up('form').getForm();
+  			
+  			Ext.Ajax.request({
+				url: '/cupboard/rest/customer/add',
+  				headers: {'Content-Type':'application/json'},
+  				params: Ext.encode(form.getValues()),
+  				success: function(response) {
+  					var x = 0;
+  				},
+  				failure: function(response) {
+  					var x = 0;
+  				}
+  			});
 			
+			/**
 			form.submit({
 				clientValidation: true,
-				url: Cupboard.constants.url.addCustomer,
+				headers: {'Content-Type':'application/json'},
+				,
 				success: function(form, action) {
 				
 				},
@@ -130,7 +121,7 @@ Ext.define('Cupboard.CustomerPanel', {
 				
 				}
 			});
-			
+			*/
   		}
   	},{
   		text: 'Cancel',

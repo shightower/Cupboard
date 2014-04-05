@@ -14,6 +14,18 @@ public class CustomerDaoImpl extends BaseDao implements CustomerDao {
 	private static final Logger Log = Logger.getLogger(CustomerDaoImpl.class);
 	
 	@Override
+	public CustomerJpa findById(long id) {
+		CustomerJpa customer = null;
+		try {
+			customer = (CustomerJpa) em.find(CustomerJpa.class, id);
+		} catch(Exception ex) {
+			Log.error("Error finding user by id", ex);
+		}
+		
+		return customer;
+	}
+	
+	@Override
 	public CustomerJpa persist(CustomerJpa customer) {
 		try {
 			em.persist(customer);
