@@ -13,7 +13,7 @@ Ext.define('Cupboard.MainPanel', {
       pack: 'center',
       align: 'middle'
     },
-    width: 500,
+    width: 520,
     defaults: {
       cls: 'boldText'
     },
@@ -26,37 +26,58 @@ Ext.define('Cupboard.MainPanel', {
         panel.getLayout().setActiveItem(0);
       }
     },{
-      xtype: 'button',
-      width: 100,
-      text: Cupboard.constants.tab.label.customer,
-      handler: function() {
-        var panel = this.up('panel');
-        panel.getLayout().setActiveItem(1);
-      }
+      xtype: 'splitbutton',
+	  handler: onButtonClick,
+	  width: 100,
+      text: 'Customer',
+	  menu: new Ext.menu.Menu({
+		items: [{
+			text: 'New Customer',
+			handler: onItemClick
+		},{
+			text: 'Update Customer Info',
+			handler: onItemClick
+		},{
+			text: 'Search',
+			handler: onItemClick
+		},{
+			text: 'Delete',
+			handler: onItemClick
+		}]
+	  })
     },{
-      xtype: 'button',
+      xtype: 'splitbutton',
       width: 100,
-      text: Cupboard.constants.tab.label.order,
-      handler: function() {
-        var panel = this.up('panel');
-        panel.getLayout().setActiveItem(2);
-      }
+      text: 'Order',
+      menu: new Ext.menu.Menu({
+		items: [{
+			text: 'New Order',
+			handler: onItemClick
+		}]
+	  })
     },{
-      xtype: 'button',
+      xtype: 'splitbutton',
       width: 100,
-      text: Cupboard.constants.tab.label.tefap,
-      handler: function() {
-        var panel = this.up('panel');
-        panel.getLayout().setActiveItem(3);
-      }
+      text: 'Tefap',
+      menu: new Ext.menu.Menu({
+		items: [{
+			text: 'New Order',
+			handler: onItemClick
+		}]
+	  })
     },{
-      xtype: 'button',
-      width: 100,
+      xtype: 'splitbutton',
+      width: 120,
       text: Cupboard.constants.tab.label.reports,
-      handler: function() {
-        var panel = this.up('panel');
-        panel.getLayout().setActiveItem(4);
-      }
+      menu: new Ext.menu.Menu({
+		items: [{
+			text: 'Generated Reports',
+			handler: onItemClick
+		},{
+			text: 'Statistics',
+			handler: onItemClick
+		}]
+	  })
     }]
   }, //end tbar
   items: [{
@@ -66,3 +87,11 @@ Ext.define('Cupboard.MainPanel', {
   }]
 
 });
+
+function onButtonClick(btn) {
+
+}
+
+function onItemClick(itm) {
+
+}

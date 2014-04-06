@@ -11,4 +11,5 @@ public interface CustomerDao {
 	public CustomerJpa findByName(String firstName, String lastName);
 	public List<CustomerJpa> findAll();
 	public CustomerJpa findById(long id);
+	public void delete(CustomerJpa customer);
 }

@@ -87,5 +87,10 @@ public class CustomerDaoImpl extends BaseDao implements CustomerDao {
 		
 		return customers;
 	}
+	
+	
+	public void delete(CustomerJpa customer) {
+		em.remove(customer);
+	}
 
 }

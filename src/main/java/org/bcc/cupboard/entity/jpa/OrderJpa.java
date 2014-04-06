@@ -4,26 +4,23 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 
 import org.bcc.cupboard.entity.Order;
 
-@Entity
-@Table(name="ORDERS")
+@MappedSuperclass
 public class OrderJpa implements Serializable, Order {
 	private static final long serialVersionUID = 7643039787427721520L;
 	
 	private long orderNum;
 	private Date orderDate;
 	private int orderWeight;
-	private int numOfBags;
 	private CustomerJpa customer;
 	
 	public OrderJpa() {
@@ -34,7 +31,6 @@ public class OrderJpa implements Serializable, Order {
 		setOrderNum(order.getOrderNum());
 		setOrderDate(order.getOrderDate());
 		setOrderWeight(order.getOrderWeight());
-		setNumOfBags(order.getNumOfBags());
 	}
 
 	@Id
@@ -64,16 +60,7 @@ public class OrderJpa implements Serializable, Order {
 	
 	public void setOrderWeight(int orderWeight) {
 		this.orderWeight = orderWeight;
-	}
-
-	@Column(name="ORDER_BAGS")
-	public int getNumOfBags() {
-		return numOfBags;
-	}
-	
-	public void setNumOfBags(int numOfBags) {
-		this.numOfBags = numOfBags;
-	}
+	}	
 	
 	@ManyToOne(targetEntity=CustomerJpa.class, fetch=FetchType.LAZY)
 	@JoinColumn(name="CUS_NUM")

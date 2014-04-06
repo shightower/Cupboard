@@ -10,7 +10,6 @@ public class OrderBean implements Order {
 	private long orderNum;
 	private Date orderDate;
 	private int orderWeight;
-	private int numOfBags;
 	
 	public OrderBean() {
 		
@@ -20,7 +19,6 @@ public class OrderBean implements Order {
 		setOrderNum(order.getOrderNum());
 		setOrderDate(order.getOrderDate());
 		setOrderWeight(order.getOrderWeight());
-		setNumOfBags(order.getNumOfBags());
 	}
 
 	public long getOrderNum() {
@@ -47,11 +45,5 @@ public class OrderBean implements Order {
 		this.orderWeight = orderWeight;
 	}
 
-	public int getNumOfBags() {
-		return numOfBags;
-	}
-
-	public void setNumOfBags(int numOfBags) {
-		this.numOfBags = numOfBags;
-	}
+	
 }

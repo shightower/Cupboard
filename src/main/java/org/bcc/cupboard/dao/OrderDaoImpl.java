@@ -12,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public class OrderDaoImpl extends BaseDao implements OrderDao {
+public class OrderDaoImpl<T extends OrderJpa> extends BaseDao implements OrderDao<T> {
 	private static final Logger Log = Logger.getLogger(OrderDaoImpl.class);
 	
 	@Override
-	public void persist(OrderJpa order) {
+	public void persist(T order) {
 		try {
 			em.persist(order);
 		} catch(Exception ex) {
@@ -26,32 +26,47 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 	}
 
 	@Override
-	public void update(OrderJpa order) {
+	public void update(T order) {
 		try {
 			em.merge(order);
 		} catch(Exception ex) {
 			Log.error("Error updating Order"+ order.getOrderNum() + ")");
 		}
 	}
+	
+	@Override
+	public T findById(Class<T> clazz, long id) {
+		T order = null;
+
+		try {
+			order = (T) em.find(clazz, id);
+		} catch(Exception ex) {
+			Log.error("Error searching for Order by Id", ex);
+		}
+		
+		return order;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderJpa> searchFromTo(String fromDate, String toDate) {
-		List<OrderJpa> orders;
+	public List<T> searchFromTo(String fromDate, String toDate, Class<T> clazz) {
+		List<T> orders;
 		
 		try {
-			Query query = em.createQuery("from OrderJpa o where o.orderDate between "
+			Query query = em.createQuery("from "
+					+ clazz.getSimpleName()
+					+ " o where o.orderDate between "
 					+ fromDate 
 					+ " and " 
 					+ toDate);
 			
-			orders = (List<OrderJpa>) query.getResultList();
+			orders = (List<T>) query.getResultList();
 		} catch(Exception ex) {
 			Log.error("Error retrieving Orders between "
 					+ fromDate 
 					+ "-" 
 					+ toDate);
-			orders = new ArrayList<OrderJpa>();
+			orders = new ArrayList<T>();
 		}
 		
 		return orders;
@@ -59,21 +74,28 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderJpa> searchForDay(String day) {
-		List<OrderJpa> orders;
+	public List<T> searchForDay(String day, Class<T> clazz) {
+		List<T> orders;
 		
 		try {
-			Query query = em.createQuery("from OrderJpa o where o.orderDate ="
+			Query query = em.createQuery("from "
+					+ clazz.getSimpleName()
+					+ " o where o.orderDate ="
 					+ day);
 			
-			orders = (List<OrderJpa>) query.getResultList();
+			orders = (List<T>) query.getResultList();
 		} catch(Exception ex) {
 			Log.error("Error retrieving Orders on "
 					+ day);
-			orders = new ArrayList<OrderJpa>();
+			orders = new ArrayList<T>();
 		}
 		
 		return orders;
+	}
+	
+	@Override
+	public void delete(T order) {
+		em.remove(order);
 	}
 
 }

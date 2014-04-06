@@ -36,11 +36,13 @@ public class CustomerService {
 		try {
 			CustomerJpa customerJpa = new CustomerJpa(customer);
 			customerDao.persist(customerJpa);
+			rb.entity("Successfully Added New Customer");
 		} catch(Exception ex) {
 			Log.error(ex);
-		}
+			rb = Response.status(Status.INTERNAL_SERVER_ERROR);
+			rb.entity("Unable to add Customer, notify Customer Support");
+		}		
 		
-		rb.entity("Successfully Added New Customer");
 		return rb.build();
 	}
 	
@@ -60,8 +62,7 @@ public class CustomerService {
 		}
 		
 		rb.entity(customer);
-		return rb.build();
-		
+		return rb.build();		
 	}
 	
 	@POST
@@ -75,12 +76,35 @@ public class CustomerService {
 			
 			if(customerJpa != null) {
 				customerDao.update(customerJpa);
+				rb.entity("Successfully Added New Customer");
 			}
 		} catch(Exception ex) {
 			Log.error(ex);
+			rb = Response.status(Status.INTERNAL_SERVER_ERROR);
+			rb.entity("Unable to update Customer, notify Customer Support");
 		}
 		
-		rb.entity("Successfully Added New Customer");
+		return rb.build();
+	}
+	
+	@POST
+	@Path("delete")
+	@Consumes({MediaType.APPLICATION_JSON})
+	public Response removeCustomer(CustomerBean customer) {
+		ResponseBuilder rb = Response.status(Status.OK);
+		
+		try {
+			CustomerJpa customerJpa = customerDao.findById(customer.getId());
+			
+			if(customerJpa != null) {
+				customerDao.delete(customerJpa);
+			} 
+		} catch(Exception ex) {
+			Log.error(ex);
+			rb = Response.status(Status.INTERNAL_SERVER_ERROR);
+			rb.entity("Unable to remove Customer, notify Customer Support");
+		}
+		
 		return rb.build();
 	}
 }
