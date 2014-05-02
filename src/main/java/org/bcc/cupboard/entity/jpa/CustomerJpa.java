@@ -30,7 +30,7 @@ public class CustomerJpa implements Serializable, Customer {
 	private String phone;
 	private int numOfAdults;
 	private int numOfKids;
-	private Set<OrderJpa> orders;
+	private Set<NonTefapOrderJpa> orders;
 	private Set<TefapJpa> tefaps;
 	
 	public CustomerJpa() {
@@ -143,11 +143,11 @@ public class CustomerJpa implements Serializable, Customer {
 	}
 
 	@OneToMany(mappedBy="customer", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	public Set<OrderJpa> getOrders() {
+	public Set<NonTefapOrderJpa> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(Set<OrderJpa> orders) {
+	public void setOrders(Set<NonTefapOrderJpa> orders) {
 		this.orders = orders;
 	}
 

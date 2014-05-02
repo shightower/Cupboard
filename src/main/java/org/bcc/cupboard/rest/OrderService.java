@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.bcc.cupboard.dao.CustomerDao;
 import org.bcc.cupboard.dao.OrderDao;
 import org.bcc.cupboard.entity.Customer;
+import org.bcc.cupboard.entity.CustomerBean;
 import org.bcc.cupboard.entity.NonTefapOrderBean;
 import org.bcc.cupboard.entity.TefapBean;
 import org.bcc.cupboard.entity.jpa.CustomerJpa;
@@ -39,7 +40,7 @@ public class OrderService {
 	@Path("new/nonTefap")
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response createNewNonTefapOrder(@QueryParam("order") NonTefapOrderBean order,
-			@QueryParam("customer") Customer customer) {
+			@QueryParam("customer") CustomerBean customer) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
 		try {
@@ -60,7 +61,7 @@ public class OrderService {
 	@Path("new/tefap")
 	@Consumes({MediaType.APPLICATION_JSON})
 	public Response createNewTefapOrder(@QueryParam("order") TefapBean order,
-			@QueryParam("customer") Customer customer) {
+			@QueryParam("customer") CustomerBean customer) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
 		try {

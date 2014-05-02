@@ -9,13 +9,13 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 import org.bcc.cupboard.entity.CustomerBean;
-import org.bcc.cupboard.entity.OrderBean;
+import org.bcc.cupboard.entity.NonTefapOrderBean;
 import org.bcc.cupboard.entity.TefapBean;
 
 @XmlSeeAlso({
 	CustomerBean.class,
-	OrderBean.class,
-	TefapBean.class
+	TefapBean.class,
+	NonTefapOrderBean.class
 })
 @XmlType(propOrder = {"numResults", "entities"})
 @XmlRootElement(name="CupboardWrapper")

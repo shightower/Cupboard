@@ -1,10 +1,8 @@
 package org.bcc.cupboard.entity;
 
-import javax.persistence.MappedSuperclass;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-@MappedSuperclass
 public class CustomerBean implements Customer {
 	private static final long serialVersionUID = -5324479997469196416L;
 	private long id;	
