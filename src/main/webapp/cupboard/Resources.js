@@ -91,3 +91,20 @@ Ext.create('Ext.data.Store', {
     }
   } //end of proxy
 });
+
+Ext.create('Ext.data.Store', {
+  storeId: 'customerSearchStore',
+  model: 'CustomerModel',
+  autoLoad: false,
+  proxy: {
+    type: 'ajax',
+    url: Cupboard.constants.url.customerSearch,
+    headers: {
+      'Accept': 'application/json'
+    },
+    reader: {
+      type: 'json',
+      root: 'data'
+    }
+  } //end of proxy
+});

@@ -1,6 +1,6 @@
 Ext.define('Cupboard.OverviewPanel', {
   extend: 'Ext.panel.Panel'
-  alias: 'widget.overviewpanel',
+  alias: 'widget.overviewPanel',
   layout: 'vbox',
   region: 'center',
   border: false,

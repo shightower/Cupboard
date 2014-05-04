@@ -1,6 +1,7 @@
 Ext.define('Cupboard.MainPanel', {
   extend: 'Ext.panel.Panel',
   alias: 'widget.mainpanel',
+  itemId: 'mainPanel',
   layout: 'card',
   region: 'center',
   border: false,
@@ -21,10 +22,7 @@ Ext.define('Cupboard.MainPanel', {
       xtype: 'button',
       width: 100,
       text: Cupboard.constants.tab.label.overview,
-      handler: function() {
-        var panel = this.up('panel');
-        panel.getLayout().setActiveItem(0);
-      }
+      handler: onItemClick
     },{
       xtype: 'splitbutton',
 	  handler: onButtonClick,
@@ -32,16 +30,16 @@ Ext.define('Cupboard.MainPanel', {
       text: 'Customer',
 	  menu: new Ext.menu.Menu({
 		items: [{
-			text: 'New Customer',
+			text: Cupboard.constants.tab.label.newCustomer,
 			handler: onItemClick
 		},{
-			text: 'Update Customer Info',
+			text: Cupboard.constants.tab.label.updateCustomer,
 			handler: onItemClick
 		},{
-			text: 'Search',
+			text: Cupboard.constants.tab.label.searchCustomer,
 			handler: onItemClick
 		},{
-			text: 'Delete',
+			text: Cupboard.constants.tab.label.deleteCustomer,
 			handler: onItemClick
 		}]
 	  })
@@ -51,7 +49,7 @@ Ext.define('Cupboard.MainPanel', {
       text: 'Order',
       menu: new Ext.menu.Menu({
 		items: [{
-			text: 'New Order',
+			text: Cupboard.constants.tab.label.newOrder,
 			handler: onItemClick
 		}]
 	  })
@@ -61,7 +59,7 @@ Ext.define('Cupboard.MainPanel', {
       text: 'Tefap',
       menu: new Ext.menu.Menu({
 		items: [{
-			text: 'New Order',
+			text: Cupboard.constants.tab.label.newTefap,
 			handler: onItemClick
 		}]
 	  })
@@ -71,19 +69,21 @@ Ext.define('Cupboard.MainPanel', {
       text: Cupboard.constants.tab.label.reports,
       menu: new Ext.menu.Menu({
 		items: [{
-			text: 'Generated Reports',
+			text: Cupboard.constants.tab.label.generateReports,
 			handler: onItemClick
 		},{
-			text: 'Statistics',
+			text: Cupboard.constants.tab.label.statistics,
 			handler: onItemClick
 		}]
 	  })
     }]
   }, //end tbar
   items: [{
-  	xtype: 'overviewpanel'
+  	xtype: 'overviewPanel'
   },{
-  	xtype: 'customerpanel',
+  	xtype: 'customerPanel',
+  },{
+	xtype: 'customerSearchPanel',
   }]
 
 });
@@ -93,5 +93,33 @@ function onButtonClick(btn) {
 }
 
 function onItemClick(itm) {
-
+	var selection = itm.text;
+	var panel = itm.up('panel').up('panel');
+	
+	if(selection === Cupboard.constants.tab.label.overview) {
+		panel.getLayout().setActiveItem(0);
+	}else if(selection === Cupboard.constants.tab.label.newCustomer) {
+		panel.getLayout().setActiveItem(1);
+	} else if(selection === Cupboard.constants.tab.label.updateCustomer) {
+		panel.getLayout().setActiveItem(2);
+	
+	} else if(selection === Cupboard.constants.tab.label.searchCustomer) {
+		//panel.getLayout().setActiveItem(1);
+	
+	} else if(selection === Cupboard.constants.tab.label.deleteCustomer) {
+		//panel.getLayout().setActiveItem(1);
+	
+	} else if(selection === Cupboard.constants.tab.label.newOrder) {
+		//panel.getLayout().setActiveItem(1);
+	
+	} else if(selection === Cupboard.constants.tab.label.newTefap) {
+		//panel.getLayout().setActiveItem(1);
+	
+	} else if(selection === Cupboard.constants.tab.label.generateReports) {
+		//panel.getLayout().setActiveItem(1);
+	
+	} else if(selection === Cupboard.constants.tab.label.statistics) {
+		//panel.getLayout().setActiveItem(1);
+	
+	}
 }

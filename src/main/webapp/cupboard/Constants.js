@@ -4,16 +4,24 @@ Ext.namespace('Cupboard').constants = {
   },
   url: {
   	addCustomer: '/cupboard/rest/customer/add',
-	findCustomer: '/cupboard/rest/customer/search',
+	customerSearch: '/cupboard/rest/customer/search',
   	getCustomers: '/cupboard/rest/customer/retrieveAll'
   },
   tab: {
   	label: {
   		overview: 'Overview',
-  		customer: 'New Customer',
-  		order: 'New Order',
-  		tefap: 'New TEFAP Order',
-  		reports: 'Cupboard Reports'
+  		newCustomer: 'New Customer',
+		updateCustomer: 'Update Customer Info',
+		searchCustomer: 'Customer Search',
+		deleteCustomer: 'Remove Customer',
+  		newOrder: 'New Order',
+		updateOrder: 'Update Order',
+  		newTefap: 'New TEFAP Order',
+		updateTefap: 'Update TEFAP Order',
+  		generateReports: 'Cupboard Reports',
+		statistics: 'Statistics',
+		reports: 'Reports'
   	}
-  }
+  },
+  
 };

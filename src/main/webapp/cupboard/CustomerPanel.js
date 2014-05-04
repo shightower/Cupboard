@@ -8,7 +8,7 @@ Ext.require([
 
 Ext.define('Cupboard.CustomerPanel', {
   extend: 'Ext.panel.Panel',
-  alias: 'widget.customerpanel',
+  alias: 'widget.customerPanel',
   layout: {
   	type: 'vbox',
   	pack: 'center',
