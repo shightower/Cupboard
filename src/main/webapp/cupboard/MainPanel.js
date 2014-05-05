@@ -98,7 +98,7 @@ function onItemClick(itm) {
 	
 	if(selection === Cupboard.constants.tab.label.overview) {
 		panel.getLayout().setActiveItem(0);
-	}else if(selection === Cupboard.constants.tab.label.newCustomer) {
+	} else if(selection === Cupboard.constants.tab.label.newCustomer) {
 		panel.getLayout().setActiveItem(1);
 	} else if(selection === Cupboard.constants.tab.label.updateCustomer) {
 		panel.getLayout().setActiveItem(2);

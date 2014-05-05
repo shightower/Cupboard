@@ -47,29 +47,68 @@ public class CustomerDaoImpl extends BaseDao implements CustomerDao {
 		return customer;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public CustomerJpa findByName(String fName, String lName) {
-		CustomerJpa customer = null;
+	public List<CustomerJpa> findByName(String fName, String lName) {
+		List<CustomerJpa> customers = new ArrayList<CustomerJpa>();
 		
-		if(fName != null && lName != null) {
-			try {
-				Query query = em.createQuery("from CustomerJpa c where c.firstName = '"
-						+ fName 
-						+ "' and c.lastName = '" 
-						+ lName
-						+ "'");
-				
-				customer = (CustomerJpa) query.getSingleResult();
-			} catch(Exception ex) {
-				Log.error("Error while retrieving Customer("
-						+ fName 
-						+ " " 
-						+ lName 
-						+ ")", ex);
-			}
+		try {
+			Query query = em.createQuery("from CustomerJpa c where c.firstName = '"
+					+ fName 
+					+ "' and c.lastName = '" 
+					+ lName
+					+ "'");
+			
+			customers = (List<CustomerJpa>) query.getResultList();
+		} catch(Exception ex) {
+			Log.error("Error while retrieving Customer("
+					+ fName 
+					+ " " 
+					+ lName 
+					+ ")", ex);
 		}
 		
-		return customer;
+		return customers;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CustomerJpa> findByFirstName(String fName) {
+		List<CustomerJpa> customers = new ArrayList<CustomerJpa>();
+		
+		try {
+			Query query = em.createQuery("from CustomerJpa c where c.firstName = '"
+					+ fName
+					+ "'");
+			
+			customers = (List<CustomerJpa>) query.getResultList();
+		} catch(Exception ex) {
+			Log.error("Error while retrieving Customer("
+					+ fName 
+					+ ")", ex);
+		}
+		
+		return customers;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CustomerJpa> findByLastName(String lName) {
+		List<CustomerJpa> customers = new ArrayList<CustomerJpa>();
+		
+		try {
+			Query query = em.createQuery("from CustomerJpa c where c.lastName = '" 
+					+ lName
+					+ "'");
+			
+			customers = (List<CustomerJpa>) query.getResultList();
+		} catch(Exception ex) {
+			Log.error("Error while retrieving Customer("
+					+ lName 
+					+ ")", ex);
+		}
+		
+		return customers;
 	}
 
 	@SuppressWarnings("unchecked")

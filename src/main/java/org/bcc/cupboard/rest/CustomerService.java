@@ -1,5 +1,8 @@
 package org.bcc.cupboard.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -52,16 +55,25 @@ public class CustomerService {
 	public Response getCustomer(@QueryParam("firstName") String firstName,
 			@QueryParam("lastName") String lastName) {
 		ResponseBuilder rb = Response.status(Status.OK);
-		Customer customer = null;
-		Customer cusRecord = customerDao.findByName(firstName, lastName);
+		EntityWrapper<CustomerBean> wrapper = new EntityWrapper<CustomerBean>();
+		List<CustomerBean> customers = new ArrayList<CustomerBean>();
+		List<? extends Customer> cusRecords = new ArrayList<Customer>();
 		
-		if(cusRecord != null) {
-			customer = new CustomerBean(cusRecord);
-		} else {
-			customer = new CustomerBean();
+		if(!firstName.isEmpty() && !lastName.isEmpty()) {
+			customerDao.findByName(firstName, lastName);
+		} else if(!firstName.isEmpty()) {
+			customerDao.findByFirstName(firstName);
+		} else if(!lastName.isEmpty()) {
+			customerDao.findByLastName(lastName);
 		}
 		
-		rb.entity(customer);
+		for(Customer customer : cusRecords) {
+			CustomerBean bean = new CustomerBean(customer);
+			customers.add(bean);
+		}
+		
+		wrapper.setEntities(customers);
+		wrapper.setResultCount(customers.size());
 		return rb.build();		
 	}
 	
