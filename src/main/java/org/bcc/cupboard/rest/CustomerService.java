@@ -60,11 +60,11 @@ public class CustomerService {
 		List<? extends Customer> cusRecords = new ArrayList<Customer>();
 		
 		if(!firstName.isEmpty() && !lastName.isEmpty()) {
-			customerDao.findByName(firstName, lastName);
+			cusRecords = customerDao.findByName(firstName, lastName);
 		} else if(!firstName.isEmpty()) {
-			customerDao.findByFirstName(firstName);
+			cusRecords = customerDao.findByFirstName(firstName);
 		} else if(!lastName.isEmpty()) {
-			customerDao.findByLastName(lastName);
+			cusRecords = customerDao.findByLastName(lastName);
 		}
 		
 		for(Customer customer : cusRecords) {

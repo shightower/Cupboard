@@ -47,6 +47,8 @@ Ext.define('Cupboard.CustomerSearchPanel', {
 				alert('Must provide at least a first or last name value!');
 				return;
 			} else {
+				//in case the user attempts another search, clear out any previous attributes
+				proxy.url = proxy.url.split('?')[0];
 				proxy.url = proxy.url + '?firstName=' + fNameAttr + '&lastName=' + lNameAttr;
 			}
 			var results = Ext.ComponentQuery.query('#searchResults')[0];
