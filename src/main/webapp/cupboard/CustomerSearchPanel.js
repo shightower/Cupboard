@@ -11,7 +11,7 @@ Ext.define('Cupboard.CustomerSearchPanel', {
   padding: false,
   items: [{
   	xtype: 'container',
-  	width: 350,
+  	width: 500,
 	border: 2,
   	fieldDefaults: {
   		msgTarget: 'side',
@@ -63,16 +63,41 @@ Ext.define('Cupboard.CustomerSearchPanel', {
 		xtype: 'gridpanel',
 		itemId: 'searchResults',
 		title: 'Search Results',
-		store: 'customerSearchStore',
+		store: Ext.data.StoreManager.lookup('customerSearchStore'),
 		columns: [
-			{text: 'First Name', dataIndex: 'firstName', hideable: false},
-			{text: 'Last Name', dataIndex: 'lastName', hideable: false},
-			{text: 'Phone Number', dataIndex: 'phoneNumber', hideable: false},
-			{text: 'Address', dataIndex: 'address', hideable: false}
+			{text: 'First Name', dataIndex: 'firstName', hideable: false, flex: 0.25},
+			{text: 'Last Name', dataIndex: 'lastName', hideable: false, flex: 0.25},
+			{text: 'Phone Number', dataIndex: 'phoneNumber', hideable: false, flex: 0.25},
+			{text: 'Address', dataIndex: 'street', hideable: false, flex: 0.5, renderer: function(value, meta, record) {
+					var address = '';
+					if(value != null && value != '') {
+						address += value + ' ';
+					}
+					
+					if(record.data.city != null && record.data.city != '') {
+						address += record.data.city + ' ';
+					}
+					
+					if(record.data.state != null && record.data.state != '') {
+						address += record.data.state + ' ';
+					}
+					
+					if(record.data.zip != null && record.data.zip != '') {
+						address += record.data.zip;
+					}
+					
+					return address;
+				}
+			}
 		],
-		height: 600,
-		width: 350,
-		hidden: true
+		height: 400,
+		width: 500,
+		hidden: true,
+		listeners: {
+			cellclick: function(table, td, cellIndex, record) {
+				alert('Selected Record-' + record.data.id);
+			}
+		}
 	}]
   }]
 });

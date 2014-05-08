@@ -43,7 +43,7 @@ public class CustomerJpa implements Serializable, Customer {
 		setLastName(customer.getLastName());
 		setNumOfAdults(customer.getNumOfAdults());
 		setNumOfKids(customer.getNumOfKids());
-		setPhone(customer.getPhone());
+		setPhoneNumber(customer.getPhoneNumber());
 		setStreet(customer.getStreet());
 		setCity(customer.getCity());
 		setState(customer.getState());
@@ -116,11 +116,11 @@ public class CustomerJpa implements Serializable, Customer {
 	}
 
 	@Column(name="CUS_PHONE")
-	public String getPhone() {
+	public String getPhoneNumber() {
 		return phone;
 	}
 	
-	public void setPhone(String phone) {
+	public void setPhoneNumber(String phone) {
 		this.phone = phone;
 	}
 

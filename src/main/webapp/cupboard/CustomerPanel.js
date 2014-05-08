@@ -52,6 +52,10 @@ Ext.define('Cupboard.CustomerPanel', {
   		allowBlank: false,
   		tooltip: "Enter Customer's Street Information"
   	},{
+  		fieldLabel: 'City',
+  		name: 'city',
+  		tooltip: "Enter Customer's City Information"
+  	}{
   		xtype: 'combobox',
   		fieldLabel: 'State',
   		name: 'state',
@@ -68,7 +72,7 @@ Ext.define('Cupboard.CustomerPanel', {
   		tooltip: "Enter Zip Code"
   	},{
   		fieldLabel: 'Phone Number',
-  		name: 'phone',
+  		name: 'phoneNumber',
   		allowBlank: true,
   		tooltip: "Enter Customer's Phone Number"
   	},{

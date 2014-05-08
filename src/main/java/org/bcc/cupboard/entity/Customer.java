@@ -19,8 +19,8 @@ public interface Customer extends Serializable {
 	public abstract void setState(String state);
 	public abstract String getZip();
 	public abstract void setZip(String zip);
-	public abstract String getPhone();
-	public abstract void setPhone(String phone);
+	public abstract String getPhoneNumber();
+	public abstract void setPhoneNumber(String phone);
 	public abstract int getNumOfAdults();
 	public abstract void setNumOfAdults(int numOfAdults);
 	public abstract int getNumOfKids();

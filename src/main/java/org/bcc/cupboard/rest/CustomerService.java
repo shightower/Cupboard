@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -52,12 +53,15 @@ public class CustomerService {
 	@GET
 	@Path("search")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
-	public Response getCustomer(@QueryParam("firstName") String firstName,
-			@QueryParam("lastName") String lastName) {
+	public Response getCustomer(@QueryParam("firstName") @DefaultValue("") String firstName,
+			@QueryParam("lastName") @DefaultValue("") String lastName) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		EntityWrapper<CustomerBean> wrapper = new EntityWrapper<CustomerBean>();
 		List<CustomerBean> customers = new ArrayList<CustomerBean>();
 		List<? extends Customer> cusRecords = new ArrayList<Customer>();
+		
+		firstName = firstName.trim();
+		lastName = lastName.trim();
 		
 		if(!firstName.isEmpty() && !lastName.isEmpty()) {
 			cusRecords = customerDao.findByName(firstName, lastName);
@@ -74,6 +78,7 @@ public class CustomerService {
 		
 		wrapper.setEntities(customers);
 		wrapper.setResultCount(customers.size());
+		rb.entity(wrapper);
 		return rb.build();		
 	}
 	

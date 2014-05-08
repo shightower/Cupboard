@@ -17,7 +17,7 @@ import org.bcc.cupboard.entity.TefapBean;
 	TefapBean.class,
 	NonTefapOrderBean.class
 })
-@XmlType(propOrder = {"numResults", "entities"})
+@XmlType(propOrder = {"data","resultCount"})
 @XmlRootElement(name="CupboardWrapper")
 public class EntityWrapper<T> implements Serializable {
 	private static final long serialVersionUID = -2288677006842180339L;

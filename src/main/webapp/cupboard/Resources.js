@@ -1,14 +1,16 @@
-Ext.define('Customer', {
+Ext.define('CustomerModel', {
 	extend: 'Ext.data.Model',
 	fields: [
+		{name: 'id', type: 'int'},
 		{name: 'firstName', type: 'string'},
 		{name: 'lastName', type: 'string'},
-		{name: 'address', type: 'string'},
+		{name: 'street', type: 'string'},
+		{name: 'city', type: 'string'},
 		{name: 'state', type: 'string'},
 		{name: 'zip', type: 'string'},
 		{name: 'phoneNumber', type: 'string'},
-		{name: 'numAdults', type: 'int'},
-		{name: 'numKids', type: 'int'}
+		{name: 'numOfAdults', type: 'int'},
+		{name: 'numOfKids', type: 'int'}
 	]
 });
 

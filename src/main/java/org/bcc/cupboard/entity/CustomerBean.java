@@ -12,7 +12,7 @@ public class CustomerBean implements Customer {
 	private String city;
 	private String state;
 	private String zip;
-	private String phone;
+	private String phoneNumber;
 	private int numOfAdults;
 	private int numOfKids;
 	
@@ -27,7 +27,7 @@ public class CustomerBean implements Customer {
 		setCity(customer.getCity());
 		setState(customer.getState());
 		setZip(customer.getZip());
-		setPhone(customer.getPhone());
+		setPhoneNumber(customer.getPhoneNumber());
 		setNumOfAdults(customer.getNumOfAdults());
 		setNumOfKids(customer.getNumOfKids());
 	}
@@ -88,12 +88,12 @@ public class CustomerBean implements Customer {
 		this.zip = zip;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public int getNumOfAdults() {
