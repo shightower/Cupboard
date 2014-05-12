@@ -95,7 +95,15 @@ Ext.define('Cupboard.CustomerSearchPanel', {
 		hidden: true,
 		listeners: {
 			cellclick: function(table, td, cellIndex, record) {
-				alert('Selected Record-' + record.data.id);
+				var recId = record.data.id;
+				var editModel = Ext.ModelMgr.getModel('EditCustomerModel');
+				editModel.load(recId, {
+					success: function(customer) {
+						currentEdit = customer.getData();
+					}
+				});
+				var panel = this.up('panel').up('panel');
+				panel.getLayout().setActiveItem(2);
 			}
 		}
 	}]

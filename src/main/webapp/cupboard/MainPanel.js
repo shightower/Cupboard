@@ -83,6 +83,8 @@ Ext.define('Cupboard.MainPanel', {
   },{
   	xtype: 'customerPanel',
   },{
+  	xtype: 'editCustomerPanel',
+  },{
 	xtype: 'customerSearchPanel',
   }]
 
@@ -104,7 +106,7 @@ function onItemClick(itm) {
 		panel.getLayout().setActiveItem(2);
 	
 	} else if(selection === Cupboard.constants.tab.label.searchCustomer) {
-		//panel.getLayout().setActiveItem(1);
+		panel.getLayout().setActiveItem(3);
 	
 	} else if(selection === Cupboard.constants.tab.label.deleteCustomer) {
 		//panel.getLayout().setActiveItem(1);

@@ -6,9 +6,9 @@ Ext.require([
 	'Ext.tip.QuickTipManager'
 ]);
 
-Ext.define('Cupboard.CustomerPanel', {
+var editCustomer = Ext.define('Cupboard.EditCustomerPanel', {
   extend: 'Ext.panel.Panel',
-  alias: 'widget.customerPanel',
+  alias: 'widget.editCustomerPanel',
   layout: {
   	type: 'vbox',
   	pack: 'center',
@@ -25,6 +25,7 @@ Ext.define('Cupboard.CustomerPanel', {
   	frame: true,
   	title: 'Create New Customer',
   	width: 350,
+	data: currentEdit,
   	fieldDefaults: {
   		msgTarget: 'side',
   		labelWidth: 100
@@ -34,6 +35,12 @@ Ext.define('Cupboard.CustomerPanel', {
   		labelAlign: 'right'
   	},
   	items: [{
+  		fieldLabel: 'Id',
+  		afterLabelTextTpl: required,
+  		name: 'id',
+  		allowBlank: false,
+		hidden: true
+  	},{
   		fieldLabel: 'First Name',
   		afterLabelTextTpl: required,
   		name: 'firstName',
@@ -97,7 +104,7 @@ Ext.define('Cupboard.CustomerPanel', {
   	buttons: [{
 		formBind: true,
 		disabled: true,
-  		text: 'Add New Customer',
+  		text: 'Update Customer',
   		handler: function(btn,event) {
   			var form = this.up('form').getForm();
   			
@@ -112,20 +119,6 @@ Ext.define('Cupboard.CustomerPanel', {
   					var x = 0;
   				}
   			});
-			
-			/**
-			form.submit({
-				clientValidation: true,
-				headers: {'Content-Type':'application/json'},
-				,
-				success: function(form, action) {
-				
-				},
-				failure: function(form, action) {
-				
-				}
-			});
-			*/
   		}
   	},{
   		text: 'Cancel',

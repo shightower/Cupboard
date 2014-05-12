@@ -4,7 +4,8 @@ Ext.namespace('Cupboard').constants = {
   },
   url: {
   	addCustomer: '/cupboard/rest/customer/add',
-	customerSearch: '/cupboard/rest/customer/search',
+	customerNameSearch: '/cupboard/rest/customer/search/name',
+	customerIdSearch: '/cupboard/rest/customer/search',
   	getCustomers: '/cupboard/rest/customer/retrieveAll'
   },
   tab: {
@@ -25,3 +26,5 @@ Ext.namespace('Cupboard').constants = {
   },
   
 };
+
+var currentEdit;

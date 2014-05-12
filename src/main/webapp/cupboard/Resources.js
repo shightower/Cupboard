@@ -14,6 +14,21 @@ Ext.define('CustomerModel', {
 	]
 });
 
+Ext.define('EditCustomerModel', {
+	extend: 'CustomerModel',
+	proxy: {
+		type: 'ajax',
+		url: Cupboard.constants.url.customerIdSearch,
+		headers: {
+		  'Accept': 'application/json'
+		},
+		reader: {
+		  type: 'json',
+		  root: 'data'
+		}
+  }
+});
+
 Ext.define('StateModel', {
 	extend: 'Ext.data.Model',
 	fields: [
@@ -49,6 +64,7 @@ Ext.create('Ext.data.Store', {
 		{state: 'Massachusetts', abbr: 'MA'},
 		{state: 'Michigan', abbr: 'MN'},
 		{state: 'Missouri', abbr: 'MI'},
+		{state: 'Mississippi', abbr: 'MS'},
 		{state: 'Montana', abbr: 'MN'},
 		{state: 'Nebraska', abbr: 'NA'},
 		{state: 'Nevada', abbr: 'NE'},
@@ -100,7 +116,7 @@ Ext.create('Ext.data.Store', {
   autoLoad: false,
   proxy: {
     type: 'ajax',
-    url: Cupboard.constants.url.customerSearch,
+    url: Cupboard.constants.url.customerNameSearch,
     headers: {
       'Accept': 'application/json'
     },

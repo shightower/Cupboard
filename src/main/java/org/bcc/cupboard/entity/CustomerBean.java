@@ -21,6 +21,7 @@ public class CustomerBean implements Customer {
 	}
 	
 	public CustomerBean(Customer customer) {
+		setId(customer.getId());
 		setFirstName(customer.getFirstName());
 		setLastName(customer.getLastName());
 		setStreet(customer.getStreet());

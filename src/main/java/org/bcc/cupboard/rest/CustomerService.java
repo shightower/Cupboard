@@ -51,9 +51,9 @@ public class CustomerService {
 	}
 	
 	@GET
-	@Path("search")
+	@Path("search/name")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
-	public Response getCustomer(@QueryParam("firstName") @DefaultValue("") String firstName,
+	public Response getCustomerByName(@QueryParam("firstName") @DefaultValue("") String firstName,
 			@QueryParam("lastName") @DefaultValue("") String lastName) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		EntityWrapper<CustomerBean> wrapper = new EntityWrapper<CustomerBean>();
@@ -72,6 +72,27 @@ public class CustomerService {
 		}
 		
 		for(Customer customer : cusRecords) {
+			CustomerBean bean = new CustomerBean(customer);
+			customers.add(bean);
+		}
+		
+		wrapper.setEntities(customers);
+		wrapper.setResultCount(customers.size());
+		rb.entity(wrapper);
+		return rb.build();		
+	}
+	
+	@GET
+	@Path("search")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+	public Response getCustomerById(@QueryParam("id") long id) {
+		ResponseBuilder rb = Response.status(Status.OK);
+		EntityWrapper<CustomerBean> wrapper = new EntityWrapper<CustomerBean>();
+		List<CustomerBean> customers = new ArrayList<CustomerBean>();
+		
+		Customer customer = customerDao.findById(id);
+		
+		if(customer != null) {
 			CustomerBean bean = new CustomerBean(customer);
 			customers.add(bean);
 		}
