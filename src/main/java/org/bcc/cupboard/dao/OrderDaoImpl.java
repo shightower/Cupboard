@@ -7,11 +7,13 @@ import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 import org.bcc.cupboard.entity.jpa.OrderJpa;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
+@Qualifier(value = "orderDao")
 public class OrderDaoImpl<T extends OrderJpa> extends BaseDao implements OrderDao<T> {
 	private static final Logger Log = Logger.getLogger(OrderDaoImpl.class);
 	
