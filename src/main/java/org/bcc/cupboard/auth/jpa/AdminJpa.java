@@ -1,13 +1,15 @@
 package org.bcc.cupboard.auth.jpa;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Table;
 
 import org.bcc.cupboard.auth.Admin;
 import org.bcc.cupboard.auth.AdminBean;
 
-@XmlRootElement
+@Entity
+@Table(name = "USERS")
 public class AdminJpa implements Admin {
 	private static final long serialVersionUID = 3834395802668802056L;
 
@@ -15,7 +17,7 @@ public class AdminJpa implements Admin {
 	@Column(name = "USERNAME")
 	private String username;
 	
-	@Column(name = "PASSWORD")
+	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 	
 	public AdminJpa() {

@@ -44,7 +44,7 @@ public class OrderJpa implements Serializable, Order {
 		this.orderNum = orderNum;
 	}
 
-	@Column(name="ORDER_DATE")
+	@Column(name="ORDER_DATE", nullable = false)
 	public Date getOrderDate() {
 		return orderDate;
 	}
@@ -53,7 +53,7 @@ public class OrderJpa implements Serializable, Order {
 		this.orderDate = orderDate;
 	}
 
-	@Column(name="ORDER_WEIGHT")
+	@Column(name="ORDER_WEIGHT", nullable = false)
 	public int getOrderWeight() {
 		return orderWeight;
 	}

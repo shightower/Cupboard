@@ -61,7 +61,7 @@ public class CustomerJpa implements Serializable, Customer {
 		this.id = id;
 	}
 
-	@Column(name="CUS_LAST")
+	@Column(name="CUS_LAST", nullable = false)
 	public String getLastName() {
 		return lastName;
 	}
@@ -70,7 +70,7 @@ public class CustomerJpa implements Serializable, Customer {
 		this.lastName = lastName;
 	}
 
-	@Column(name="CUS_FIRST")
+	@Column(name="CUS_FIRST", nullable = false)
 	public String getFirstName() {
 		return firstName;
 	}
@@ -124,7 +124,7 @@ public class CustomerJpa implements Serializable, Customer {
 		this.phone = phone;
 	}
 
-	@Column(name="CUS_NUM_ADULT")
+	@Column(name="CUS_NUM_ADULT", nullable = false)
 	public int getNumOfAdults() {
 		return numOfAdults;
 	}
@@ -133,7 +133,7 @@ public class CustomerJpa implements Serializable, Customer {
 		this.numOfAdults = numOfAdults;
 	}
 
-	@Column(name="CUS_NUM_CHILD")
+	@Column(name="CUS_NUM_CHILD", nullable = false)
 	public int getNumOfKids() {
 		return numOfKids;
 	}

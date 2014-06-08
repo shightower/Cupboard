@@ -22,7 +22,7 @@ public class TefapJpa extends OrderJpa implements Tefap {
 		setOrderDate(tefap.getOrderDate());
 	}
 
-	@Column(name="TEFAP_COUNT")
+	@Column(name="TEFAP_COUNT", nullable = false)
 	public int getCount() {
 		return count;
 	}

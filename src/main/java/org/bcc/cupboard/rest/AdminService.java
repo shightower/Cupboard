@@ -1,6 +1,5 @@
 package org.bcc.cupboard.rest;
 
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -33,7 +32,7 @@ public class AdminService {
 	@POST
 	@Path("authenticate")
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response authenticateAdmin(@QueryParam("user") AdminBean adminBean) {
+	public Response authenticateAdmin(AdminBean adminBean) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
 		if(adminBean != null) {
@@ -100,23 +99,22 @@ public class AdminService {
 	}
 	
 	private String getHash(String clearText) {
-		StringBuilder hashtext = new StringBuilder();
+		StringBuffer sb = new StringBuffer();
 		try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(clearText.getBytes());
-            BigInteger number = new BigInteger(1, messageDigest);
-            hashtext.append(number.toString(16));
+            md.update(clearText.getBytes());
+            byte[] data = md.digest();
             
-            // Now we need to zero pad it if you actually want the full 32 chars.
-            while (hashtext.length() < 32) {
-            	hashtext.insert(0, "0");
+            
+            for(byte byt : data) {
+            	sb.append(Integer.toString((byt & 0xff) + 0x100, 16).substring(1));
             }
         }
         catch (NoSuchAlgorithmException e) {
            Log.error("Error getting hash algorithm", e);
-           hashtext = new StringBuilder();
+           sb = new StringBuffer();
         }
 		
-		return hashtext.toString();
+		return sb.toString();
 	}
 }

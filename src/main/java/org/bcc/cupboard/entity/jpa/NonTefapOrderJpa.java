@@ -21,7 +21,7 @@ public class NonTefapOrderJpa extends OrderJpa implements NonTefapOrder {
 		setNumOfBags(order.getNumOfBags());
 	}
 	
-	@Column(name="ORDER_BAGS")
+	@Column(name="ORDER_BAGS", nullable = false)
 	public int getNumOfBags() {
 		return numOfBags;
 	}

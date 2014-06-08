@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
+import org.bcc.cupboard.auth.AdminBean;
 import org.bcc.cupboard.entity.CustomerBean;
 import org.bcc.cupboard.entity.NonTefapOrderBean;
 import org.bcc.cupboard.entity.TefapBean;
@@ -15,7 +16,8 @@ import org.bcc.cupboard.entity.TefapBean;
 @XmlSeeAlso({
 	CustomerBean.class,
 	TefapBean.class,
-	NonTefapOrderBean.class
+	NonTefapOrderBean.class,
+	AdminBean.class
 })
 @XmlType(propOrder = {"data","resultCount"})
 @XmlRootElement(name="CupboardWrapper")

@@ -81,11 +81,13 @@ Ext.define('Cupboard.MainPanel', {
   items: [{
   	xtype: 'overviewPanel'
   },{
-  	xtype: 'customerPanel',
+  	xtype: 'customerPanel'
   },{
-  	xtype: 'editCustomerPanel',
+  	xtype: 'editCustomerPanel'
   },{
-	xtype: 'customerSearchPanel',
+	xtype: 'customerSearchPanel'
+  },{
+	xtype: 'loginpanel'
   }]
 
 });
@@ -109,7 +111,7 @@ function onItemClick(itm) {
 		panel.getLayout().setActiveItem(3);
 	
 	} else if(selection === Cupboard.constants.tab.label.deleteCustomer) {
-		//panel.getLayout().setActiveItem(1);
+		panel.getLayout().setActiveItem(4);
 	
 	} else if(selection === Cupboard.constants.tab.label.newOrder) {
 		//panel.getLayout().setActiveItem(1);
