@@ -1,19 +1,46 @@
 <html>
-  <head>
-    <title>Bridgeway Cupboard</title>
-    <link rel="stylesheet" type="text/css" href="ext/resources/css/ext-all-gray.css">
-    <link rel="stylesheet" type="text/css" href="ext/resources/ext-theme-gray/ext-theme-gray-all.css">
-    <script type="text/javascript" src="ext/ext-all.js"></script>
-    <script type="text/javascript" src="ext/ext-theme-gray.js"></script>
-    <script type="text/javascript" src="cupboard/Constants.js"></script>
-    <script type="text/javascript" src="cupboard/Resources.js"></script>
-    <script type="text/javascript" src="cupboard/CustomerPanel.js"></script>
-    <script type="text/javascript" src="cupboard/EditCustomerPanel.js"></script>
-    <script type="text/javascript" src="cupboard/LoginPanel.js"></script>
-    <script type="text/javascript" src="cupboard/CustomerSearchPanel.js"></script>
-    <script type="text/javascript" src="cupboard/MainPanel.js"></script>
-    <script type="text/javascript" src="cupboard.js"></script>
-  </head>
-  
-  <body></body>
+<head>
+<title>Bridgeway Food Pantry</title>
+<link rel="stylesheet" href="css/jqx.base.css" type="text/css"/>
+<link rel="stylesheet" href="css/jqx.darkblue.css" type="text/css"/>
+<link rel="stylesheet" href="css/jqx.energyblue.css" type="text/css"/>
+<link rel="stylesheet" href="css/cupboard.css" type="text/css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jqx-all.js"></script>
+<script type="text/javascript" src="js/cupboard.js"></script>
+<script type="text/javascript" src="js/jquery.corner.js"></script>
+</head>
+<body>
+<div id='content' class='content'>
+	<! -- Common Content, do not change -->
+	<div class='logo'>
+	</div>
+	<div id='jqxMenu'>
+		<ul>
+			<li><a href="#">Welcome</a></li>
+			<li>About Us</li>
+			<li>Customers</li>
+			<li>Orders
+				<ul>
+					<li><a href="#">New</a></li>
+				</ul>
+			</li>
+			<li><a href="#">Contact Us</a></li>
+			<li><a href="#">Donate</a></li>
+			<li><a href="directions.html">Directions</a></li>
+		</ul>
+	</div>
+	
+	<div class='titleDiv'>
+		<p id='pageTitle'></p>
+	</div>
+	<div class='searchInput'>
+		<input type='text' id='search'/>
+		<input type='button' id='searchButton' value='Search'/>
+	</div>
+	<!-- End of Common Content -->
+	
+	<div id="jqxgrid" class="customerGrid"></div>
+</div>
+</body>
 </html>
