@@ -1,0 +1,67 @@
+.logo {
+	width: 100%;
+	height: 130px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.searchInput {
+	position: relative;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 600px;
+	height: 20px;
+}
+
+.searchButton {
+	
+}
+
+.content {
+	width: 80%;
+	border: 1px solid black;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.customerGrid {
+	margin-top: 2em;
+	margin-left: auto;
+	margin-right: auto;
+	width: 75%;
+	margin-bottom: 2em;
+}
+
+.titleDiv {
+	width: 100%;
+}
+
+.titleDiv p {
+	font-family: sans-serif;
+	font-size: 2em;
+	font-weight: bold;
+	text-align: center;
+}
+
+.addFormDiv {
+	width: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.blockStyle {
+	display: block;
+}
+
+.inlineBlock {
+	display: inline-block;
+}
+
+em {
+	color: red;
+}
+
+.numberInput {
+	width: 3.125em;
+}
