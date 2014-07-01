@@ -34,11 +34,31 @@ public class CustomerService {
 	@POST
 	@Path("add")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
-	public Response addCustomer(CustomerBean customer) {
+	public Response addCustomer(
+			@QueryParam("firstName") @DefaultValue("") String firstName,
+			@QueryParam("lastName") @DefaultValue("") String lastName,
+			@QueryParam("street") @DefaultValue("") String street,
+			@QueryParam("city") @DefaultValue("") String city,
+			@QueryParam("state") @DefaultValue("") String state,
+			@QueryParam("zip") @DefaultValue("") String zip,
+			@QueryParam("numOfKids") @DefaultValue("") String numOfKids,
+			@QueryParam("numOfAdults") @DefaultValue("") String numOfAdults,
+			@QueryParam("numOfBags") @DefaultValue("") String numOfBags,
+			@QueryParam("phone") @DefaultValue("") String phone) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
 		try {
-			CustomerJpa customerJpa = new CustomerJpa(customer);
+			CustomerJpa customerJpa = new CustomerJpa();
+			customerJpa.setFirstName(firstName);
+			customerJpa.setLastName(lastName);
+			customerJpa.setStreet(street);
+			customerJpa.setCity(city);
+			customerJpa.setState(state);
+			customerJpa.setZip(zip);
+			customerJpa.setNumOfAdults(Integer.valueOf(numOfAdults));
+			customerJpa.setNumOfKids(Integer.valueOf(numOfKids));
+			customerJpa.setPhoneNumber(phone);
+			
 			customerDao.persist(customerJpa);
 			rb.entity("Successfully Added New Customer");
 		} catch(Exception ex) {
@@ -106,13 +126,33 @@ public class CustomerService {
 	@POST
 	@Path("update")
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response updateCustomer(CustomerBean customer) {
+	public Response updateCustomer(
+			@QueryParam("id") @DefaultValue("0") int id,
+			@QueryParam("firstName") @DefaultValue("") String firstName,
+			@QueryParam("lastName") @DefaultValue("") String lastName,
+			@QueryParam("street") @DefaultValue("") String street,
+			@QueryParam("city") @DefaultValue("") String city,
+			@QueryParam("state") @DefaultValue("") String state,
+			@QueryParam("zip") @DefaultValue("") String zip,
+			@QueryParam("numOfKids") @DefaultValue("") String numOfKids,
+			@QueryParam("numOfAdults") @DefaultValue("") String numOfAdults,
+			@QueryParam("numOfBags") @DefaultValue("") String numOfBags,
+			@QueryParam("phone") @DefaultValue("") String phone) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
 		try {
-			CustomerJpa customerJpa = customerDao.findById(customer.getId());
+			CustomerJpa customerJpa = customerDao.findById(id);
 			
 			if(customerJpa != null) {
+				customerJpa.setFirstName(firstName);
+				customerJpa.setLastName(lastName);
+				customerJpa.setStreet(street);
+				customerJpa.setCity(city);
+				customerJpa.setState(state);
+				customerJpa.setZip(zip);
+				customerJpa.setNumOfAdults(Integer.valueOf(numOfAdults));
+				customerJpa.setNumOfKids(Integer.valueOf(numOfKids));
+				customerJpa.setPhoneNumber(phone);
 				customerDao.update(customerJpa);
 				rb.entity("Successfully Added New Customer");
 			}
@@ -128,11 +168,12 @@ public class CustomerService {
 	@POST
 	@Path("delete")
 	@Consumes({MediaType.APPLICATION_JSON})
-	public Response removeCustomer(CustomerBean customer) {
+	public Response removeCustomer(
+			@QueryParam("id") @DefaultValue("0") int id) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
 		try {
-			CustomerJpa customerJpa = customerDao.findById(customer.getId());
+			CustomerJpa customerJpa = customerDao.findById(id);
 			
 			if(customerJpa != null) {
 				customerDao.delete(customerJpa);

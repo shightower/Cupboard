@@ -30,6 +30,7 @@ public class CustomerJpa implements Serializable, Customer {
 	private String phone;
 	private int numOfAdults;
 	private int numOfKids;
+	private int numOfBags;
 	private Set<NonTefapOrderJpa> orders;
 	private Set<TefapJpa> tefaps;
 	
@@ -48,6 +49,7 @@ public class CustomerJpa implements Serializable, Customer {
 		setCity(customer.getCity());
 		setState(customer.getState());
 		setZip(customer.getZip());
+		setNumOfBags(customer.getNumOfBags());
 	}
 	
 	@Id
@@ -140,6 +142,15 @@ public class CustomerJpa implements Serializable, Customer {
 	
 	public void setNumOfKids(int numOfKids) {
 		this.numOfKids = numOfKids;
+	}
+	
+	@Column(name="CUS_NUM_BAGS")
+	public int getNumOfBags() {
+		return numOfBags;
+	}
+	
+	public void setNumOfBags(int numOfBags) {
+		this.numOfBags = numOfBags;
 	}
 
 	@OneToMany(mappedBy="customer", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
