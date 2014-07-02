@@ -15,7 +15,6 @@ public class CustomerBean implements Customer {
 	private String phoneNumber;
 	private int numOfAdults;
 	private int numOfKids;
-	private int numOfBags;
 	
 	public CustomerBean() {
 		
@@ -32,7 +31,6 @@ public class CustomerBean implements Customer {
 		setPhoneNumber(customer.getPhoneNumber());
 		setNumOfAdults(customer.getNumOfAdults());
 		setNumOfKids(customer.getNumOfKids());
-		setNumOfBags(customer.getNumOfBags());
 	}
 
 	public long getId() {
@@ -113,13 +111,5 @@ public class CustomerBean implements Customer {
 
 	public void setNumOfKids(int numOfKids) {
 		this.numOfKids = numOfKids;
-	}
-	
-	public int getNumOfBags() {
-		return numOfBags;
-	}
-	
-	public void setNumOfBags(int numOfBags) {
-		this.numOfBags = numOfBags;
 	}
 }

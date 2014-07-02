@@ -1,0 +1,33 @@
+.addFormDiv {
+	width: 450px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.formLayout
+{
+	padding: 10px;
+}
+    
+.formLayout label, .formLayout input
+{
+	display: block;
+	float: left;
+	margin-bottom: 10px;
+}
+ 
+.formLayout label
+ {
+	width: 100px;
+	text-align: right;
+	padding-right: 20px;
+ }
+ 
+ .formLayout br
+ {
+	clear: left;
+ }
+ 
+ em {
+	color: red;
+}

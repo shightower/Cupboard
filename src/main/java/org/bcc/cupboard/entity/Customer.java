@@ -25,6 +25,4 @@ public interface Customer extends Serializable {
 	public abstract void setNumOfAdults(int numOfAdults);
 	public abstract int getNumOfKids();
 	public abstract void setNumOfKids(int numOfKids);
-	public abstract int getNumOfBags();
-	public abstract void setNumOfBags(int numOfBags);
 }

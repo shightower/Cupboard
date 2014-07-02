@@ -1,0 +1,45 @@
+<html>
+<head>
+<title></title>
+<link rel="stylesheet" href="css/jqx.base.css" type="text/css"/>
+<link rel="stylesheet" href="css/jqx.darkblue.css" type="text/css"/>
+<link rel="stylesheet" href="css/jqx.energyblue.css" type="text/css"/>
+<link rel="stylesheet" href="css/addCustomer.css" type="text/css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jqx-all.js"></script>
+<script type="text/javascript" src="js/jquery.noty.packaged.min.js"></script>
+<script type="text/javascript" src="js/default.js"></script>
+<script type="text/javascript" src="js/addCustomer.js"></script>
+</head>
+<body>	
+<div class="addFormDiv">
+	<form id="addCustForm" class="formLayout" >
+		<label for="fisrtName"><em>*</em> First Name:</label>
+		<input type="text" name="firstName" size="25" required/>
+		<br/>
+		<label for="lastName"><em>*</em> Last Name:</label>
+		<input type="text" name="lastName" size="25" required/>
+		<br/>
+		<label for="street">Street:</label>
+		<input type="text" name="street" size="35" />
+		<br/>
+		<label for="city" >City:</label>
+		<input type="text" name="city" size="15" />
+		<br/>
+		<label for="zip" >Zip:</label>
+		<input type="text" name="zip" size="5" />
+		<br/>
+		<label for="phone" >Phone:</label>
+		<input type="text" name="phone" size="10" />
+		<br/>
+		<label for="numOfAdults" ><em>*</em> # of Adults:</label>
+		<input type="number" name="numOfAdults" id="numAdults" min="0" value="0" required/>
+		<br/>
+		<label for="numOfKids" ><em>*</em> # of Kids:</label>
+		<input type="number" name="numOfKids" id="numKids" min="0" value="0" required/>
+		<br/>
+		<input type="button" value="Add Customer" id="addCustButton">
+	</form>
+</div>
+</body>
+</html>

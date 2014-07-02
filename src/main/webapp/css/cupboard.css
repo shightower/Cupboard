@@ -44,12 +44,6 @@
 	text-align: center;
 }
 
-.addFormDiv {
-	width: 200px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
 .blockStyle {
 	display: block;
 }
@@ -58,10 +52,4 @@
 	display: inline-block;
 }
 
-em {
-	color: red;
-}
 
-.numberInput {
-	width: 3.125em;
-}

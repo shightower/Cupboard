@@ -31,7 +31,7 @@ public class CustomerService {
 	@Autowired
 	CustomerDao customerDao;
 	
-	@POST
+	@GET
 	@Path("add")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 	public Response addCustomer(
@@ -43,7 +43,6 @@ public class CustomerService {
 			@QueryParam("zip") @DefaultValue("") String zip,
 			@QueryParam("numOfKids") @DefaultValue("") String numOfKids,
 			@QueryParam("numOfAdults") @DefaultValue("") String numOfAdults,
-			@QueryParam("numOfBags") @DefaultValue("") String numOfBags,
 			@QueryParam("phone") @DefaultValue("") String phone) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
@@ -136,7 +135,6 @@ public class CustomerService {
 			@QueryParam("zip") @DefaultValue("") String zip,
 			@QueryParam("numOfKids") @DefaultValue("") String numOfKids,
 			@QueryParam("numOfAdults") @DefaultValue("") String numOfAdults,
-			@QueryParam("numOfBags") @DefaultValue("") String numOfBags,
 			@QueryParam("phone") @DefaultValue("") String phone) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		

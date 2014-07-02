@@ -1,34 +1,10 @@
-$(document).ready(function () {
-		
+$(document).ready(function () {		
         // Create a jqxMenu and set its width and height.
         $("#jqxMenu").jqxMenu({ 
         	width: '100%',
         	height: '30px',
         	theme: 'darkblue' });
-        
-        // Round the banner
-        $('#content').corner('20px');
-		
-		//Round Search
-		$('#search').corner('10px');
-		
-		$('#searchButton').jqxButton({
-			width: 100,
-			theme: 'energyblue'
-		});
-		
-		$('#addCustSubmit').jqxButton({
-			width: 150,
-			theme: 'energyblue'
-		});
-		
-		$('#search').jqxInput({
-			placeHolder: 'Search',
-			height: 25,
-			width: '60%',
-			minLength: 1
-		});
-		
+			
 		// Center jqxMenu            
 		var centerItems = function () {
 			var firstItem = $($("#jqxMenu ul:first").children()[0]);
@@ -41,61 +17,30 @@ $(document).ready(function () {
 			var menuWidth = $("#jqxMenu").outerWidth();
 			firstItem.css('margin-left', (menuWidth / 2 ) - (width / 2));
 		}
-		
+        
 		centerItems();
 		$(window).resize(function () {
 			centerItems();
 		});
 		
-		// prepare the data
-		var data = new Array();
-		var firstNames =
-		[
-			"Andrew", "Nancy", "Shelley", "Regina", "Yoshi", "Antoni", "Mayumi", "Ian", "Peter", "Lars", "Petra", "Martin", "Sven", "Elio", "Beate", "Cheryl", "Michael", "Guylene"
-		];
+        // Round the banner
+        $('#content').corner('20px');
 		
-		var lastNames =
-		[
-			"Fuller", "Davolio", "Burke", "Murphy", "Nagase", "Saavedra", "Ohno", "Devling", "Wilson", "Peterson", "Winkler", "Bein", "Petersen", "Rossi", "Vileid", "Saylor", "Bjorn", "Nodier"
-		];
-		
-		var address =
-		[
-			"Black Tea", "Green Tea", "Caffe Espresso", "Doubleshot Espresso", "Caffe Latte", "White Chocolate Mocha", "Cramel Latte", "Caffe Americano", "Cappuccino", "Espresso Truffle", "Espresso con Panna", "Peppermint Mocha Twist"
-		];
-		
-		var numbers =
-		[
-			1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 16, 18
-		];
-		
-		for (var i = 0; i < 200; i++) {
-			var row = {};
-			var addressindex = Math.floor(Math.random() * address.length);
-			var kidsindex = Math.floor(Math.random() * numbers.length);
-			var adultsindex = Math.floor(Math.random() * numbers.length);
-			var bagsindex = Math.floor(Math.random() * numbers.length);
-			row["firstname"] = firstNames[Math.floor(Math.random() * firstNames.length)];
-			row["lastname"] = lastNames[Math.floor(Math.random() * lastNames.length)];
-			row["address"] = address[addressindex];
-			row["numOfKids"] = numbers[kidsindex];
-			row["numOfAdults"] = numbers[adultsindex];
-			row["numOfBags"] = numbers[bagsindex];
-			row["isTefap"] = true;
-			data[i] = row;
-		}
-		
-		var source =
-		{
-			localdata: data,
-			datatype: "array"
-		};
-		
-		var dataAdapter = new $.jqx.dataAdapter(source, {
-			loadComplete: function (data) { },
-			loadError: function (xhr, status, error) { }      
+		$("#addCustFrame").fancybox({
+			title		: 'Customer Information',
+			maxWidth	: 800,
+			maxHeight	: 600,
+			fitToView	: false,
+			width		: '50%',
+			height		: '75%',
+			autoSize	: false,
+			closeClick	: false,
+			openEffect	: 'elastic',
+			closeEffect	: 'fade',
+			autoCenter	: true,
 		});
 		
+		/**
 		$("#jqxgrid").jqxGrid({
 			width: 700,
 			source: dataAdapter,
@@ -116,4 +61,5 @@ $(document).ready(function () {
 			  { text: 'Tefap?', datafield: 'isTefap', threestatecheckbox: false, columntype: 'checkbox', width: 60, cellsaligh: 'center', sortable: false}
 			]
 		});
+		*/
 });
