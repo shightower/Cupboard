@@ -122,6 +122,27 @@ public class CustomerService {
 		return rb.build();		
 	}
 	
+	@GET
+	@Path("all")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+	public Response getCustomerById() {
+		ResponseBuilder rb = Response.status(Status.OK);
+		EntityWrapper<CustomerBean> wrapper = new EntityWrapper<CustomerBean>();
+		List<CustomerBean> customers = new ArrayList<CustomerBean>();
+		
+		List<CustomerJpa> found = customerDao.findAll();
+		
+		for(CustomerJpa customer : found) {
+			CustomerBean bean = new CustomerBean(customer);
+			customers.add(bean);
+		}
+		
+		wrapper.setEntities(customers);
+		wrapper.setResultCount(customers.size());
+		rb.entity(wrapper);
+		return rb.build();		
+	}
+	
 	@POST
 	@Path("update")
 	@Consumes({MediaType.APPLICATION_JSON})

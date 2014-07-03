@@ -1,0 +1,12 @@
+.searchInput {
+	width: 50%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.searchResults {
+	margin-top: 1.5em;
+	margin-bottom: 3em;
+	margin-right: auto;
+	margin-left: auto;
+}
