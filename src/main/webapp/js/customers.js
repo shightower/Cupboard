@@ -1,13 +1,77 @@
-$(document).ready(function () {	
+var ALL_CUST_URL = 'rest/customer/all';
+var SEARCH_BY_NAME_URL = 'rest/customer/search/name';
+
+var lastNameFilterGroup = new $.jqx.filter();
+var firstNameFilterGroup = new $.jqx.filter();
+var filterCondition = 'contains';
+var or_filter_operator = 1;
+
+$(document).ready(function () {
+		//initially hide the clear filter div
+		$('#clearSearchDiv').hide();
+		
 		//Round Search
-		$('#search').corner('5px');
+		$('#searchBox').corner('5px');
 		
 		$('#searchButton').jqxButton({
 			width: 100,
 			theme: 'energyblue'
-		});		
+		});
+
+		$('#searchButton').click(function() {
+			var searchValue = $('#searchBox').val();
+			var firstName = '';
+			var lastName = '';
+			
+			if(searchValue != null && searchValue != "") {
+				var names = searchValue.split(' ');
+				
+				if(names.length == 1) {
+					lastName = names[0];
+					
+					var lastNameFilter = lastNameFilterGroup.createfilter('stringfilter', lastName, filterCondition);
+					lastNameFilterGroup.addfilter(or_filter_operator, lastNameFilter);
+					$('#jqxgrid').jqxGrid('addfilter', 'lastName', lastNameFilterGroup);
+					$('#jqxgrid').jqxGrid('applyFilters');
+				} else {
+					firstName = names[0];
+					lastName = names[1];
+
+					var lastNameFilter = lastNameFilterGroup.createfilter('stringfilter', lastName, filterCondition);
+					lastNameFilterGroup.addfilter(or_filter_operator, lastNameFilter);
+					
+					var firstNameFilter = firstNameFilterGroup.createfilter('stringfilter', firstName, filterCondition);
+					firstNameFilterGroup.addfilter(or_filter_operator, firstNameFilter);
+					
+					$('#jqxgrid').jqxGrid('addfilter', 'firstName', firstNameFilterGroup);
+					$('#jqxgrid').jqxGrid('applyFilters');
+				}
+				
+				//show the clear filter option
+				$('#clearSearchDiv').show();								
+			} else {
+				var n = noty({
+						layout: 'center',
+						type: 'error', 
+						text: '<h3>Provide a Search Value</h3>',
+						timeout: 2500
+					});
+			}
+		});
 		
-		$('#search').jqxInput({
+		$('#clearButton').jqxButton({
+			width: 100,
+			theme: 'energyblue'
+		});
+		
+		$('#clearButton').click(function() {
+			$("#jqxgrid").jqxGrid('removefilter', 'firstName');
+			$("#jqxgrid").jqxGrid('removefilter', 'lastName');
+			$("#jqxgrid").jqxGrid('applyfilters');
+			$('#clearSearchDiv').hide();
+		});
+		
+		$('#searchBox').jqxInput({
 			placeHolder: 'Search',
 			height: 25,
 			width: '60%',
@@ -29,7 +93,7 @@ $(document).ready(function () {
 			],
 			root: 'data',
 			id: 'id',
-			url: 'rest/customer/all'
+			url: ALL_CUST_URL
 		};
 		
 		var dataAdapter = new $.jqx.dataAdapter(source, {
@@ -50,19 +114,17 @@ $(document).ready(function () {
 			autoheight: true,
 			sortable: true,
 			altrows: true,
-			enabletooltips: true,
-			editable: true,
-			selectionmode: 'singlerow',
+			showsortmenuitems: true,
 			theme: 'energyblue',
 			columns: [
-			  { text: 'First Name', datafield: 'firstName', align: 'center', width: 100 },
-			  { text: 'Last Name', datafield: 'lastName', align: 'center', width: 125 },
-			  { text: 'Phone Number', datafield: 'phoneNumber', align: 'center', width: 100 },
+			  { text: 'First Name', datafield: 'firstName', filterable: true, align: 'center', width: 120, },
+			  { text: 'Last Name', datafield: 'lastName', filterable: true, align: 'center', width: 145 },
+			  { text: 'Phone Number', datafield: 'phoneNumber', align: 'center', width: 125 },
 			  { text: 'Street', datafield: 'street', align: 'center', width: 200 },
-			  { text: 'City', datafield: 'city', align: 'center', width: 100  },
-			  { text: 'Zip', datafield: 'zip', align: 'center',  width: 50  },
-			  { text: 'Num of Adults', datafield: 'numOfAdults', align: 'center', width: 125  },
-			  { text: 'Num Of Kids', datafield: 'numOfKids', align: 'center', width: 125  }
+			  { text: 'City', datafield: 'city', align: 'center', width: 125  },
+			  { text: 'Zip', datafield: 'zip', align: 'center',  width: 60, cellformat: 'n', cellsalign: 'center'  },
+			  { text: 'Adults', datafield: 'numOfAdults', align: 'center', width: 75, cellsalign: 'center'  },
+			  { text: 'Kids', datafield: 'numOfKids', align: 'center', width: 75, cellsalign: 'center'  }
 			]
 		});
 });

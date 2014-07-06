@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="css/cupboard.css" type="text/css"/>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.corner.js"></script>
+<script type="text/javascript" src="js/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="js/jqx-all.js"></script>
 <script type="text/javascript" src="js/customers.js"></script>
 <script type="text/javascript" src="js/cupboard.js"></script>
@@ -39,12 +40,15 @@
 		<p id='pageTitle'>Current Customers</p>
 	</div>
 	<div class='searchInput'>
-		<input type='text' id='search'/>
+		<input type='text' id='searchBox'/>
 		<input type='button' id='searchButton' value='Search'/>
 	</div>
 	<!-- End of Common Content -->
 	
 	<div id="jqxgrid" class="searchResults"></div>
+	<div id='clearSearchDiv' class="clearSearchDiv">
+		<input type='button' id='clearButton' value='Clear Search'/>
+	</div>
 </div>
 </body>
 </html>
