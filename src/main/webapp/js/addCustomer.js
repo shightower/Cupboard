@@ -25,8 +25,6 @@ $(document).ready(function () {
 				error: function(xhr, status) {
 					alert('failure. \n' + xhr);
 				}
-			});
-			
-			
+			});			
 		});
 });

@@ -1,5 +1,6 @@
 var ALL_CUST_URL = 'rest/customer/all';
 var SEARCH_BY_NAME_URL = 'rest/customer/search/name';
+var EDIT_URL = 'rest/customer/update';
 
 var lastNameFilterGroup = new $.jqx.filter();
 var firstNameFilterGroup = new $.jqx.filter();
@@ -81,6 +82,7 @@ $(document).ready(function () {
 		var source = {
 			datatype: "json",
 			datafields: [
+				{ name: 'id', type: 'int'},
 				{ name: 'firstName', type: 'string' },
 				{ name: 'lastName', type: 'int' },
 				{ name: 'street', type: 'string' },
@@ -96,6 +98,31 @@ $(document).ready(function () {
 			url: ALL_CUST_URL
 		};
 		
+		// initialize the input fields.
+		//$("#firstName").jqxInput({ theme: theme });
+		//$("#lastName").jqxInput({ theme: theme });
+		//$("#product").jqxInput({ theme: theme });
+		
+		//standard inputs
+		var defaultHeight = 25;
+		$("#firstName").width(100);
+		$("#firstName").height(defaultHeight);
+		$("#lastName").width(150);
+		$("#lastName").height(defaultHeight);		
+		$("#street").width(250);
+		$("#street").height(defaultHeight);
+		$("#city").width(100);
+		$("#city").height(defaultHeight);
+		$("#zip").width(75);
+		
+		//masked inputs
+		$("#phoneNumber").jqxMaskedInput({ width: 115, height: defaultHeight, mask: '(###)###-####'});
+		$("#zip").jqxMaskedInput({ width: 75, height: defaultHeight, mask: '#####'});
+		
+		$("#numOfAdults").jqxNumberInput({inputMode: 'simeple', spinMode: 'simple', width: 50, height: defaultHeight, min: 0, decimalDigits: 0, spinButtons: true });
+		$("#numOfKids").jqxNumberInput({inputMode: 'simeple', spinMode: 'simple', width: 50, height: defaultHeight, min: 0, decimalDigits: 0, spinButtons: true });
+		
+		
 		var dataAdapter = new $.jqx.dataAdapter(source, {
 			downloadComplete: function (data, status, xhr) {
 			},
@@ -106,9 +133,10 @@ $(document).ready(function () {
 			}
 		});
 		
+		var editRow = -1;
 		// initialize jqxGrid
 		$("#jqxgrid").jqxGrid({
-			width: 925,
+			width: 1000,
 			source: dataAdapter,                
 			pageable: true,
 			autoheight: true,
@@ -117,6 +145,7 @@ $(document).ready(function () {
 			showsortmenuitems: true,
 			theme: 'energyblue',
 			columns: [
+			  { text: 'Id', datafield: 'id', hidden: true},
 			  { text: 'First Name', datafield: 'firstName', filterable: true, align: 'center', width: 120, },
 			  { text: 'Last Name', datafield: 'lastName', filterable: true, align: 'center', width: 145 },
 			  { text: 'Phone Number', datafield: 'phoneNumber', align: 'center', width: 125 },
@@ -124,7 +153,84 @@ $(document).ready(function () {
 			  { text: 'City', datafield: 'city', align: 'center', width: 125  },
 			  { text: 'Zip', datafield: 'zip', align: 'center',  width: 60, cellformat: 'n', cellsalign: 'center'  },
 			  { text: 'Adults', datafield: 'numOfAdults', align: 'center', width: 75, cellsalign: 'center'  },
-			  { text: 'Kids', datafield: 'numOfKids', align: 'center', width: 75, cellsalign: 'center'  }
+			  { text: 'Kids', datafield: 'numOfKids', align: 'center', width: 75, cellsalign: 'center' },
+			  { text: 'Edit', datafield: 'Edit', columntype: 'button', width: 75, cellsrenderer: function()
+				{
+					return 'Edit';
+				}, buttonclick: function(row) {
+					editRow = row;
+					var offset = $('#jqxgrid').offset();
+					$("#popupWindow").jqxWindow({ position: { x: parseInt(offset.left) + 60, y: parseInt(offset.top) + 60 } });
+                     // get the clicked row's data and initialize the input fields.
+                     var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editRow);
+                     $("#firstName").val(dataRecord.firstName);
+                     $("#lastName").val(dataRecord.lastName);
+                     $("#phoneNumber").val(dataRecord.phoneNumber);
+                     $("#street").val(dataRecord.street);
+                     $("#city").val(dataRecord.city);
+                     $("#zip").val(dataRecord.zip);
+                     $("#numOfAdults").jqxNumberInput({ decimal: dataRecord.numOfAdults });
+                     $("#numOfKids").jqxNumberInput({ decimal: dataRecord.numOfKids });
+                     // show the popup window.
+                     $("#popupWindow").jqxWindow('open');
+					 
+				}
+			  }
 			]
 		});
+		
+		$('#popupWindow').jqxWindow({
+			width: 400,
+			resizable: false,
+			isModal: true,
+			autoOpen: false,
+			cancelButton: $('#cancelButton'),
+			modalOpacity: 0.01
+		});
+		
+		$('#popupWindow').on('open', function() {
+			$('#firstName').jqxInput('selectAll');
+		});
+		
+		$('#cancelButton').jqxButton({theme: theme});
+		$('#saveButton').jqxButton({theme: theme});
+		
+		$('#saveButton').click(function() {			
+			var params = '?';
+			params += 'firstName=' + $('#firstName').val() + '&';
+			params += 'lastName=' + $('#lastName').val() + '&';
+			params += 'phoneNumber=' + $('#phoneNumber').val() + '&';
+			params += 'street=' + $('#street').val() + '&';
+			params += 'city=' + $('#city').val() + '&';
+			params += 'zip=' + $('#zip').val() + '&';
+			params += 'numOfAdults=' + $('#numOfAdults').val() + '&';
+			params += 'numOfKids=' + $('#numOfKids').val();
+			
+			//send update request
+			$.ajax({
+				type: 'POST',
+				url: 'rest/customer/update',
+				contentType: 'text/plain',
+				data: params,
+				success: function(data, status) {
+					var n = noty({
+						layout: 'centerLeft',
+						type: 'success', 
+						text: '<h3>Update Applied Successfully</h3>',
+						timeout: 1500
+					});						
+					//TODO add callback to close open edit window
+					//$('#popupWindow').jqxWindow('close');
+				},
+				error: function(xhr, status) {
+					var n = noty({
+						layout: 'centerLeft',
+						type: 'error', 
+						text: '<h3>Unable to Update Customer</h3>',
+						timeout: 5000
+					});
+				}
+			});
+		});
+		
 });

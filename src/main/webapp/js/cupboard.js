@@ -1,3 +1,5 @@
+var theme = 'energyblue';
+
 $(document).ready(function () {		
         // Create a jqxMenu and set its width and height.
         $("#jqxMenu").jqxMenu({ 
@@ -37,29 +39,7 @@ $(document).ready(function () {
 			closeClick	: false,
 			openEffect	: 'elastic',
 			closeEffect	: 'fade',
-			autoCenter	: true,
+			autoCenter	: true
 		});
 		
-		/**
-		$("#jqxgrid").jqxGrid({
-			width: 700,
-			source: dataAdapter,
-			sortable: true,
-			filterable: true,
-			pageable: true,
-			autoheight: true,
-    		autoshowfiltericon: true,
-    		editable: true,
-    		theme: 'energyblue',
-			columns: [
-			  { text: 'First Name', datafield: 'firstname', width: 110, editable: false },
-			  { text: 'Last Name', datafield: 'lastname', width: 110, editable: false },
-			  { text: 'Address', datafield: 'address', width: 200, sortable: false, editable: false },
-			  { text: '# of Kids', datafield: 'numOfKids', width: 70, cellsalign: 'right', sortable: false, editable: false },
-			  { text: '# of Adults', datafield: 'numOfAdults', width: 80, cellsalign: 'center', sortable: false, editable: false },
-			  { text: '# of Bags', datafield: 'numOfBags', width: 70, cellsalign: 'center', sortable: false, editable: false },
-			  { text: 'Tefap?', datafield: 'isTefap', threestatecheckbox: false, columntype: 'checkbox', width: 60, cellsaligh: 'center', sortable: false}
-			]
-		});
-		*/
 });

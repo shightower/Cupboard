@@ -156,7 +156,7 @@ public class CustomerService {
 			@QueryParam("zip") @DefaultValue("") String zip,
 			@QueryParam("numOfKids") @DefaultValue("") String numOfKids,
 			@QueryParam("numOfAdults") @DefaultValue("") String numOfAdults,
-			@QueryParam("phone") @DefaultValue("") String phone) {
+			@QueryParam("phoneNumber") @DefaultValue("") String phone) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
 		try {
