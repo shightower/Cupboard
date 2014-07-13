@@ -6,7 +6,6 @@
 	<persistence-unit name="cupboardPU" transaction-type="RESOURCE_LOCAL">
         <class>org.bcc.cupboard.entity.jpa.CustomerJpa</class>
         <class>org.bcc.cupboard.entity.jpa.OrderJpa</class>
-        <class>org.bcc.cupboard.entity.jpa.TefapJpa</class>
     </persistence-unit>
 
 </persistence>

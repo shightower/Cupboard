@@ -1,6 +1,7 @@
 package org.bcc.cupboard.entity.jpa;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -27,11 +28,12 @@ public class CustomerJpa implements Serializable, Customer {
 	private String city;
 	private String state;
 	private String zip;
-	private String phone;
+	private String phoneNumber;
 	private int numOfAdults;
 	private int numOfKids;
-	private Set<NonTefapOrderJpa> orders;
-	private Set<TefapJpa> tefaps;
+	private Date lastOrderDate;
+	private Date nextAvailableDate;
+	private Set<OrderJpa> orders;
 	
 	public CustomerJpa() {
 		
@@ -48,6 +50,8 @@ public class CustomerJpa implements Serializable, Customer {
 		setCity(customer.getCity());
 		setState(customer.getState());
 		setZip(customer.getZip());
+		setLastOrderDate(customer.getLastOrderDate());
+		setNextAvailableDate(customer.getNextAvailableDate());
 	}
 	
 	@Id
@@ -117,11 +121,11 @@ public class CustomerJpa implements Serializable, Customer {
 
 	@Column(name="CUS_PHONE")
 	public String getPhoneNumber() {
-		return phone;
+		return phoneNumber;
 	}
 	
 	public void setPhoneNumber(String phone) {
-		this.phone = phone;
+		this.phoneNumber = phone;
 	}
 
 	@Column(name="CUS_NUM_ADULT", nullable = false)
@@ -142,21 +146,30 @@ public class CustomerJpa implements Serializable, Customer {
 		this.numOfKids = numOfKids;
 	}
 
-	@OneToMany(mappedBy="customer", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	public Set<NonTefapOrderJpa> getOrders() {
+	@Column(name="LAST_ORDER_DATE")
+	public Date getLastOrderDate() {
+		return lastOrderDate;
+	}
+
+	public void setLastOrderDate(Date lastOrderDate) {
+		this.lastOrderDate = lastOrderDate;
+	}
+
+	@Column(name="NEXT_AVAILABLE_DATE")
+	public Date getNextAvailableDate() {
+		return nextAvailableDate;
+	}
+
+	public void setNextAvailableDate(Date nextAvailableDate) {
+		this.nextAvailableDate = nextAvailableDate;
+	}
+
+	@OneToMany(mappedBy="customer", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	public Set<OrderJpa> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(Set<NonTefapOrderJpa> orders) {
+	public void setOrders(Set<OrderJpa> orders) {
 		this.orders = orders;
-	}
-
-	@OneToMany(mappedBy="customer", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	public Set<TefapJpa> getTefaps() {
-		return tefaps;
-	}
-
-	public void setTefaps(Set<TefapJpa> tefaps) {
-		this.tefaps = tefaps;
 	}	
 }

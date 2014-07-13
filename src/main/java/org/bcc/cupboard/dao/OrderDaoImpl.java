@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
+import org.bcc.cupboard.entity.Customer;
 import org.bcc.cupboard.entity.jpa.OrderJpa;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -95,9 +96,51 @@ public class OrderDaoImpl<T extends OrderJpa> extends BaseDao implements OrderDa
 		return orders;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> getAllPending(Class<T> clazz) {
+		List<T> pendingOrders;
+		
+		try {
+			Query query = em.createQuery("from "
+					+ clazz.getSimpleName()
+					+ " p where p.isPending=1");
+			pendingOrders = (List<T>) query.getResultList();
+			
+		} catch(Exception ex) {
+			Log.error("Error retrieving pending orders");
+			pendingOrders = new ArrayList<T>();
+		}
+		
+		return pendingOrders;
+	}
+	
 	@Override
 	public void delete(T order) {
 		em.remove(order);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> getPendingByCustomerAndType(Customer customer, String type, Class<T> clazz) {
+		List<T> pendingOrders;
+		
+		try {
+			Query query = em.createQuery("from "
+					+ clazz.getSimpleName()
+					+ " p where p.isPending=1 and p.customer="
+					+ customer.getId()
+					+ " and p.orderType='"
+					+ type
+					+ "'");
+			pendingOrders = (List<T>) query.getResultList();
+			
+		} catch(Exception ex) {
+			Log.error("Error retrieving pending orders");
+			pendingOrders = new ArrayList<T>();
+		}
+		
+		return pendingOrders;
 	}
 
 }

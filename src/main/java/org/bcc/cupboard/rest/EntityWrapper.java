@@ -10,13 +10,11 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.bcc.cupboard.auth.AdminBean;
 import org.bcc.cupboard.entity.CustomerBean;
-import org.bcc.cupboard.entity.NonTefapOrderBean;
-import org.bcc.cupboard.entity.TefapBean;
+import org.bcc.cupboard.entity.OrderBean;
 
 @XmlSeeAlso({
 	CustomerBean.class,
-	TefapBean.class,
-	NonTefapOrderBean.class,
+	OrderBean.class,
 	AdminBean.class
 })
 @XmlType(propOrder = {"data","resultCount"})

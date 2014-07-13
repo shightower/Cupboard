@@ -27,10 +27,14 @@
 			<li>Customers
 				<ul>
 					<li><a id="addCustFrame" data-fancybox-type="iframe" href="AddCustomerIframe.html">New</a></li>
-					<li><a href="CurrentCustomers.html">Current</a></li>
+					<li><a href="#">Current</a></li>
 				</ul>
 			</li>
 			<li>Orders
+				<ul>
+					<li><a href="AddOrder.html">Add</a></li>
+					<li><a href="CurrentCustomers.html">Pending</a></li>
+				</ul>
 			</li>
 			<li><a href="#">Contact Us</a></li>
 			<li><a href="#">Donate</a></li>
@@ -56,6 +60,10 @@
 		<div>Edit Customer</div>
 		<div style="overflow: hidden;">
 			<table>
+				<tr>
+					<td align="right">Id:</td>
+					<td align="left"><input id="id" disabled/></td>
+				</tr>
 				<tr>
 					<td align="right">First Name:</td>
 					<td align="left"><input id="firstName" /></td>
@@ -87,7 +95,7 @@
 				</tr>
 				<tr>
 					<td align="right"></td>
-					<td style="padding-top: 10px;" align="right"><input style="margin-right: 5px;" type="button" id="saveButton" value="Save" /><input id="cancelButton" type="button" value="Cancel" /></td>
+					<td style="padding-top: 10px;" align="left"><input style="margin-right: 5px;" type="button" id="saveButton" value="Save" /><input id="cancelButton" type="button" value="Cancel" /></td>
 				</tr>
 			</table>
 		</div>

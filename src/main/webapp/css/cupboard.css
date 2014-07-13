@@ -6,16 +6,23 @@
 }
 
 .searchInput {
-	position: relative;
-	display: block;
-	margin-left: auto;
+	width: 50%;
 	margin-right: auto;
-	width: 600px;
-	height: 20px;
+	margin-left: auto;
 }
 
-.searchButton {
-	
+.searchResults {
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.clearSearchDiv {
+	width: 110px;
+	margin-bottom: 3em;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 .content {
@@ -23,14 +30,6 @@
 	border: 1px solid black;
 	margin-left: auto;
 	margin-right: auto;
-}
-
-.customerGrid {
-	margin-top: 2em;
-	margin-left: auto;
-	margin-right: auto;
-	width: 75%;
-	margin-bottom: 2em;
 }
 
 .titleDiv {

@@ -1,6 +1,7 @@
 package org.bcc.cupboard.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 public interface Customer extends Serializable {
@@ -25,4 +26,8 @@ public interface Customer extends Serializable {
 	public abstract void setNumOfAdults(int numOfAdults);
 	public abstract int getNumOfKids();
 	public abstract void setNumOfKids(int numOfKids);
+	public abstract Date getLastOrderDate();
+	public abstract void setLastOrderDate(Date date);
+	public abstract Date getNextAvailableDate();
+	public abstract void setNextAvailableDate(Date date);
 }

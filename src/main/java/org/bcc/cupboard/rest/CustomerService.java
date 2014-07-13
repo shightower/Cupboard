@@ -143,11 +143,11 @@ public class CustomerService {
 		return rb.build();		
 	}
 	
-	@POST
+	@GET
 	@Path("update")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 	public Response updateCustomer(
-			@QueryParam("id") @DefaultValue("0") int id,
+			@QueryParam("id") @DefaultValue("0") String id,
 			@QueryParam("firstName") @DefaultValue("") String firstName,
 			@QueryParam("lastName") @DefaultValue("") String lastName,
 			@QueryParam("street") @DefaultValue("") String street,
@@ -160,7 +160,7 @@ public class CustomerService {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
 		try {
-			CustomerJpa customerJpa = customerDao.findById(id);
+			CustomerJpa customerJpa = customerDao.findById(Integer.parseInt(id));
 			
 			if(customerJpa != null) {
 				customerJpa.setFirstName(firstName);
@@ -174,6 +174,10 @@ public class CustomerService {
 				customerJpa.setPhoneNumber(phone);
 				customerDao.update(customerJpa);
 				rb.entity("Successfully Added New Customer");
+			} else {
+				Log.debug("Unable to locate customer to update, Id provided was " + id);
+				rb = Response.status(Status.BAD_REQUEST);
+				rb.entity("Unable to update Customer, notify Customer Support");
 			}
 		} catch(Exception ex) {
 			Log.error(ex);

@@ -1,5 +1,7 @@
 package org.bcc.cupboard.entity;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -15,6 +17,8 @@ public class CustomerBean implements Customer {
 	private String phoneNumber;
 	private int numOfAdults;
 	private int numOfKids;
+	private Date lastOrderDate;
+	private Date nextAvailableDate;
 	
 	public CustomerBean() {
 		
@@ -31,6 +35,8 @@ public class CustomerBean implements Customer {
 		setPhoneNumber(customer.getPhoneNumber());
 		setNumOfAdults(customer.getNumOfAdults());
 		setNumOfKids(customer.getNumOfKids());
+		setLastOrderDate(customer.getLastOrderDate());
+		setNextAvailableDate(customer.getNextAvailableDate());
 	}
 
 	public long getId() {
@@ -111,5 +117,21 @@ public class CustomerBean implements Customer {
 
 	public void setNumOfKids(int numOfKids) {
 		this.numOfKids = numOfKids;
+	}
+
+	public Date getLastOrderDate() {
+		return lastOrderDate;
+	}
+
+	public void setLastOrderDate(Date lastOrderDate) {
+		this.lastOrderDate = lastOrderDate;
+	}
+
+	public Date getNextAvailableDate() {
+		return nextAvailableDate;
+	}
+
+	public void setNextAvailableDate(Date nextAvailableDate) {
+		this.nextAvailableDate = nextAvailableDate;
 	}
 }
