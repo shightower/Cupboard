@@ -5,7 +5,8 @@ $(document).ready(function () {
         $("#jqxMenu").jqxMenu({ 
         	width: '100%',
         	height: '30px',
-        	theme: 'darkblue' });
+        	theme: 'darkblue',
+			minimizeWidth: null});
 			
 		// Center jqxMenu            
 		var centerItems = function () {

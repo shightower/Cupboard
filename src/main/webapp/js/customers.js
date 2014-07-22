@@ -130,7 +130,7 @@ $(document).ready(function () {
 		var editRow = -1;
 		// initialize jqxGrid
 		$("#jqxgrid").jqxGrid({
-			width: 1000,
+			width: '80%',
 			source: dataAdapter,                
 			pageable: true,
 			autoheight: true,
@@ -140,37 +140,34 @@ $(document).ready(function () {
 			theme: 'energyblue',
 			columns: [
 			  { text: 'Id', datafield: 'id', hidden: true},
-			  { text: 'First Name', datafield: 'firstName', filterable: true, align: 'center', width: 120, },
-			  { text: 'Last Name', datafield: 'lastName', filterable: true, align: 'center', width: 145 },
+			  { text: 'First Name', datafield: 'firstName', filterable: true, align: 'center', width: 120, pinned: true },
+			  { text: 'Last Name', datafield: 'lastName', filterable: true, align: 'center', width: 145, pinned: true },
 			  { text: 'Phone Number', datafield: 'phoneNumber', align: 'center', width: 125 },
-			  { text: 'Street', datafield: 'street', align: 'center', width: 200 },
+			  { text: 'Street', datafield: 'street', align: 'center', minwidth: 200},
 			  { text: 'City', datafield: 'city', align: 'center', width: 125  },
 			  { text: 'Zip', datafield: 'zip', align: 'center',  width: 60, cellformat: 'n', cellsalign: 'center'  },
 			  { text: 'Adults', datafield: 'numOfAdults', align: 'center', width: 75, cellsalign: 'center'  },
-			  { text: 'Kids', datafield: 'numOfKids', align: 'center', width: 75, cellsalign: 'center' },
-			  { text: 'Edit', datafield: 'Edit', columntype: 'button', width: 75, cellsrenderer: function()
-				{
-					return 'Edit';
-				}, buttonclick: function(row) {
-					editRow = row;
-					
-                     // get the clicked row's data and initialize the input fields.
-                     var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editRow);
-					 $("#id").val(dataRecord.id);
-                     $("#firstName").val(dataRecord.firstName);
-                     $("#lastName").val(dataRecord.lastName);
-                     $("#phoneNumber").val(dataRecord.phoneNumber);
-                     $("#street").val(dataRecord.street);
-                     $("#city").val(dataRecord.city);
-                     $("#zip").val(dataRecord.zip);
-                     $("#numOfAdults").jqxNumberInput({ decimal: dataRecord.numOfAdults });
-                     $("#numOfKids").jqxNumberInput({ decimal: dataRecord.numOfKids });
-                     // show the popup window.
-                     $("#popupWindow").jqxWindow('open');
-					 
-				}
-			  }
+			  { text: 'Kids', datafield: 'numOfKids', align: 'center', width: 75, cellsalign: 'center' }
 			]
+		});
+		
+		$('#jqxgrid').on('rowdoubleclick', function (event)  { 
+			editRow = event.args.rowindex;
+					
+			 // get the clicked row's data and initialize the input fields.
+			 var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editRow);
+			 $("#id").val(dataRecord.id);
+			 $("#firstName").val(dataRecord.firstName);
+			 $("#lastName").val(dataRecord.lastName);
+			 $("#phoneNumber").val(dataRecord.phoneNumber);
+			 $("#street").val(dataRecord.street);
+			 $("#city").val(dataRecord.city);
+			 $("#zip").val(dataRecord.zip);
+			 $("#numOfAdults").jqxNumberInput({ decimal: dataRecord.numOfAdults });
+			 $("#numOfKids").jqxNumberInput({ decimal: dataRecord.numOfKids });
+			 
+			 // show the popup window.
+			 $("#popupWindow").jqxWindow('open');
 		});
 		
 		$('#popupWindow').jqxWindow({
@@ -210,6 +207,8 @@ $(document).ready(function () {
 				contentType: 'text/plain',
 				data: params,
 				success: function(data, status) {
+					$('#popupWindow').jqxWindow('close');
+					
 					var n = noty({
 						layout: 'center',
 						type: 'success', 
@@ -217,7 +216,6 @@ $(document).ready(function () {
 						timeout: 750,
 						callback: {
 							afterClose: function() {
-								$('#popupWindow').jqxWindow('close');
 								
 								//refresh page, and force manual pull of new data
 								location.reload(true);
@@ -234,6 +232,5 @@ $(document).ready(function () {
 					});
 				}
 			});
-		});
-		
+		});		
 });
