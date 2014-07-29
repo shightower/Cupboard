@@ -1,30 +1,27 @@
 .addFormDiv {
-	width: 450px;
+	width: 100%;
+	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.formLayout
-{
+.formLayout {
 	padding: 10px;
 }
     
-.formLayout label, .formLayout input
-{
+.formLayout label, .formLayout input {
 	display: block;
 	float: left;
 	margin-bottom: 10px;
 }
  
-.formLayout label
- {
+.formLayout label {
 	width: 100px;
 	text-align: right;
 	padding-right: 20px;
  }
  
- .formLayout br
- {
+ .formLayout br {
 	clear: left;
  }
  

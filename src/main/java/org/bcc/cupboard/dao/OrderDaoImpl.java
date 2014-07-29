@@ -15,11 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 @Qualifier(value = "orderDao")
-public class OrderDaoImpl<T extends OrderJpa> extends BaseDao implements OrderDao<T> {
+public class OrderDaoImpl extends BaseDao implements OrderDao {
 	private static final Logger Log = Logger.getLogger(OrderDaoImpl.class);
 	
 	@Override
-	public void persist(T order) {
+	public void persist(OrderJpa order) {
 		try {
 			em.persist(order);
 		} catch(Exception ex) {
@@ -29,7 +29,7 @@ public class OrderDaoImpl<T extends OrderJpa> extends BaseDao implements OrderDa
 	}
 
 	@Override
-	public void update(T order) {
+	public void update(OrderJpa order) {
 		try {
 			em.merge(order);
 		} catch(Exception ex) {
@@ -38,11 +38,11 @@ public class OrderDaoImpl<T extends OrderJpa> extends BaseDao implements OrderDa
 	}
 	
 	@Override
-	public T findById(Class<T> clazz, long id) {
-		T order = null;
+	public OrderJpa findById(long id) {
+		OrderJpa order = null;
 
 		try {
-			order = (T) em.find(clazz, id);
+			order = (OrderJpa) em.find(OrderJpa.class, id);
 		} catch(Exception ex) {
 			Log.error("Error searching for Order by Id", ex);
 		}
@@ -52,24 +52,24 @@ public class OrderDaoImpl<T extends OrderJpa> extends BaseDao implements OrderDa
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> searchFromTo(String fromDate, String toDate, Class<T> clazz) {
-		List<T> orders;
+	public List<OrderJpa> searchFromTo(String fromDate, String toDate) {
+		List<OrderJpa> orders;
 		
 		try {
 			Query query = em.createQuery("from "
-					+ clazz.getSimpleName()
+					+ OrderJpa.class.getSimpleName()
 					+ " o where o.orderDate between "
 					+ fromDate 
 					+ " and " 
 					+ toDate);
 			
-			orders = (List<T>) query.getResultList();
+			orders = (List<OrderJpa>) query.getResultList();
 		} catch(Exception ex) {
 			Log.error("Error retrieving Orders between "
 					+ fromDate 
 					+ "-" 
 					+ toDate);
-			orders = new ArrayList<T>();
+			orders = new ArrayList<OrderJpa>();
 		}
 		
 		return orders;
@@ -77,20 +77,20 @@ public class OrderDaoImpl<T extends OrderJpa> extends BaseDao implements OrderDa
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> searchForDay(String day, Class<T> clazz) {
-		List<T> orders;
+	public List<OrderJpa> searchForDay(String day) {
+		List<OrderJpa> orders;
 		
 		try {
 			Query query = em.createQuery("from "
-					+ clazz.getSimpleName()
+					+ OrderJpa.class.getSimpleName()
 					+ " o where o.orderDate ="
 					+ day);
 			
-			orders = (List<T>) query.getResultList();
+			orders = (List<OrderJpa>) query.getResultList();
 		} catch(Exception ex) {
 			Log.error("Error retrieving Orders on "
 					+ day);
-			orders = new ArrayList<T>();
+			orders = new ArrayList<OrderJpa>();
 		}
 		
 		return orders;
@@ -98,46 +98,51 @@ public class OrderDaoImpl<T extends OrderJpa> extends BaseDao implements OrderDa
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> getAllPending(Class<T> clazz) {
-		List<T> pendingOrders;
+	public List<OrderJpa> getAllPending() {
+		List<OrderJpa> pendingOrders;
 		
 		try {
 			Query query = em.createQuery("from "
-					+ clazz.getSimpleName()
-					+ " p where p.isPending=1");
-			pendingOrders = (List<T>) query.getResultList();
+					+ OrderJpa.class.getSimpleName()
+					+ " p where p.isPending=1 order by p.id asc");
+			pendingOrders = (List<OrderJpa>) query.getResultList();
 			
 		} catch(Exception ex) {
 			Log.error("Error retrieving pending orders");
-			pendingOrders = new ArrayList<T>();
+			pendingOrders = new ArrayList<OrderJpa>();
 		}
 		
 		return pendingOrders;
 	}
 	
 	@Override
-	public void delete(T order) {
-		em.remove(order);
+	public void delete(OrderJpa order) {
+		Query query = em.createQuery("delete from "
+				+ OrderJpa.class.getSimpleName()
+				+ " a where a.orderNum="
+				+ order.getOrderNum());
+		
+		query.executeUpdate();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> getPendingByCustomerAndType(Customer customer, String type, Class<T> clazz) {
-		List<T> pendingOrders;
+	public List<OrderJpa> getPendingByCustomerAndType(Customer customer, String type) {
+		List<OrderJpa> pendingOrders;
 		
 		try {
 			Query query = em.createQuery("from "
-					+ clazz.getSimpleName()
+					+ OrderJpa.class.getSimpleName()
 					+ " p where p.isPending=1 and p.customer="
 					+ customer.getId()
 					+ " and p.orderType='"
 					+ type
 					+ "'");
-			pendingOrders = (List<T>) query.getResultList();
+			pendingOrders = (List<OrderJpa>) query.getResultList();
 			
 		} catch(Exception ex) {
 			Log.error("Error retrieving pending orders");
-			pendingOrders = new ArrayList<T>();
+			pendingOrders = new ArrayList<OrderJpa>();
 		}
 		
 		return pendingOrders;

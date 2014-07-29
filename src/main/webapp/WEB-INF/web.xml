@@ -34,4 +34,27 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
         <servlet-name>Jersey Spring Web Application</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+    
+    <!-- 
+    <login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login.html</form-login-page>
+			<form-error-page>/fail_login.html</form-error-page>
+		</form-login-config>
+	</login-config>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>AdminPages</web-resource-name>
+			<description> accessible by authorised users </description>
+			<url-pattern>/admin/*</url-pattern>
+			<http-method>GET</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<description>These are the roles who have access</description>
+		<role-name>manager</role-name>
+		</auth-constraint>
+	</security-constraint>
+	-->
 </web-app>

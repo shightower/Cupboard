@@ -1,23 +1,23 @@
-var theme = 'energyblue';
+var theme = 'ui-sunny';
 
 $(document).ready(function () {		
         // Create a jqxMenu and set its width and height.
-        $("#jqxMenu").jqxMenu({ 
+        $("#menuBar").jqxMenu({ 
         	width: '100%',
         	height: '30px',
-        	theme: 'darkblue',
+        	theme: theme,
 			minimizeWidth: null});
 			
-		// Center jqxMenu            
+		// Center menuBar            
 		var centerItems = function () {
-			var firstItem = $($("#jqxMenu ul:first").children()[0]);
+			var firstItem = $($("#menuBar ul:first").children()[0]);
 			firstItem.css('margin-left', 0);
 			var width = 0;
 			var borderOffset = 2;
-			$.each($("#jqxMenu ul:first").children(), function () {
+			$.each($("#menuBar ul:first").children(), function () {
 				width += $(this).outerWidth(true) + borderOffset;
 			});
-			var menuWidth = $("#jqxMenu").outerWidth();
+			var menuWidth = $("#menuBar").outerWidth();
 			firstItem.css('margin-left', (menuWidth / 2 ) - (width / 2));
 		}
         
@@ -31,11 +31,11 @@ $(document).ready(function () {
 		
 		$("#addCustFrame").fancybox({
 			title		: 'Customer Information',
-			maxWidth	: 800,
-			maxHeight	: 600,
+			maxWidth	: 450,
+			maxHeight	: 450,
 			fitToView	: false,
-			width		: '50%',
-			height		: '75%',
+			width		: '40%',
+			height		: '50%',
 			autoSize	: false,
 			closeClick	: false,
 			openEffect	: 'elastic',

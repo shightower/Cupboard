@@ -2,7 +2,7 @@
 <head>
 <title></title>
 <link rel="stylesheet" href="css/jqx.base.css" type="text/css"/>
-<link rel="stylesheet" href="css/jqx.darkblue.css" type="text/css"/>
+<link rel="stylesheet" href="css/jqx.ui-sunny.css" type="text/css"/>
 <link rel="stylesheet" href="css/jqx.energyblue.css" type="text/css"/>
 <link rel="stylesheet" href="css/customers.css" type="text/css"/>
 <link rel="stylesheet" href="css/cupboard.css" type="text/css"/>
@@ -20,10 +20,9 @@
 	<!-- Common Content, do not change -->
 	<div class='logo'>
 	</div>
-	<div id='jqxMenu'>
+	<div id='menuBar'>
 		<ul>
 			<li><a href="index.html">Welcome</a></li>
-			<li>About Us</li>
 			<li>Customers
 				<ul>
 					<li><a id="addCustFrame" data-fancybox-type="iframe" href="AddCustomerIframe.html">New</a></li>
@@ -33,12 +32,16 @@
 			<li>Orders
 				<ul>
 					<li><a href="AddOrder.html">Add</a></li>
-					<li><a href="CurrentCustomers.html">Pending</a></li>
+					<li><a href="PendingOrders.html">Pending</a></li>
 				</ul>
 			</li>
-			<li><a href="#">Contact Us</a></li>
-			<li><a href="#">Donate</a></li>
-			<li><a href="directions.html">Directions</a></li>
+			<li>Reports
+				<ul>
+					<li><a href="">Custom</a></li>
+					<li><a href="">Monthly</a></li>
+					<li><a href="">Yearly</a></li>
+				</ul>
+			</li>
 		</ul>
 	</div>
 	
@@ -46,12 +49,14 @@
 		<p id='pageTitle'>Current Customers</p>
 	</div>
 	<div class='searchInput'>
-		<input type='text' id='searchBox'/>
-		<input type='button' id='searchButton' value='Search'/>
+		<center>
+			<input type='text' id='searchBox'/>
+			<input type='button' id='searchButton' value='Search'/>
+		</center>
 	</div>
 	<!-- End of Common Content -->
 	
-	<div id="jqxgrid" class="searchResults"></div>
+	<div id="customersGrid" class="searchResults"></div>
 	<div id='clearSearchDiv' class="clearSearchDiv">
 		<input type='button' id='clearButton' value='Clear Search'/>
 	</div>
@@ -84,9 +89,11 @@
 					<td align="right">City:</td>
 					<td align="left"><input id="city"/></td>
 				</tr>
+				<tr>
 					<td align="right">Zip:</td>
 					<td align="left"><input id="zip"/></td>
 				</tr>
+				<tr>
 					<td align="right"># of Adults:</td>
 					<td align="left"><div id="numOfAdults"></div></td>
 				</tr>

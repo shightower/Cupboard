@@ -2,7 +2,7 @@ $(document).ready(function () {
 								
 		$('#addCustButton').jqxButton({
 			width: 150,
-			theme: 'energyblue'
+			theme: theme
 		});
 		
 		$('#addCustButton').click(function(event) {

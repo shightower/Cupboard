@@ -7,10 +7,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class OrderBean implements Order {
 	private static final long serialVersionUID = -5893472014559954025L;
-	private int tefapCount;
-	private int numOfBags;
 	private long orderNum;
 	private Date orderDate;
+	private int tefapCount;
+	private int numOfBags;
 	private int orderWeight;
 	private int isPending;
 	private String orderType;
@@ -24,7 +24,10 @@ public class OrderBean implements Order {
 	public OrderBean(Order order) {
 		setOrderNum(order.getOrderNum());
 		setOrderDate(order.getOrderDate());
+		setTefapCount(order.getTefapCount());
+		setNumOfBags(order.getNumOfBags());
 		setOrderWeight(order.getOrderWeight());
+		setOrderType(order.getOrderType());
 		setIsPending(order.getIsPending());
 	}
 

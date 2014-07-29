@@ -16,7 +16,7 @@ $(document).ready(function () {
 		
 		$('#searchButton').jqxButton({
 			width: 100,
-			theme: 'energyblue'
+			theme: theme
 		});
 
 		$('#searchButton').click(function() {
@@ -32,8 +32,8 @@ $(document).ready(function () {
 					
 					var lastNameFilter = lastNameFilterGroup.createfilter('stringfilter', lastName, filterCondition);
 					lastNameFilterGroup.addfilter(or_filter_operator, lastNameFilter);
-					$('#jqxgrid').jqxGrid('addfilter', 'lastName', lastNameFilterGroup);
-					$('#jqxgrid').jqxGrid('applyFilters');
+					$('#customersGrid').jqxGrid('addfilter', 'lastName', lastNameFilterGroup);
+					$('#customersGrid').jqxGrid('applyFilters');
 				} else {
 					firstName = names[0];
 					lastName = names[1];
@@ -44,8 +44,8 @@ $(document).ready(function () {
 					var firstNameFilter = firstNameFilterGroup.createfilter('stringfilter', firstName, filterCondition);
 					firstNameFilterGroup.addfilter(or_filter_operator, firstNameFilter);
 					
-					$('#jqxgrid').jqxGrid('addfilter', 'firstName', firstNameFilterGroup);
-					$('#jqxgrid').jqxGrid('applyFilters');
+					$('#customersGrid').jqxGrid('addfilter', 'firstName', firstNameFilterGroup);
+					$('#customersGrid').jqxGrid('applyFilters');
 				}
 				
 				//show the clear filter option
@@ -62,13 +62,13 @@ $(document).ready(function () {
 		
 		$('#clearButton').jqxButton({
 			width: 100,
-			theme: 'energyblue'
+			theme: theme
 		});
 		
 		$('#clearButton').click(function() {
-			$("#jqxgrid").jqxGrid('removefilter', 'firstName');
-			$("#jqxgrid").jqxGrid('removefilter', 'lastName');
-			$("#jqxgrid").jqxGrid('applyfilters');
+			$("#customersGrid").jqxGrid('removefilter', 'firstName');
+			$("#customersGrid").jqxGrid('removefilter', 'lastName');
+			$("#customersGrid").jqxGrid('applyfilters');
 			$('#clearSearchDiv').hide();
 		});
 		
@@ -113,8 +113,8 @@ $(document).ready(function () {
 		$("#phoneNumber").width(75);
 		$("#phoneNumber").height(defaultHeight);
 		
-		$("#numOfAdults").jqxNumberInput({inputMode: 'simeple', spinMode: 'simple', width: 50, height: defaultHeight, min: 0, decimalDigits: 0, spinButtons: true });
-		$("#numOfKids").jqxNumberInput({inputMode: 'simeple', spinMode: 'simple', width: 50, height: defaultHeight, min: 0, decimalDigits: 0, spinButtons: true });
+		$("#numOfAdults").jqxNumberInput({inputMode: 'simple', spinMode: 'simple', width: 50, height: defaultHeight, min: 0, decimalDigits: 0, spinButtons: true });
+		$("#numOfKids").jqxNumberInput({inputMode: 'simple', spinMode: 'simple', width: 50, height: defaultHeight, min: 0, decimalDigits: 0, spinButtons: true });
 		
 		
 		var dataAdapter = new $.jqx.dataAdapter(source, {
@@ -129,15 +129,15 @@ $(document).ready(function () {
 		
 		var editRow = -1;
 		// initialize jqxGrid
-		$("#jqxgrid").jqxGrid({
-			width: '80%',
+		$("#customersGrid").jqxGrid({
+			width: '65%',
 			source: dataAdapter,                
 			pageable: true,
 			autoheight: true,
 			sortable: true,
 			altrows: true,
 			showsortmenuitems: true,
-			theme: 'energyblue',
+			theme: theme,
 			columns: [
 			  { text: 'Id', datafield: 'id', hidden: true},
 			  { text: 'First Name', datafield: 'firstName', filterable: true, align: 'center', width: 120, pinned: true },
@@ -151,11 +151,11 @@ $(document).ready(function () {
 			]
 		});
 		
-		$('#jqxgrid').on('rowdoubleclick', function (event)  { 
+		$('#customersGrid').on('rowdoubleclick', function (event)  { 
 			editRow = event.args.rowindex;
 					
 			 // get the clicked row's data and initialize the input fields.
-			 var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', editRow);
+			 var dataRecord = $("#customersGrid").jqxGrid('getrowdata', editRow);
 			 $("#id").val(dataRecord.id);
 			 $("#firstName").val(dataRecord.firstName);
 			 $("#lastName").val(dataRecord.lastName);

@@ -17,7 +17,7 @@ $(document).ready(function () {
 		
 		$('#searchButton').jqxButton({
 			width: 100,
-			theme: 'energyblue'
+			theme: theme
 		});
 
 		$('#searchButton').click(function() {
@@ -33,8 +33,8 @@ $(document).ready(function () {
 					
 					var lastNameFilter = lastNameFilterGroup.createfilter('stringfilter', lastName, filterCondition);
 					lastNameFilterGroup.addfilter(or_filter_operator, lastNameFilter);
-					$('#jqxgrid').jqxGrid('addfilter', 'lastName', lastNameFilterGroup);
-					$('#jqxgrid').jqxGrid('applyFilters');
+					$('#addOrderGrid').jqxGrid('addfilter', 'lastName', lastNameFilterGroup);
+					$('#addOrderGrid').jqxGrid('applyFilters');
 				} else {
 					firstName = names[0];
 					lastName = names[1];
@@ -45,8 +45,8 @@ $(document).ready(function () {
 					var firstNameFilter = firstNameFilterGroup.createfilter('stringfilter', firstName, filterCondition);
 					firstNameFilterGroup.addfilter(or_filter_operator, firstNameFilter);
 					
-					$('#jqxgrid').jqxGrid('addfilter', 'firstName', firstNameFilterGroup);
-					$('#jqxgrid').jqxGrid('applyFilters');
+					$('#addOrderGrid').jqxGrid('addfilter', 'firstName', firstNameFilterGroup);
+					$('#addOrderGrid').jqxGrid('applyFilters');
 				}
 				
 				//show the clear filter option
@@ -63,13 +63,13 @@ $(document).ready(function () {
 		
 		$('#clearButton').jqxButton({
 			width: 100,
-			theme: 'energyblue'
+			theme: theme
 		});
 		
 		$('#clearButton').click(function() {
-			$("#jqxgrid").jqxGrid('removefilter', 'firstName');
-			$("#jqxgrid").jqxGrid('removefilter', 'lastName');
-			$("#jqxgrid").jqxGrid('applyfilters');
+			$("#addOrderGrid").jqxGrid('removefilter', 'firstName');
+			$("#addOrderGrid").jqxGrid('removefilter', 'lastName');
+			$("#addOrderGrid").jqxGrid('applyfilters');
 			$('#clearSearchDiv').hide();
 		});
 		
@@ -87,8 +87,7 @@ $(document).ready(function () {
 				{ name: 'firstName', type: 'string' },
 				{ name: 'lastName', type: 'int' },
 				{ name: 'phoneNumber', type: 'string' },
-				{ name: 'numOfAdults', type: 'string' },
-				{ name: 'numOfKids', type: 'string' }
+				{ name: 'nextAvailableDate', type: 'date' }
 			],
 			root: 'data',
 			id: 'id',
@@ -107,7 +106,7 @@ $(document).ready(function () {
 		
 		var selectedCustomer = -1;
 		// initialize jqxGrid
-		$("#jqxgrid").jqxGrid({
+		$("#addOrderGrid").jqxGrid({
 			width: 815,
 			source: dataAdapter,                
 			pageable: true,
@@ -120,8 +119,7 @@ $(document).ready(function () {
 			  { text: 'First Name', datafield: 'firstName', filterable: true, align: 'center', width: 120, },
 			  { text: 'Last Name', datafield: 'lastName', filterable: true, align: 'center', width: 145 },
 			  { text: 'Phone Number', datafield: 'phoneNumber', align: 'center', width: 125 },
-			  { text: 'Adults', datafield: 'numOfAdults', align: 'center', width: 75, cellsalign: 'center'  },
-			  { text: 'Kids', datafield: 'numOfKids', align: 'center', width: 75, cellsalign: 'center' },
+			  { text: 'Next Order Date', datafield: 'nextAvailableDate', align: 'center', width: 150, cellsalign: 'center', cellsformat: 'ddd M/dd/y'},
 			  { text: 'New Order', datafield: 'New Order', columntype: 'button', width: 125, cellsrenderer: function()
 				{
 					return 'New Order';
@@ -132,7 +130,7 @@ $(document).ready(function () {
 						selectedCustomer = row;
 					
 						 // get the clicked row's data and initialize the input fields.
-						 var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', selectedCustomer);
+						 var dataRecord = $("#addOrderGrid").jqxGrid('getrowdata', selectedCustomer);
 						 
 						 //ajax call to create new order
 						 submitNewOrder(dataRecord.id, ADD_ORDER_URL);
@@ -151,7 +149,7 @@ $(document).ready(function () {
 						selectedCustomer = row;
 					
 						 // get the clicked row's data and initialize the input fields.
-						 var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', selectedCustomer);
+						 var dataRecord = $("#addOrderGrid").jqxGrid('getrowdata', selectedCustomer);
 						 
 						 //ajax call to create new order
 						 submitNewOrder(dataRecord.id, ADD_TEFAP_ORDER_URL);
