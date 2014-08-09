@@ -2,7 +2,19 @@ $(document).ready(function () {
 								
 		$('#addCustButton').jqxButton({
 			width: 150,
-			theme: theme
+			theme: 'ui-sunny'
+		});
+		
+		$('#attendee').change(function() {
+			var YES = '1';
+			var NO = '0';
+			var htmlStr = '<label for="service" >Service:</label><select name="service"><option value="8">8</option><option value="10">10</option><option value="10:30">10:30</option><option value="12">12</option></select><br/>';
+			
+			if(this.value === YES) {
+				$('#serviceDiv').html(htmlStr);
+			} else {
+				$('#serviceDiv').html('');
+			}
 		});
 		
 		$('#addCustButton').click(function(event) {

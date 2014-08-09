@@ -91,14 +91,17 @@ $(document).ready(function () {
 				{ name: 'zip', type: 'string' },
 				{ name: 'phoneNumber', type: 'string' },
 				{ name: 'numOfAdults', type: 'string' },
-				{ name: 'numOfKids', type: 'string' }
+				{ name: 'numOfKids', type: 'string' },
+				{ name: 'race', type: 'string' },
+				{ name: 'isAttendee', type: 'bool' },
+				{ name: 'service', type: 'string' }
 			],
 			root: 'data',
 			id: 'id',
 			url: ALL_CUST_URL
 		};
 		
-		//standard inputs
+		//set width and height for popup editor
 		var defaultHeight = 25;
 		$("#firstName").width(100);
 		$("#firstName").height(defaultHeight);
@@ -108,10 +111,18 @@ $(document).ready(function () {
 		$("#street").height(defaultHeight);
 		$("#city").width(100);
 		$("#city").height(defaultHeight);
+		$("#state").width(100);
+		$("#state").height(defaultHeight);
 		$("#zip").width(75);
 		$("#zip").height(defaultHeight);
 		$("#phoneNumber").width(75);
 		$("#phoneNumber").height(defaultHeight);
+		$("#race").width(100);
+		$("#race").height(defaultHeight);
+		$("#isAttendee").width(75);
+		$("#isAttendee").height(defaultHeight);
+		$("#service").width(75);
+		$("#service").height(defaultHeight);
 		
 		$("#numOfAdults").jqxNumberInput({inputMode: 'simple', spinMode: 'simple', width: 50, height: defaultHeight, min: 0, decimalDigits: 0, spinButtons: true });
 		$("#numOfKids").jqxNumberInput({inputMode: 'simple', spinMode: 'simple', width: 50, height: defaultHeight, min: 0, decimalDigits: 0, spinButtons: true });
@@ -145,9 +156,13 @@ $(document).ready(function () {
 			  { text: 'Phone Number', datafield: 'phoneNumber', align: 'center', width: 125 },
 			  { text: 'Street', datafield: 'street', align: 'center', minwidth: 200},
 			  { text: 'City', datafield: 'city', align: 'center', width: 125  },
+			  { text: 'State', datafield: 'state', align: 'center',  width: 60, cellsalign: 'center'  },
 			  { text: 'Zip', datafield: 'zip', align: 'center',  width: 60, cellformat: 'n', cellsalign: 'center'  },
 			  { text: 'Adults', datafield: 'numOfAdults', align: 'center', width: 75, cellsalign: 'center'  },
-			  { text: 'Kids', datafield: 'numOfKids', align: 'center', width: 75, cellsalign: 'center' }
+			  { text: 'Kids', datafield: 'numOfKids', align: 'center', width: 75, cellsalign: 'center' },
+			  { text: 'Race', datafield: 'race', align: 'center', width: 75, cellsalign: 'center' },
+			  { text: 'BCC Attendee', datafield: 'isAttendee', columntype: 'checkbox', align: 'center', width: 75, cellsalign: 'center' },
+			  { text: 'Service', datafield: 'service', align: 'center', width: 75, cellsalign: 'center' }
 			]
 		});
 		
@@ -162,9 +177,21 @@ $(document).ready(function () {
 			 $("#phoneNumber").val(dataRecord.phoneNumber);
 			 $("#street").val(dataRecord.street);
 			 $("#city").val(dataRecord.city);
+			 
+			 setSelectedIndex('state', dataRecord.state);
+			 //$("#state").val(dataRecord.state);
 			 $("#zip").val(dataRecord.zip);
 			 $("#numOfAdults").jqxNumberInput({ decimal: dataRecord.numOfAdults });
 			 $("#numOfKids").jqxNumberInput({ decimal: dataRecord.numOfKids });
+			 
+			 setSelectedIndex('race', dataRecord.race);
+			 //$("#race").val(dataRecord.race);
+			 
+			 setSelectedIndex('isAttendee', dataRecord.isAttendee);
+			 //$("#isAttendee").val(dataRecord.isAttendee);
+			 
+			 setSelectedIndex('service', dataRecord.service);
+			 //$("#service").val(dataRecord.service);
 			 
 			 // show the popup window.
 			 $("#popupWindow").jqxWindow('open');
@@ -172,7 +199,7 @@ $(document).ready(function () {
 		
 		$('#popupWindow').jqxWindow({
 			width: 400,
-			height: 400,
+			height: 550,
 			resizable: false,
 			isModal: true,
 			autoOpen: false,
@@ -197,8 +224,12 @@ $(document).ready(function () {
 			params += 'street=' + $('#street').val() + '&';
 			params += 'city=' + $('#city').val() + '&';
 			params += 'zip=' + $('#zip').val() + '&';
+			params += 'state=' + $('#state').val() + '&';
 			params += 'numOfAdults=' + $('#numOfAdults').val() + '&';
-			params += 'numOfKids=' + $('#numOfKids').val();
+			params += 'numOfKids=' + $('#numOfKids').val() + '&';
+			params += 'race=' + $('#race').val() + '&';
+			params += 'isAttendee=' + $('#isAttendee').val() + '&';
+			params += 'service=' + $('#service').val();
 			
 			//send update request
 			$.ajax({
@@ -234,3 +265,18 @@ $(document).ready(function () {
 			});
 		});		
 });
+
+function setSelectedIndex(id, value) {
+	var s = document.getElementById(id);
+	
+	if(s !== null) {
+		s.options[0].selected = true;
+	
+		for ( var i = 0; i < s.options.length; i++ ) {
+			if ( s.options[i].value == value ) {
+				s.options[i].selected = true;
+				return;
+			}
+		}
+	}
+}

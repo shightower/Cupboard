@@ -34,6 +34,9 @@ public class CustomerJpa implements Serializable, Customer {
 	private Date lastOrderDate;
 	private Date nextAvailableDate;
 	private Set<OrderJpa> orders;
+	private String race;
+	private String service;
+	private int isAttendee;
 	
 	public CustomerJpa() {
 		
@@ -52,6 +55,9 @@ public class CustomerJpa implements Serializable, Customer {
 		setZip(customer.getZip());
 		setLastOrderDate(customer.getLastOrderDate());
 		setNextAvailableDate(customer.getNextAvailableDate());
+		setRace(customer.getRace());
+		setService(customer.getService());
+		setIsAttendee(customer.getIsAttendee());
 	}
 	
 	@Id
@@ -171,5 +177,32 @@ public class CustomerJpa implements Serializable, Customer {
 
 	public void setOrders(Set<OrderJpa> orders) {
 		this.orders = orders;
-	}	
+	}
+	
+	@Column(name="RACE")
+	public String getRace() {
+		return race;
+	}
+
+	public void setRace(String race) {
+		this.race = race;
+	}
+
+	@Column(name="Service")
+	public String getService() {
+		return service;
+	}
+
+	public void setService(String service) {
+		this.service = service;
+	}
+
+	@Column(name="IS_ATTENDEE")
+	public int getIsAttendee() {
+		return isAttendee;
+	}
+
+	public void setIsAttendee(int isAttendee) {
+		this.isAttendee = isAttendee;
+	}
 }

@@ -19,6 +19,9 @@ public class CustomerBean implements Customer {
 	private int numOfKids;
 	private Date lastOrderDate;
 	private Date nextAvailableDate;
+	private String race;
+	private String service;
+	private int isAttendee;
 	
 	public CustomerBean() {
 		
@@ -37,6 +40,9 @@ public class CustomerBean implements Customer {
 		setNumOfKids(customer.getNumOfKids());
 		setLastOrderDate(customer.getLastOrderDate());
 		setNextAvailableDate(customer.getNextAvailableDate());
+		setRace(customer.getRace());
+		setService(customer.getService());
+		setIsAttendee(customer.getIsAttendee());
 	}
 
 	public long getId() {
@@ -133,5 +139,29 @@ public class CustomerBean implements Customer {
 
 	public void setNextAvailableDate(Date nextAvailableDate) {
 		this.nextAvailableDate = nextAvailableDate;
+	}
+
+	public String getRace() {
+		return race;
+	}
+
+	public void setRace(String race) {
+		this.race = race;
+	}
+
+	public String getService() {
+		return service;
+	}
+
+	public void setService(String service) {
+		this.service = service;
+	}
+
+	public int getIsAttendee() {
+		return isAttendee;
+	}
+
+	public void setIsAttendee(int isAttendee) {
+		this.isAttendee = isAttendee;
 	}
 }
