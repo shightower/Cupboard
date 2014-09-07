@@ -216,3 +216,5 @@ pip-log.txt
 .mr.developer.cfg
 /target
 src/main/resources/log4j.properties
+
+src/main/resources/cupboard.properties
