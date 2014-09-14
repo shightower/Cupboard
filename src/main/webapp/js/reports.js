@@ -1,11 +1,15 @@
 var REGULAR_REPORT_URL = 'rest/orders/report/regular';
+var BCC_MEMEBER_CHART_TITLE = "BCC Member Chart";
+var BCC_SERVICE_CHART_TITLE = "BCC Service Chart";
+var ETHNICITY_CHART_TITLE = "Ethnicity Chart";
+var PERSON_COMPOSITION_CHART_TITLE = "Persons Chart";
 
 $(document).ready(function() {
 				
 	var serviceData;
 	var ethnicityData;
-	var memberData = new Object();
-	var familyData = new Object();
+	var memberData = new Array();
+	var familyData = new Array();
 	
 	$.ajax({
 				type: 'GET',
@@ -16,16 +20,30 @@ $(document).ready(function() {
 					var data = results.data[0];
 					
 					//data for Adults/Kids Chart
-					familyData.Adults = data.totalAdults;
-					familyData.Kids = data.totalKids;
+					var adultsObj = new Object();
+					adultsObj.person="Adults";
+					adultsObj.total=data.totalAdults;
+					var kidsObj = new Object();
+					kidsObj.person="Kids";
+					kidsObj.total=data.totalKids;
+					familyData[0] = adultsObj;
+					familyData[1] = kidsObj;
+					drawChart(PERSON_COMPOSITION_CHART_TITLE, familyData, "total", "person", '#personsChart');
 					
 					//data for Is BCC Attendee Chart
-					memberData.BccAttendees = data.totalBccAttendees;
-					memberData.NonBccAttendees = data.totalNonBccAttendees;
+					var attendeeObj = new Object();
+					attendeeObj.value = "Yes";
+					attendeeObj.total = data.totalBccAttendees;
+					var nonAttendeeObj = new Object();
+					nonAttendeeObj.value = "No";
+					nonAttendeeObj.total = data.totalNonBccAttendees;
+					memberData[0] = attendeeObj;
+					memberData[1] = nonAttendeeObj;
+					drawChart(BCC_MEMEBER_CHART_TITLE, memberData, "total", "value", '#attendeeChart');
 					
 					//data for Ethnicity Chart
 					ethnicityData = data.raceReports;
-					drawEthnicityChart(ethnicityData);
+					drawChart(ETHNICITY_CHART_TITLE, ethnicityData, "total", "race", '#bccMemberChart');
 					
 					//data for BCC Service Chart
 					serviceData = data.serviceReports;
@@ -38,17 +56,16 @@ $(document).ready(function() {
     
 });
 
-function drawEthnicityChart(ethnicityData) {
+function drawChart(title, dataSource, dataField, displayField, chart) {
 	// prepare jqxChart settings
 	var settings = {
-		title: "BCC Member Chart",
+		title: title,
 		enableAnimations: true,
 		showLegend: true,
-		showBorderLine: true,
-		legendLayout: { left: 500, top: 160, width: 300, height: 200, flow: 'horizontal' },
+		showBorderLine: false,
 		padding: { left: 5, top: 5, right: 5, bottom: 5 },
 		titlePadding: { left: 0, top: 0, right: 0, bottom: 10 },
-		source: ethnicityData,
+		source: dataSource,
 		colorScheme: 'scheme04',
 		seriesGroups:
 			[
@@ -58,16 +75,21 @@ function drawEthnicityChart(ethnicityData) {
 					series:
 						[
 							{ 
-								dataField: 'total',
-								displayText: 'race',
+								dataField: dataField,
+								displayText: displayField,
 								labelRadius: 170,
-								initialAngle: 15,
-								radius: 145,
+								initialAngle: 45,
+								radius: 130,
 								centerOffset: 0,
 								formatFunction: function (value) {
 									if (isNaN(value))
 										return value;
-									return parseFloat(value) + '%';
+										
+										if(value == 1) {
+											return value + ' Person';
+										} else {
+											return value + ' People';
+										}
 								},
 							}
 						]
@@ -76,5 +98,5 @@ function drawEthnicityChart(ethnicityData) {
 	};
 	
 	// setup the chart
-	$('#bccMemberChart').jqxChart(settings);
+	$(chart).jqxChart(settings);
 }

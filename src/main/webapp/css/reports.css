@@ -1,5 +1,29 @@
-.pieChartDiv {
-	width: 500px;
-	height: 500px;
+.reportSummaryTable {
+	border: 1px solid black;
+	width: 650px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 2em;
+}
+
+.reportSummaryTable td {
+	border: 1px solid black;
+	text-align: left;
+	width: 50%;
+}
+
+.tableOfGraphs {
+	width: 90%;
+	height: 800px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.tableOfGraphs tr {
+	height: 50%;
+}
+
+.tableOfGraphs td {
+	width: 50%;
 }
 

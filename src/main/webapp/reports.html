@@ -45,12 +45,36 @@
 	</div>
 	
 	<div class='titleDiv'>
-		<p id='pageTitle'>Cupboard Report</p>
+		<p id='pageTitle'>Cupboard Report Summary</p>
 	</div>
-	<!-- End of Common Content -->
+	<!-- End of Common Content <div id='bccMemberChart' class="pieChartDiv"></div>-->
 	
-	<div id='bccMemberChart' class="pieChartDiv"></div>
+	<table class="reportSummaryTable">
+		<th colspan="2"><h2>Report for 01/01/2014 - 01/31/2014</h2></th>
+		<tr>
+			<td>Total Families Served:</td>
+			<td>Total Weight:</td>
+		</tr>
+		<tr>
+			<td>Total BCC Members Served:</td>
+			<td>Total Non-BCC Members Served:</td>
+		</tr>
+		<tr>
+			<td>Total Adults Served:</td>
+			<td>Total Kids Served:</td>
+		</tr>
+	</table>
 	
+	<table class="tableOfGraphs">
+		<tr>
+			<td id='bccMemberChart'/>
+			<td id='personsChart' />
+		</tr>
+		<tr>
+			<td id='attendeeChart' />
+			<td  />
+		</tr>
+	</table>
 	
 </div>
 </body>
