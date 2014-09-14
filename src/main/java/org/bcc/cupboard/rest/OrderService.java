@@ -1,5 +1,10 @@
 package org.bcc.cupboard.rest;
 
+import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.sum;
+import static ch.lambdaj.group.Groups.by;
+import static ch.lambdaj.group.Groups.group;
+
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,10 +26,15 @@ import org.bcc.cupboard.dao.OrderDao;
 import org.bcc.cupboard.entity.OrderBean;
 import org.bcc.cupboard.entity.jpa.CustomerJpa;
 import org.bcc.cupboard.entity.jpa.OrderJpa;
+import org.bcc.cupboard.rest.dto.BccServiceReportDto;
+import org.bcc.cupboard.rest.dto.RaceReportDto;
+import org.bcc.cupboard.rest.dto.ReportDto;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import ch.lambdaj.group.Group;
 
 @Service
 @Path("/orders")
@@ -179,6 +189,77 @@ public class OrderService {
 			rb.entity("Error removing order");
 		}
 
+		return rb.build();
+	}
+	
+	@GET
+	@Path("report/regular")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response generateRegularOrderReport(@QueryParam("startDate") Date startDate, @QueryParam("endStart") Date endDate) {
+		ResponseBuilder rb = Response.status(Status.OK);
+		DateTime now = DateTime.now();
+		DateTime then = now.minusDays(120);
+		
+		try {
+			ReportDto reportDto = new ReportDto();
+			List<OrderJpa> orders = orderDao.generateOrderReport(then.toDate(), now.toDate());
+			
+			int familyTotal = orders.size();
+			int weightTotal = sum(orders, on(OrderJpa.class).getOrderWeight());
+			int totalAdults = sum(orders, on(OrderJpa.class).getCustomer().getNumOfAdults());
+			int totalKids = sum(orders, on(OrderJpa.class).getCustomer().getNumOfKids());
+			reportDto.setTotalFamilies(familyTotal);
+			reportDto.setTotalPounds(weightTotal);
+			reportDto.setTotalAdults(totalAdults);
+			reportDto.setTotalKids(totalKids);
+			
+			//Determine Totals based on race
+			Group<OrderJpa> groupedByEthnicity = group(orders, by(on(OrderJpa.class).getCustomer().getRace()));
+			
+			for(String race : groupedByEthnicity.keySet()){
+				RaceReportDto raceReport = new RaceReportDto();
+				raceReport.setRace(race);
+				
+				List<OrderJpa> raceGroup = groupedByEthnicity.find(race);
+				raceReport.setTotal(raceGroup.size());
+				reportDto.addRaceReports(raceReport);
+			}
+			
+			//Determine totals based of if they attend Bridgeway
+			Group<OrderJpa> groupedByAttendee = group(orders, by(on(OrderJpa.class).getCustomer().getIsAttendee()));
+			List<OrderJpa> nonBccAttendees = groupedByAttendee.find(0);
+			List<OrderJpa> bccAttendees = groupedByAttendee.find(1);
+			reportDto.setTotalBccAttendees(bccAttendees.size());
+			reportDto.setTotalNonBccAttendees(nonBccAttendees.size());
+			
+			Group<OrderJpa> groupedByService = group(orders, by(on(OrderJpa.class).getCustomer().getService()));
+			
+			for(String service : groupedByService.keySet()) {
+				BccServiceReportDto serviceDto = new BccServiceReportDto();
+				List<OrderJpa> serviceGroup = groupedByService.find(service);
+				serviceDto.setService(service);
+				serviceDto.setServiceCount(serviceGroup.size());
+				reportDto.addBccServiceReport(serviceDto);
+			}
+			
+			List<OrderBean> beans = new ArrayList<OrderBean>();
+			for(OrderJpa jpa : orders) {
+				OrderBean bean = new OrderBean(jpa);
+				beans.add(bean);
+			}
+			
+			EntityWrapper<ReportDto> wrapper = new EntityWrapper<ReportDto>();
+			List<ReportDto> reports = new ArrayList<ReportDto>();
+			reports.add(reportDto);
+			wrapper.setEntities(reports);
+			wrapper.setResultCount(reports.size());
+			rb.entity(wrapper);
+		} catch(Exception ex) {
+			Log.error("Error generating regular order report", ex);
+			rb = Response.status(Status.BAD_REQUEST);
+			rb.entity("Error generating regular order report");
+		}
+		
 		return rb.build();
 	}
 	

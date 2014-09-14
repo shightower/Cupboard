@@ -11,12 +11,19 @@ import javax.xml.bind.annotation.XmlType;
 import org.bcc.cupboard.auth.AdminBean;
 import org.bcc.cupboard.entity.CustomerBean;
 import org.bcc.cupboard.entity.OrderBean;
+import org.bcc.cupboard.rest.dto.BccServiceReportDto;
+import org.bcc.cupboard.rest.dto.RaceReportDto;
+import org.bcc.cupboard.rest.dto.ReportDto;
 
 @XmlSeeAlso({
 	CustomerBean.class,
 	OrderBean.class,
-	AdminBean.class
+	AdminBean.class,
+	ReportDto.class,
+	RaceReportDto.class,
+	BccServiceReportDto.class
 })
+
 @XmlType(propOrder = {"data","resultCount"})
 @XmlRootElement(name="CupboardWrapper")
 public class EntityWrapper<T> implements Serializable {

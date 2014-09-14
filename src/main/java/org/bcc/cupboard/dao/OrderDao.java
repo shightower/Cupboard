@@ -1,5 +1,6 @@
 package org.bcc.cupboard.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.bcc.cupboard.entity.Customer;
@@ -14,4 +15,6 @@ public interface OrderDao  {
 	public OrderJpa findById(long id);
 	public List<OrderJpa> getAllPending();
 	public List<OrderJpa> getPendingByCustomerAndType(Customer customer, String type);
+	public List<OrderJpa> generateOrderReport(Date startDate, Date endDate);
+	public List<OrderJpa> generateTefapReport(Date startDate, Date endDate);
 }
