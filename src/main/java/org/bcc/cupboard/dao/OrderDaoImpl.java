@@ -34,7 +34,7 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 		try {
 			em.merge(order);
 		} catch(Exception ex) {
-			Log.error("Error updating Order"+ order.getOrderNum() + ")");
+			Log.error("Error updating Order"+ order.getOrderNumber() + ")");
 		}
 	}
 
@@ -121,7 +121,7 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 		Query query = em.createQuery("delete from "
 				+ OrderJpa.class.getSimpleName()
 				+ " a where a.orderNum="
-				+ order.getOrderNum());
+				+ order.getOrderNumber());
 
 		query.executeUpdate();
 	}

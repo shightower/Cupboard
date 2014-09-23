@@ -83,14 +83,14 @@ $(document).ready(function () {
 		var source = {
 			datatype: "json",
 			datafields: [
-				{ name: 'id', type: 'int'},
+				{ name: 'orderNumber', type: 'int'},
 				{ name: 'firstName', type: 'string' },
 				{ name: 'lastName', type: 'int' },
 				{ name: 'phoneNumber', type: 'string' },
 				{ name: 'nextAvailableDate', type: 'date' }
 			],
 			root: 'data',
-			id: 'id',
+			id: 'orderNumber',
 			url: ALL_CUST_URL
 		};
 		
@@ -115,7 +115,7 @@ $(document).ready(function () {
 			altrows: true,
 			theme: theme,
 			columns: [
-			  { text: 'Id', datafield: 'id', hidden: true},
+			  { text: 'Order Number', datafield: 'orderNumber', hidden: true},
 			  { text: 'First Name', datafield: 'firstName', filterable: true, align: 'center', width: 120, },
 			  { text: 'Last Name', datafield: 'lastName', filterable: true, align: 'center', width: 145 },
 			  { text: 'Phone Number', datafield: 'phoneNumber', align: 'center', width: 125 },
@@ -133,7 +133,7 @@ $(document).ready(function () {
 						 var dataRecord = $("#addOrderGrid").jqxGrid('getrowdata', selectedCustomer);
 						 
 						 //ajax call to create new order
-						 submitNewOrder(dataRecord.id, ADD_ORDER_URL);
+						 submitNewOrder(dataRecord.orderNumber, ADD_ORDER_URL);
 					} else {
 						selectedCustomer = -1;
 					}				 
@@ -152,7 +152,7 @@ $(document).ready(function () {
 						 var dataRecord = $("#addOrderGrid").jqxGrid('getrowdata', selectedCustomer);
 						 
 						 //ajax call to create new order
-						 submitNewOrder(dataRecord.id, ADD_TEFAP_ORDER_URL);
+						 submitNewOrder(dataRecord.orderNumber, ADD_TEFAP_ORDER_URL);
 					} else {
 						selectedCustomer = -1;
 					}				 

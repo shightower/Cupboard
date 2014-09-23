@@ -8,7 +8,7 @@ $(document).ready(function () {
 		var source = {
 			datatype: "json",
 			datafields: [
-				{ name: 'orderNum', type: 'int'},
+				{ name: 'orderNumber', type: 'int'},
 				{ name: 'orderDate', type: 'date' },
 				{ name: 'tefapCount', type: 'int' },
 				{ name: 'numOfBags', type: 'int' },
@@ -19,7 +19,7 @@ $(document).ready(function () {
 				{ name: 'tefap', type: 'bool' }
 			],
 			root: 'data',
-			id: 'orderNum',
+			id: 'orderNumber',
 			url: ALL_PENDING_URL
 		};
 		
@@ -69,7 +69,7 @@ $(document).ready(function () {
 			showsortmenuitems: true,
 			theme: theme,
 			columns: [
-			  { text: 'Order #', datafield: 'orderNum', cellsalign: 'center', width: 60},
+			  { text: 'Order #', datafield: 'orderNumber', cellsalign: 'center', width: 60},
 			  { text: 'First Name', datafield: 'customerFirstName', align: 'center', width: 125},
 			  { text: 'Last Name', datafield: 'customerLastName', align: 'center', width: 150},
 			  { text: 'Order Date', datafield: 'orderDate', align: 'center', cellsformat: 'ddd M/dd/y hh:mm tt', width: 175},
@@ -89,10 +89,10 @@ $(document).ready(function () {
 					var dataRecord = $("#pendingOrdersGrid").jqxGrid('getrowdata', rowIndex);
 					
 					// prompt user for confirmation before adding new order
-					var r = confirm("Remove Order-" + dataRecord.orderNum + "?");
+					var r = confirm("Remove Order-" + dataRecord.orderNumber + "?");
 					
 					if(r == true) {
-						deletePendingOrder(dataRecord.orderNum);
+						deletePendingOrder(dataRecord.orderNumber);
 					}
 				}
 			  }
@@ -142,7 +142,7 @@ $(document).ready(function () {
 		
 		$('#completeOrderButton').click(function() {			
 			var params = '';
-			params += 'orderNum=' + $('#orderNum').val() + '&';
+			params += 'orderNumber=' + $('#orderNumber').val() + '&';
 			params += 'orderDate=' + $('#orderDate').val() + '&';
 			params += 'orderWeight=' + $('#orderWeight')[0].value + '&';
 			params += 'numOfBags=' + $('#numOfBags')[0].value;
@@ -184,7 +184,7 @@ $(document).ready(function () {
 
 		$('#completeTefapButton').click(function() {			
 			var params = '';
-			params += 'orderNum=' + $('#tefapOrderNum').val() + '&';
+			params += 'orderNumber=' + $('#tefapOrderNum').val() + '&';
 			params += 'orderDate=' + $('#tefapDate').val() + '&';
 			params += 'orderWeight=' + $('#tefapWeight')[0].value + '&';
 			params += 'tefapCount=' + $('#tefapCount')[0].value;
@@ -239,7 +239,7 @@ function completeOrder(rowIndex) {
 	 var dataRecord = $("#pendingOrdersGrid").jqxGrid('getrowdata', rowIndex);
 	 
 	 if(dataRecord.tefap) {
-		$("#tefapOrderNum").val(dataRecord.orderNum);
+		$("#tefapOrderNum").val(dataRecord.orderNumber);
 		$("#tefapFirstName").val(dataRecord.customerFirstName);
 		$("#tefapLastName").val(dataRecord.customerLastName);
 		$("#tefapDate").val(dataRecord.orderDate);
@@ -248,7 +248,7 @@ function completeOrder(rowIndex) {
 		$("#popupTefap").jqxWindow('open');
 		 
 	 } else {
-		$("#orderNum").val(dataRecord.orderNum);
+		$("#orderNumber").val(dataRecord.orderNumber);
 		$("#firstName").val(dataRecord.customerFirstName);
 		$("#lastName").val(dataRecord.customerLastName);
 		$("#orderDate").val(dataRecord.orderDate);
@@ -258,8 +258,8 @@ function completeOrder(rowIndex) {
 	 }
 }
 
-function deletePendingOrder(orderNum) {
-	var params = 'orderNum=' + orderNum;
+function deletePendingOrder(orderNumber) {
+	var params = 'orderNumber=' + orderNumber;
 	
 	//send update request
 	$.ajax({
@@ -295,7 +295,7 @@ function deletePendingOrder(orderNum) {
 }
 
 function clearOrderPopup() {
-	$("#orderNum").val('');
+	$("#orderNumber").val('');
 	$("#firstName").val('');
 	$("#lastName").val('');
 	$("#orderDate").val('');

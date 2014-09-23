@@ -17,11 +17,11 @@ public class ReportDto implements Serializable {
 	private long totalBccAttendees;
 	private long totalNonBccAttendees;
 	private List<BccServiceReportDto> bccServiceReports;
-	private List<RaceReportDto> raceReports;
+	private List<EthnicityReportDto> raceReports;
 	
 	public ReportDto() {
 		bccServiceReports = new ArrayList<BccServiceReportDto>();
-		raceReports = new ArrayList<RaceReportDto>();
+		raceReports = new ArrayList<EthnicityReportDto>();
 	}
 	
 	public long getTotalFamilies() {
@@ -56,11 +56,11 @@ public class ReportDto implements Serializable {
 		this.totalPounds = totalPounds;
 	}
 	
-	public List<RaceReportDto> getRaceReports() {
+	public List<EthnicityReportDto> getRaceReports() {
 		return raceReports;
 	}
 	
-	public void addRaceReports(RaceReportDto raceReport) {
+	public void addRaceReports(EthnicityReportDto raceReport) {
 		raceReports.add(raceReport);
 	}
 
@@ -92,7 +92,7 @@ public class ReportDto implements Serializable {
 		this.bccServiceReports = bccServiceReports;
 	}
 
-	public void setRaceReports(List<RaceReportDto> raceReports) {
+	public void setRaceReports(List<EthnicityReportDto> raceReports) {
 		this.raceReports = raceReports;
 	}
 	

@@ -28,7 +28,7 @@ $(document).ready(function() {
 					kidsObj.total=data.totalKids;
 					familyData[0] = adultsObj;
 					familyData[1] = kidsObj;
-					drawChart(PERSON_COMPOSITION_CHART_TITLE, familyData, "total", "person", '#personsChart');
+					drawChart(PERSON_COMPOSITION_CHART_TITLE, familyData, "person", '#personsChart');
 					
 					//data for Is BCC Attendee Chart
 					var attendeeObj = new Object();
@@ -39,14 +39,15 @@ $(document).ready(function() {
 					nonAttendeeObj.total = data.totalNonBccAttendees;
 					memberData[0] = attendeeObj;
 					memberData[1] = nonAttendeeObj;
-					drawChart(BCC_MEMEBER_CHART_TITLE, memberData, "total", "value", '#attendeeChart');
+					drawChart(BCC_MEMEBER_CHART_TITLE, memberData, "value", '#attendeeChart');
 					
 					//data for Ethnicity Chart
 					ethnicityData = data.raceReports;
-					drawChart(ETHNICITY_CHART_TITLE, ethnicityData, "total", "race", '#bccMemberChart');
+					drawChart(ETHNICITY_CHART_TITLE, ethnicityData, "ethnicity", '#bccMemberChart');
 					
 					//data for BCC Service Chart
-					serviceData = data.serviceReports;
+					serviceData = data.bccServiceReports;
+					drawChart(BCC_SERVICE_CHART_TITLE, serviceData, "service", '#bccServiceChart');
 				},
 				error: function(xhr, status) {
 					alert('failure. \n' + xhr);
@@ -56,7 +57,7 @@ $(document).ready(function() {
     
 });
 
-function drawChart(title, dataSource, dataField, displayField, chart) {
+function drawChart(title, dataSource, displayField, chart) {
 	// prepare jqxChart settings
 	var settings = {
 		title: title,
@@ -75,7 +76,7 @@ function drawChart(title, dataSource, dataField, displayField, chart) {
 					series:
 						[
 							{ 
-								dataField: dataField,
+								dataField: 'total',
 								displayText: displayField,
 								labelRadius: 170,
 								initialAngle: 45,

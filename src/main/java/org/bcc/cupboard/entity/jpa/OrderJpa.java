@@ -21,13 +21,31 @@ import org.bcc.cupboard.entity.Order;
 public class OrderJpa implements Serializable, Order {
 	private static final long serialVersionUID = 7643039787427721520L;
 
-	private int tefapCount;
+	@Id
+	@Column(name="ORDER_NUM")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long orderNum;
+
+	@Column(name="TEFAP_COUNT", nullable = false)
+	private int tefapCount;	
+
+	@Column(name="ORDER_DATE", nullable = false)
 	private Date orderDate;
+	
+	@Column(name="ORDER_WEIGHT", nullable = false)
 	private int orderWeight;
+	
+	@Column(name="ORDER_BAGS", nullable = false)
 	private int numOfBags;
+	
+	@Column(name="PENDING_ORDER", nullable = false)
 	private int isPending;
+	
+	@Column(name="ORDER_TYPE, nullable = false")
 	private String orderType;
+
+	@ManyToOne(targetEntity=CustomerJpa.class, fetch=FetchType.EAGER)
+	@JoinColumn(name="CUS_NUM")
 	private CustomerJpa customer;
 	
 	public OrderJpa() {
@@ -35,24 +53,20 @@ public class OrderJpa implements Serializable, Order {
 	}
 	
 	public OrderJpa(Order order) {
-		setOrderNum(order.getOrderNum());
+		setOrderNumber(order.getOrderNumber());
 		setOrderDate(order.getOrderDate());
 		setOrderWeight(order.getOrderWeight());
 		setTefapCount(order.getTefapCount());
 	}
 
-	@Id
-	@Column(name="ORDER_NUM")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	public long getOrderNum() {
+	public long getOrderNumber() {
 		return orderNum;
 	}
 	
-	public void setOrderNum(long orderNum) {
+	public void setOrderNumber(long orderNum) {
 		this.orderNum = orderNum;
 	}
 
-	@Column(name="ORDER_DATE", nullable = false)
 	public Date getOrderDate() {
 		return orderDate;
 	}
@@ -61,7 +75,6 @@ public class OrderJpa implements Serializable, Order {
 		this.orderDate = orderDate;
 	}
 
-	@Column(name="ORDER_WEIGHT", nullable = false)
 	public int getOrderWeight() {
 		return orderWeight;
 	}
@@ -70,7 +83,6 @@ public class OrderJpa implements Serializable, Order {
 		this.orderWeight = orderWeight;
 	}
 
-	@Column(name="TEFAP_COUNT", nullable = false)
 	public int getTefapCount() {
 		return tefapCount;
 	}
@@ -78,8 +90,7 @@ public class OrderJpa implements Serializable, Order {
 	public void setTefapCount(int count) {
 		this.tefapCount = count;
 	}
-	
-	@Column(name="ORDER_BAGS", nullable = false)
+
 	public int getNumOfBags() {
 		return numOfBags;
 	}
@@ -87,9 +98,7 @@ public class OrderJpa implements Serializable, Order {
 	public void setNumOfBags(int numOfBags) {
 		this.numOfBags = numOfBags;
 	}
-	
-	@ManyToOne(targetEntity=CustomerJpa.class, fetch=FetchType.EAGER)
-	@JoinColumn(name="CUS_NUM")
+
 	public CustomerJpa getCustomer() {
 		return customer;
 	}
@@ -98,13 +107,20 @@ public class OrderJpa implements Serializable, Order {
 		this.customer = customer;
 	}
 
-	@Column(name="PENDING_ORDER")
 	public int getIsPending() {
 		return isPending;
 	}
 	
 	public void setIsPending(int isPending) {
 		this.isPending = isPending;
+	}
+	
+	public String getOrderType() {
+		return orderType;
+	}
+	
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
 	}
 	
 	@Transient
@@ -116,16 +132,7 @@ public class OrderJpa implements Serializable, Order {
 		}
 		
 		return pending;
-	}
-	
-	@Column(name="ORDER_TYPE")
-	public String getOrderType() {
-		return orderType;
-	}
-	
-	public void setOrderType(String orderType) {
-		this.orderType = orderType;
-	}
+	}	
 	
 	@Transient
 	public boolean isTefap() {

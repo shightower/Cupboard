@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public interface Order extends Serializable{
-	public abstract long getOrderNum();
-	public abstract void setOrderNum(long orderNum);
+	public abstract long getOrderNumber();
+	public abstract void setOrderNumber(long orderNum);
 	public abstract Date getOrderDate();
 	public abstract void setOrderDate(Date orderDate);
 	public abstract int getOrderWeight();

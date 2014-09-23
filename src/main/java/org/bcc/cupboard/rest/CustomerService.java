@@ -30,23 +30,23 @@ public class CustomerService {
 	
 	@Autowired
 	CustomerDao customerDao;
-		
+	
 	@GET
 	@Path("add")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 	public Response addCustomer(
-			@QueryParam("firstName") @DefaultValue("") String firstName,
-			@QueryParam("lastName") @DefaultValue("") String lastName,
-			@QueryParam("street") @DefaultValue("") String street,
-			@QueryParam("city") @DefaultValue("") String city,
-			@QueryParam("state") @DefaultValue("") String state,
-			@QueryParam("zip") @DefaultValue("") String zip,
-			@QueryParam("numOfKids") @DefaultValue("") String numOfKids,
-			@QueryParam("numOfAdults") @DefaultValue("") String numOfAdults,
-			@QueryParam("phone") @DefaultValue("") String phone,
-			@QueryParam("race") @DefaultValue("") String race,
-			@QueryParam("attendee") @DefaultValue("0") int attendee,
-			@QueryParam("service") @DefaultValue("") String service) {
+			@QueryParam("firstName") String firstName,
+			@QueryParam("lastName") String lastName,
+			@QueryParam("street") String street,
+			@QueryParam("city") String city,
+			@QueryParam("state") String state,
+			@QueryParam("zip") String zip,
+			@QueryParam("numOfKids")  String numOfKids,
+			@QueryParam("numOfAdults") String numOfAdults,
+			@QueryParam("phone")  String phone,
+			@QueryParam("race") String race,
+			@QueryParam("attendee") int attendee,
+			@QueryParam("service") String service) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
 		try {
@@ -60,7 +60,7 @@ public class CustomerService {
 			customerJpa.setNumOfAdults(Integer.valueOf(numOfAdults));
 			customerJpa.setNumOfKids(Integer.valueOf(numOfKids));
 			customerJpa.setPhoneNumber(phone);
-			customerJpa.setRace(race);
+			customerJpa.setEthnicity(race);
 			customerJpa.setIsAttendee(attendee);
 			customerJpa.setService(service);
 			
@@ -78,7 +78,8 @@ public class CustomerService {
 	@GET
 	@Path("search/name")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
-	public Response getCustomerByName(@QueryParam("firstName") @DefaultValue("") String firstName,
+	public Response getCustomerByName(
+			@QueryParam("firstName") @DefaultValue("") String firstName,
 			@QueryParam("lastName") @DefaultValue("") String lastName) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		EntityWrapper<CustomerBean> wrapper = new EntityWrapper<CustomerBean>();
@@ -154,18 +155,18 @@ public class CustomerService {
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 	public Response updateCustomer(
 			@QueryParam("id") @DefaultValue("0") String id,
-			@QueryParam("firstName") @DefaultValue("") String firstName,
-			@QueryParam("lastName") @DefaultValue("") String lastName,
-			@QueryParam("street") @DefaultValue("") String street,
-			@QueryParam("city") @DefaultValue("") String city,
-			@QueryParam("state") @DefaultValue("") String state,
-			@QueryParam("zip") @DefaultValue("") String zip,
-			@QueryParam("numOfKids") @DefaultValue("") String numOfKids,
-			@QueryParam("numOfAdults") @DefaultValue("") String numOfAdults,
-			@QueryParam("phoneNumber") @DefaultValue("") String phone,
-			@QueryParam("race") @DefaultValue("") String race,
-			@QueryParam("isAttendee") @DefaultValue("0") int attendee,
-			@QueryParam("service") @DefaultValue("") String service) {
+			@QueryParam("firstName") String firstName,
+			@QueryParam("lastName") String lastName,
+			@QueryParam("street") String street,
+			@QueryParam("city") String city,
+			@QueryParam("state") String state,
+			@QueryParam("zip") String zip,
+			@QueryParam("numOfKids") String numOfKids,
+			@QueryParam("numOfAdults") String numOfAdults,
+			@QueryParam("phoneNumber") String phone,
+			@QueryParam("race") String race,
+			@QueryParam("isAttendee") int attendee,
+			@QueryParam("service") String service) {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
 		try {
@@ -181,7 +182,7 @@ public class CustomerService {
 				customerJpa.setNumOfAdults(Integer.valueOf(numOfAdults));
 				customerJpa.setNumOfKids(Integer.valueOf(numOfKids));
 				customerJpa.setPhoneNumber(phone);
-				customerJpa.setRace(race);
+				customerJpa.setEthnicity(race);
 				customerJpa.setIsAttendee(attendee);
 				customerJpa.setService(service);
 				

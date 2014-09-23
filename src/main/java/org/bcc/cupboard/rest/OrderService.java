@@ -27,7 +27,7 @@ import org.bcc.cupboard.entity.OrderBean;
 import org.bcc.cupboard.entity.jpa.CustomerJpa;
 import org.bcc.cupboard.entity.jpa.OrderJpa;
 import org.bcc.cupboard.rest.dto.BccServiceReportDto;
-import org.bcc.cupboard.rest.dto.RaceReportDto;
+import org.bcc.cupboard.rest.dto.EthnicityReportDto;
 import org.bcc.cupboard.rest.dto.ReportDto;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,11 +102,11 @@ public class OrderService {
 	@GET
 	@Path("pending/complete")
 	@Produces({MediaType.TEXT_PLAIN})
-	public Response completeOrder(@QueryParam("orderNum") int id, @QueryParam("orderWeight") int weight) {
+	public Response completeOrder(@QueryParam("orderNumber") int orderNumber, @QueryParam("orderWeight") int weight) {
 		ResponseBuilder rb = Response.status(Status.OK);
 
 		try {
-			OrderJpa order = orderDao.findById(id);
+			OrderJpa order = orderDao.findById(orderNumber);
 
 			if(order != null && order.isPending()) {
 				order.setOrderWeight(weight);
@@ -133,11 +133,11 @@ public class OrderService {
 	@GET
 	@Path("pending/tefap/complete")
 	@Produces({MediaType.TEXT_PLAIN})
-	public Response completeTefapOrder(@QueryParam("orderNum") int id, @QueryParam("tefapCount") int count, @QueryParam("tefapWeight") int weight) {
+	public Response completeTefapOrder(@QueryParam("orderNumber") int orderNumber, @QueryParam("tefapCount") int count, @QueryParam("tefapWeight") int weight) {
 		ResponseBuilder rb = Response.status(Status.OK);
 
 		try {
-			OrderJpa order = orderDao.findById(id);
+			OrderJpa order = orderDao.findById(orderNumber);
 
 			if(order != null && order.isPending()) {
 				order.setTefapCount(count);
@@ -164,15 +164,15 @@ public class OrderService {
 	@GET
 	@Path("pending/remove")
 	@Produces({MediaType.TEXT_PLAIN})
-	public Response removePendingOrder(@QueryParam("orderNum") int id) {
+	public Response removePendingOrder(@QueryParam("orderNumber") int orderNumber) {
 		ResponseBuilder rb = Response.status(Status.OK);
 
 		try {
-			OrderJpa order = orderDao.findById(id);
+			OrderJpa order = orderDao.findById(orderNumber);
 
 			if(order != null && order.isPending()) {
 				Log.info("Deleting pending order #"
-						+ order.getOrderNum());
+						+ order.getOrderNumber());
 				
 				orderDao.delete(order);
 			} else {
@@ -214,15 +214,14 @@ public class OrderService {
 			reportDto.setTotalKids(totalKids);
 			
 			//Determine Totals based on race
-			Group<OrderJpa> groupedByEthnicity = group(orders, by(on(OrderJpa.class).getCustomer().getRace()));
-			
+			Group<OrderJpa> groupedByEthnicity = group(orders, by(on(OrderJpa.class).getCustomer().getEthnicity()));			
 			for(String race : groupedByEthnicity.keySet()){
-				RaceReportDto raceReport = new RaceReportDto();
-				raceReport.setRace(race);
+				EthnicityReportDto ethnicityReport = new EthnicityReportDto();
+				ethnicityReport.setEthnicity(race);
 				
 				List<OrderJpa> raceGroup = groupedByEthnicity.find(race);
-				raceReport.setTotal(raceGroup.size());
-				reportDto.addRaceReports(raceReport);
+				ethnicityReport.setTotal(raceGroup.size());
+				reportDto.addRaceReports(ethnicityReport);
 			}
 			
 			//Determine totals based of if they attend Bridgeway
@@ -232,16 +231,18 @@ public class OrderService {
 			reportDto.setTotalBccAttendees(bccAttendees.size());
 			reportDto.setTotalNonBccAttendees(nonBccAttendees.size());
 			
-			Group<OrderJpa> groupedByService = group(orders, by(on(OrderJpa.class).getCustomer().getService()));
 			
+			//Determine totals based on which service the customer attends
+			Group<OrderJpa> groupedByService = group(orders, by(on(OrderJpa.class).getCustomer().getService()));			
 			for(String service : groupedByService.keySet()) {
 				BccServiceReportDto serviceDto = new BccServiceReportDto();
 				List<OrderJpa> serviceGroup = groupedByService.find(service);
 				serviceDto.setService(service);
-				serviceDto.setServiceCount(serviceGroup.size());
+				serviceDto.setTotal(serviceGroup.size());
 				reportDto.addBccServiceReport(serviceDto);
 			}
 			
+			//Converts JPAs to Beans
 			List<OrderBean> beans = new ArrayList<OrderBean>();
 			for(OrderJpa jpa : orders) {
 				OrderBean bean = new OrderBean(jpa);

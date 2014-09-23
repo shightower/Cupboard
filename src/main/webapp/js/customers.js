@@ -92,7 +92,7 @@ $(document).ready(function () {
 				{ name: 'phoneNumber', type: 'string' },
 				{ name: 'numOfAdults', type: 'string' },
 				{ name: 'numOfKids', type: 'string' },
-				{ name: 'race', type: 'string' },
+				{ name: 'ethnicity', type: 'string' },
 				{ name: 'isAttendee', type: 'bool' },
 				{ name: 'service', type: 'string' }
 			],
@@ -117,8 +117,8 @@ $(document).ready(function () {
 		$("#zip").height(defaultHeight);
 		$("#phoneNumber").width(75);
 		$("#phoneNumber").height(defaultHeight);
-		$("#race").width(100);
-		$("#race").height(defaultHeight);
+		$("#ethnicity").width(100);
+		$("#ethnicity").height(defaultHeight);
 		$("#isAttendee").width(75);
 		$("#isAttendee").height(defaultHeight);
 		$("#service").width(75);
@@ -160,7 +160,7 @@ $(document).ready(function () {
 			  { text: 'Zip', datafield: 'zip', align: 'center',  width: 60, cellformat: 'n', cellsalign: 'center'  },
 			  { text: 'Adults', datafield: 'numOfAdults', align: 'center', width: 75, cellsalign: 'center'  },
 			  { text: 'Kids', datafield: 'numOfKids', align: 'center', width: 75, cellsalign: 'center' },
-			  { text: 'Race', datafield: 'race', align: 'center', width: 75, cellsalign: 'center' },
+			  { text: 'Ethnicity', datafield: 'ethnicity', align: 'center', width: 75, cellsalign: 'center' },
 			  { text: 'BCC Attendee', datafield: 'isAttendee', columntype: 'checkbox', align: 'center', width: 75, cellsalign: 'center' },
 			  { text: 'Service', datafield: 'service', align: 'center', width: 75, cellsalign: 'center' }
 			]
@@ -184,8 +184,8 @@ $(document).ready(function () {
 			 $("#numOfAdults").jqxNumberInput({ decimal: dataRecord.numOfAdults });
 			 $("#numOfKids").jqxNumberInput({ decimal: dataRecord.numOfKids });
 			 
-			 setSelectedIndex('race', dataRecord.race);
-			 //$("#race").val(dataRecord.race);
+			 setSelectedIndex('ethnicity', dataRecord.ethnicity);
+			 //$("#ethnicity").val(dataRecord.ethnicity);
 			 
 			 setSelectedIndex('isAttendee', dataRecord.isAttendee);
 			 //$("#isAttendee").val(dataRecord.isAttendee);
@@ -227,7 +227,7 @@ $(document).ready(function () {
 			params += 'state=' + $('#state').val() + '&';
 			params += 'numOfAdults=' + $('#numOfAdults').val() + '&';
 			params += 'numOfKids=' + $('#numOfKids').val() + '&';
-			params += 'race=' + $('#race').val() + '&';
+			params += 'ethnicity=' + $('#ethnicity').val() + '&';
 			params += 'isAttendee=' + $('#isAttendee').val() + '&';
 			params += 'service=' + $('#service').val();
 			

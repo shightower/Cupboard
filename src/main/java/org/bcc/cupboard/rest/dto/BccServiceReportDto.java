@@ -9,7 +9,7 @@ public class BccServiceReportDto implements Serializable {
 	private static final long serialVersionUID = -622641551344825769L;
 
 	private String service;
-	private long serviceCount;
+	private long total;
 	
 	public String getService() {
 		return service;
@@ -19,12 +19,12 @@ public class BccServiceReportDto implements Serializable {
 		this.service = service;
 	}
 	
-	public long getServiceCount() {
-		return serviceCount;
+	public long getTotal() {
+		return total;
 	}
 	
-	public void setServiceCount(long serviceCount) {
-		this.serviceCount = serviceCount;
+	public void setTotal(long total) {
+		this.total = total;
 	}
 	
 }

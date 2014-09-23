@@ -30,8 +30,8 @@ public interface Customer extends Serializable {
 	public abstract void setLastOrderDate(Date date);
 	public abstract Date getNextAvailableDate();
 	public abstract void setNextAvailableDate(Date date);
-	public abstract String getRace();
-	public abstract void setRace(String race);
+	public abstract String getEthnicity();
+	public abstract void setEthnicity(String race);
 	public abstract String getService();
 	public abstract void setService(String service);
 	public abstract int getIsAttendee();

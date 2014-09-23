@@ -19,7 +19,7 @@ public class CustomerBean implements Customer {
 	private int numOfKids;
 	private Date lastOrderDate;
 	private Date nextAvailableDate;
-	private String race;
+	private String ethnicity;
 	private String service;
 	private int isAttendee;
 	
@@ -40,7 +40,7 @@ public class CustomerBean implements Customer {
 		setNumOfKids(customer.getNumOfKids());
 		setLastOrderDate(customer.getLastOrderDate());
 		setNextAvailableDate(customer.getNextAvailableDate());
-		setRace(customer.getRace());
+		setEthnicity(customer.getEthnicity());
 		setService(customer.getService());
 		setIsAttendee(customer.getIsAttendee());
 	}
@@ -141,12 +141,12 @@ public class CustomerBean implements Customer {
 		this.nextAvailableDate = nextAvailableDate;
 	}
 
-	public String getRace() {
-		return race;
+	public String getEthnicity() {
+		return ethnicity;
 	}
 
-	public void setRace(String race) {
-		this.race = race;
+	public void setEthnicity(String ethnicity) {
+		this.ethnicity = ethnicity;
 	}
 
 	public String getService() {

@@ -21,21 +21,54 @@ import org.bcc.cupboard.entity.Customer;
 public class CustomerJpa implements Serializable, Customer {
 	private static final long serialVersionUID = 5808450971871741014L;
 	
+	@Id
+	@Column(name="CUS_NUM")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;	
+
+	@Column(name="CUS_LAST", nullable = false)
 	private String lastName;	
+	
+	@Column(name="CUS_FIRST", nullable = false)
 	private String firstName;	
-	private String street;
-	private String city;
-	private String state;
-	private String zip;
-	private String phoneNumber;
-	private int numOfAdults;
-	private int numOfKids;
-	private Date lastOrderDate;
-	private Date nextAvailableDate;
-	private Set<OrderJpa> orders;
-	private String race;
-	private String service;
+	
+	@Column(name="CUS_STREET", nullable = false)
+	private String street;	
+	
+	@Column(name="CUS_CITY", nullable = false)
+	private String city;	
+	
+	@Column(name="CUS_STATE", nullable = false)
+	private String state;	
+	
+	@Column(name="CUS_ZIP", nullable = false)
+	private String zip;	
+	
+	@Column(name="CUS_PHONE")
+	private String phoneNumber;	
+	
+	@Column(name="CUS_NUM_ADULT", nullable = false)
+	private int numOfAdults;	
+	
+	@Column(name="CUS_NUM_CHILD", nullable = false)
+	private int numOfKids;	
+	
+	@Column(name="LAST_ORDER_DATE")
+	private Date lastOrderDate;	
+	
+	@Column(name="NEXT_AVAILABLE_DATE")
+	private Date nextAvailableDate;	
+	
+	@OneToMany(mappedBy="customer", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private Set<OrderJpa> orders;	
+	
+	@Column(name="ETHNICITY", nullable = false)
+	private String ethnicity;
+	
+	@Column(name="Service")
+	private String service;	
+
+	@Column(name="IS_ATTENDEE")
 	private int isAttendee;
 	
 	public CustomerJpa() {
@@ -55,14 +88,12 @@ public class CustomerJpa implements Serializable, Customer {
 		setZip(customer.getZip());
 		setLastOrderDate(customer.getLastOrderDate());
 		setNextAvailableDate(customer.getNextAvailableDate());
-		setRace(customer.getRace());
+		setEthnicity(customer.getEthnicity());
 		setService(customer.getService());
 		setIsAttendee(customer.getIsAttendee());
 	}
 	
-	@Id
-	@Column(name="CUS_NUM")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	
 	public long getId() {
 		return id;
 	}
@@ -71,7 +102,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.id = id;
 	}
 
-	@Column(name="CUS_LAST", nullable = false)
 	public String getLastName() {
 		return lastName;
 	}
@@ -80,7 +110,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.lastName = lastName;
 	}
 
-	@Column(name="CUS_FIRST", nullable = false)
 	public String getFirstName() {
 		return firstName;
 	}
@@ -89,7 +118,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.firstName = firstName;
 	}
 
-	@Column(name="CUS_STREET")
 	public String getStreet() {
 		return street;
 	}
@@ -98,7 +126,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.street = street;
 	}
 
-	@Column(name="CUS_CITY")
 	public String getCity() {
 		return city;
 	}
@@ -107,7 +134,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.city = city;
 	}
 
-	@Column(name="CUS_STATE")
 	public String getState() {
 		return state;
 	}
@@ -116,7 +142,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.state = state;
 	}
 
-	@Column(name="CUS_ZIP")
 	public String getZip() {
 		return zip;
 	}
@@ -125,7 +150,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.zip = zip;
 	}
 
-	@Column(name="CUS_PHONE")
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -134,7 +158,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.phoneNumber = phone;
 	}
 
-	@Column(name="CUS_NUM_ADULT", nullable = false)
 	public int getNumOfAdults() {
 		return numOfAdults;
 	}
@@ -143,7 +166,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.numOfAdults = numOfAdults;
 	}
 
-	@Column(name="CUS_NUM_CHILD", nullable = false)
 	public int getNumOfKids() {
 		return numOfKids;
 	}
@@ -152,7 +174,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.numOfKids = numOfKids;
 	}
 
-	@Column(name="LAST_ORDER_DATE")
 	public Date getLastOrderDate() {
 		return lastOrderDate;
 	}
@@ -161,7 +182,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.lastOrderDate = lastOrderDate;
 	}
 
-	@Column(name="NEXT_AVAILABLE_DATE")
 	public Date getNextAvailableDate() {
 		return nextAvailableDate;
 	}
@@ -170,7 +190,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.nextAvailableDate = nextAvailableDate;
 	}
 
-	@OneToMany(mappedBy="customer", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	public Set<OrderJpa> getOrders() {
 		return orders;
 	}
@@ -178,17 +197,15 @@ public class CustomerJpa implements Serializable, Customer {
 	public void setOrders(Set<OrderJpa> orders) {
 		this.orders = orders;
 	}
-	
-	@Column(name="RACE")
-	public String getRace() {
-		return race;
+
+	public String getEthnicity() {
+		return ethnicity;
 	}
 
-	public void setRace(String race) {
-		this.race = race;
+	public void setEthnicity(String ethnicity) {
+		this.ethnicity = ethnicity;
 	}
 
-	@Column(name="Service")
 	public String getService() {
 		return service;
 	}
@@ -197,7 +214,6 @@ public class CustomerJpa implements Serializable, Customer {
 		this.service = service;
 	}
 
-	@Column(name="IS_ATTENDEE")
 	public int getIsAttendee() {
 		return isAttendee;
 	}
