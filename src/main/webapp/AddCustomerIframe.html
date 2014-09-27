@@ -20,13 +20,13 @@
 		<label for="lastName"><em>*</em> Last Name:</label>
 		<input type="text" name="lastName" size="25" required/>
 		<br/>
-		<label for="street">Street:</label>
+		<label for="street"><em>*</em> Street:</label>
 		<input type="text" name="street" size="35" required/>
 		<br/>
-		<label for="city" >City:</label>
+		<label for="city" ><em>*</em> City:</label>
 		<input type="text" name="city" size="15" required/>
 		<br/>
-		<label for="state" >State:</label>
+		<label for="state" ><em>*</em> State:</label>
 		<select name="state">
 			<option value="MD">Maryland</option>
 			<option value="AL">Alabama</option>
@@ -81,11 +81,11 @@
 			<option value="WY">Wyoming</option>
 		</select>
 		<br/>
-		<label for="zip" >Zip:</label>
+		<label for="zip" ><em>*</em> Zip:</label>
 		<input type="text" name="zip" size="5" required/>
 		<br/>
-		<label for="phone" >Phone:</label>
-		<input type="text" name="phoneNumber" size="10" required/>
+		<label for="phone" ><em>*</em> Phone:</label>
+		<input type="text" name="phoneNumber" size="12" required/>
 		<br/>
 		<label for="numOfAdults" ><em>*</em> # of Adults:</label>
 		<input type="number" name="numOfAdults" id="numAdults" min="0" value="0" required/>
@@ -93,7 +93,7 @@
 		<label for="numOfKids" ><em>*</em> # of Kids:</label>
 		<input type="number" name="numOfKids" id="numKids" min="0" value="0" required/>
 		<br/>
-		<label for="ethnicity" >Ethnicity:</label>
+		<label for="ethnicity" ><em>*</em> Ethnicity:</label>
 		<select name="ethnicity">
 			<option value="African American">African American</option>
 			<option value="Asian">Asian</option>
@@ -102,14 +102,13 @@
 			<option value="Other">Other</option>
 		</select>
 		<br/>		
-		<label for="attendee" >BCC Attendee?</label>
+		<label for="attendee" ><em>*</em> BCC Attendee?</label>
 		<select id="attendee" name="attendee">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</select>
 		<br/>
-		<div id="serviceDiv">
-			
+		<div id="serviceDiv">			
 		</div>
 		<input type="button" value="Add Customer" id="addCustButton">
 	</form>

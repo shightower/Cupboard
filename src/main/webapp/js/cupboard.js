@@ -29,6 +29,8 @@ $(document).ready(function () {
         // Round the banner
         $('#content').corner('20px');
 		
+		$('#logo').corner('top 20px');
+		
 		$("#addCustFrame").fancybox({
 			title		: 'Customer Information',
 			maxWidth	: 450,

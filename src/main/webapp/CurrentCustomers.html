@@ -16,9 +16,9 @@
 <script type="text/javascript" src="js/customers.js"></script>
 </head>
 <body>
-<div id='content' class='content'>
+<div id='content' class='content centeredBlock'>
 	<!-- Common Content, do not change -->
-	<div class='logo'>
+	<div class='logo' id='logo'>
 	</div>
 	<div id='menuBar'>
 		<ul>
@@ -44,6 +44,7 @@
 			</li>
 		</ul>
 	</div>
+	<!-- End of Common Content -->
 	
 	<div class='titleDiv'>
 		<p id='pageTitle'>Current Customers</p>
@@ -54,12 +55,13 @@
 			<input type='button' id='searchButton' value='Search'/>
 		</center>
 	</div>
-	<!-- End of Common Content -->
 	
 	<div id="customersGrid" class="searchResults"></div>
 	<div id='clearSearchDiv' class="clearSearchDiv">
 		<input type='button' id='clearButton' value='Clear Search'/>
 	</div>
+	
+	<div class="bottomPadding">&nbsp</div>
 	
 	<div id="popupWindow">
 		<div>Edit Customer</div>

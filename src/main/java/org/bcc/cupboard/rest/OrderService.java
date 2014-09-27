@@ -270,7 +270,7 @@ public class OrderService {
 		try {
 			CustomerJpa customer = customerDao.findById(customerId);
 
-			// do not continue if we can't fine the customer
+			// do not continue if we can't find the customer
 			if(customer == null) {
 				throw new IllegalArgumentException("Invalid Customer Id");
 			}

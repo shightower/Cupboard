@@ -2,6 +2,13 @@ var ALL_PENDING_URL = 'rest/orders/pending/all';
 var COMPLETE_ORDER_URL = 'rest/orders/pending/complete';
 var COMPLETE_TEFAP_URL = 'rest/orders/pending/tefap/complete';
 var DELETE_URL = 'rest/orders/pending/remove';
+var REFRESH_RATE = 30000;
+
+function refresh() {
+	window.location.reload(true);
+}
+
+setTimeout(refresh, REFRESH_RATE);
 
 $(document).ready(function () {
 		// source of pending orders
@@ -60,7 +67,7 @@ $(document).ready(function () {
 		var editRow = -1;
 		// initialize pendingOrdersGrid
 		$("#pendingOrdersGrid").jqxGrid({
-			width: '55%',
+			width: 890,
 			source: dataAdapter,                
 			pageable: true,
 			autoheight: true,
@@ -69,7 +76,7 @@ $(document).ready(function () {
 			showsortmenuitems: true,
 			theme: theme,
 			columns: [
-			  { text: 'Order #', datafield: 'orderNumber', cellsalign: 'center', width: 60},
+			  { text: 'Order #', datafield: 'orderNumber', cellsalign: 'center', width: 80},
 			  { text: 'First Name', datafield: 'customerFirstName', align: 'center', width: 125},
 			  { text: 'Last Name', datafield: 'customerLastName', align: 'center', width: 150},
 			  { text: 'Order Date', datafield: 'orderDate', align: 'center', cellsformat: 'ddd M/dd/y hh:mm tt', width: 175},
@@ -251,7 +258,7 @@ function completeOrder(rowIndex) {
 		$("#orderNumber").val(dataRecord.orderNumber);
 		$("#firstName").val(dataRecord.customerFirstName);
 		$("#lastName").val(dataRecord.customerLastName);
-		$("#orderDate").val(dataRecord.orderDate);
+		$("#orderDate").val(formatDate(dataRecord.orderDate));
 		 
 		// show the popup window.
 		$("#popupOrder").jqxWindow('open');
@@ -288,7 +295,7 @@ function deletePendingOrder(orderNumber) {
 				layout: 'center',
 				type: 'error', 
 				text: '<h3>Unable to Remove Order</h3>',
-				timeout: 3000
+				timeout: 1500
 			});
 		}
 	});
@@ -310,4 +317,19 @@ function clearTefapPopup() {
 	$("#tefapDate").val('');
 	$("#tefapCount").val('');
 	$("#tefapWeight").val('');
+}
+
+function formatDate(date) {
+	var str = date.getMonth() + 1;
+	str += '/' + date.getDate();
+	str += '/' + date.getFullYear();
+	str += '  ' + date.getHours() % 12 == 0 ? 12 : date.getHours() % 12;
+	str += ':' + date.getMinutes();
+	
+	if(date.getHours() / 12 > 1) {
+		str += ' PM';
+	} else {
+		str += ' AM';
+	}
+	return str;	
 }

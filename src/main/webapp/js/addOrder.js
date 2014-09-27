@@ -83,14 +83,14 @@ $(document).ready(function () {
 		var source = {
 			datatype: "json",
 			datafields: [
-				{ name: 'orderNumber', type: 'int'},
+				{ name: 'id', type: 'int'},
 				{ name: 'firstName', type: 'string' },
 				{ name: 'lastName', type: 'int' },
 				{ name: 'phoneNumber', type: 'string' },
 				{ name: 'nextAvailableDate', type: 'date' }
 			],
 			root: 'data',
-			id: 'orderNumber',
+			id: 'id',
 			url: ALL_CUST_URL
 		};
 		
@@ -115,7 +115,7 @@ $(document).ready(function () {
 			altrows: true,
 			theme: theme,
 			columns: [
-			  { text: 'Order Number', datafield: 'orderNumber', hidden: true},
+			  { text: 'Order Number', datafield: 'id', hidden: true},
 			  { text: 'First Name', datafield: 'firstName', filterable: true, align: 'center', width: 120, },
 			  { text: 'Last Name', datafield: 'lastName', filterable: true, align: 'center', width: 145 },
 			  { text: 'Phone Number', datafield: 'phoneNumber', align: 'center', width: 125 },
@@ -132,8 +132,13 @@ $(document).ready(function () {
 						 // get the clicked row's data and initialize the input fields.
 						 var dataRecord = $("#addOrderGrid").jqxGrid('getrowdata', selectedCustomer);
 						 
-						 //ajax call to create new order
-						 submitNewOrder(dataRecord.orderNumber, ADD_ORDER_URL);
+						 //ajax call to create new order						 
+						 if(checkNextAvailableDate(dataRecord.nextAvailableDate)) {
+							//ajax call to create new order
+							submitNewOrder(dataRecord.id, ADD_ORDER_URL);
+						 } else {
+							selectedCustomer = -1;
+						 }
 					} else {
 						selectedCustomer = -1;
 					}				 
@@ -151,8 +156,12 @@ $(document).ready(function () {
 						 // get the clicked row's data and initialize the input fields.
 						 var dataRecord = $("#addOrderGrid").jqxGrid('getrowdata', selectedCustomer);
 						 
-						 //ajax call to create new order
-						 submitNewOrder(dataRecord.orderNumber, ADD_TEFAP_ORDER_URL);
+						 if(checkNextAvailableDate(dataRecord.nextAvailableDate)) {
+							//ajax call to create new order
+							submitNewOrder(dataRecord.id, ADD_TEFAP_ORDER_URL);
+						 } else {
+							selectedCustomer = -1;
+						 }
 					} else {
 						selectedCustomer = -1;
 					}				 
@@ -162,7 +171,29 @@ $(document).ready(function () {
 		});				
 });
 
+function checkNextAvailableDate(nextAvailableDate) {
+	//check to make sure the customer is not attempting an order before their
+	//next available date
+	if(nextAvailableDate == null) {
+		return true;
+	} else {
+		//zero out minutes and seconds for dates as we only care about the month and day
+		nextAvailableDate = compactDate(nextAvailableDate);
+		var currentDate = compactDate(new Date());
+		
+		if(nextAvailableDate > currentDate) {
+			var r = confirm("It's too soon for customer's next available order.\nWould you like to override this alert and continue anyways?");
+			if(r == true) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+}
+
 function submitNewOrder(customerId, path) {
+	
 	var params = 'customerId=';
 	params += customerId;
 	
@@ -193,4 +224,12 @@ function submitNewOrder(customerId, path) {
 			});
 		}
 	});
+}
+
+function compactDate(date) {
+	date.setHours(0);
+	date.setMinutes(0);
+	date.setSeconds(0);
+	date.setMilliseconds(0);
+	return date;
 }

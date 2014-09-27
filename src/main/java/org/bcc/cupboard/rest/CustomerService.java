@@ -43,8 +43,8 @@ public class CustomerService {
 			@QueryParam("zip") String zip,
 			@QueryParam("numOfKids")  String numOfKids,
 			@QueryParam("numOfAdults") String numOfAdults,
-			@QueryParam("phone")  String phone,
-			@QueryParam("race") String race,
+			@QueryParam("phoneNumber")  String phoneNumber,
+			@QueryParam("ethnicity") String ethnicity,
 			@QueryParam("attendee") int attendee,
 			@QueryParam("service") String service) {
 		ResponseBuilder rb = Response.status(Status.OK);
@@ -59,10 +59,15 @@ public class CustomerService {
 			customerJpa.setZip(zip);
 			customerJpa.setNumOfAdults(Integer.valueOf(numOfAdults));
 			customerJpa.setNumOfKids(Integer.valueOf(numOfKids));
-			customerJpa.setPhoneNumber(phone);
-			customerJpa.setEthnicity(race);
+			customerJpa.setPhoneNumber(phoneNumber);
+			customerJpa.setEthnicity(ethnicity);
 			customerJpa.setIsAttendee(attendee);
-			customerJpa.setService(service);
+			
+			if(0 == attendee) {
+				customerJpa.setService("N/A");
+			} else {
+				customerJpa.setService(service);
+			}
 			
 			customerDao.persist(customerJpa);
 			rb.entity("Successfully Added New Customer");
@@ -164,7 +169,7 @@ public class CustomerService {
 			@QueryParam("numOfKids") String numOfKids,
 			@QueryParam("numOfAdults") String numOfAdults,
 			@QueryParam("phoneNumber") String phone,
-			@QueryParam("race") String race,
+			@QueryParam("ethnicity") String ethnicity,
 			@QueryParam("isAttendee") int attendee,
 			@QueryParam("service") String service) {
 		ResponseBuilder rb = Response.status(Status.OK);
@@ -182,7 +187,7 @@ public class CustomerService {
 				customerJpa.setNumOfAdults(Integer.valueOf(numOfAdults));
 				customerJpa.setNumOfKids(Integer.valueOf(numOfKids));
 				customerJpa.setPhoneNumber(phone);
-				customerJpa.setEthnicity(race);
+				customerJpa.setEthnicity(ethnicity);
 				customerJpa.setIsAttendee(attendee);
 				customerJpa.setService(service);
 				

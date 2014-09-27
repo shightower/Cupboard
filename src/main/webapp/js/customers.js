@@ -2,10 +2,8 @@ var ALL_CUST_URL = 'rest/customer/all';
 var SEARCH_BY_NAME_URL = 'rest/customer/search/name';
 var EDIT_URL = 'rest/customer/update';
 
-var lastNameFilterGroup = new $.jqx.filter();
-var firstNameFilterGroup = new $.jqx.filter();
 var filterCondition = 'contains';
-var or_filter_operator = 1;
+var or_filter_operator = 0;
 
 $(document).ready(function () {
 		//initially hide the clear filter div
@@ -18,46 +16,13 @@ $(document).ready(function () {
 			width: 100,
 			theme: theme
 		});
+		
+		$('#searchBox').keyup(function() {
+			applyFilter();
+		});
 
 		$('#searchButton').click(function() {
-			var searchValue = $('#searchBox').val();
-			var firstName = '';
-			var lastName = '';
-			
-			if(searchValue != null && searchValue != "") {
-				var names = searchValue.split(' ');
-				
-				if(names.length == 1) {
-					lastName = names[0];
-					
-					var lastNameFilter = lastNameFilterGroup.createfilter('stringfilter', lastName, filterCondition);
-					lastNameFilterGroup.addfilter(or_filter_operator, lastNameFilter);
-					$('#customersGrid').jqxGrid('addfilter', 'lastName', lastNameFilterGroup);
-					$('#customersGrid').jqxGrid('applyFilters');
-				} else {
-					firstName = names[0];
-					lastName = names[1];
-
-					var lastNameFilter = lastNameFilterGroup.createfilter('stringfilter', lastName, filterCondition);
-					lastNameFilterGroup.addfilter(or_filter_operator, lastNameFilter);
-					
-					var firstNameFilter = firstNameFilterGroup.createfilter('stringfilter', firstName, filterCondition);
-					firstNameFilterGroup.addfilter(or_filter_operator, firstNameFilter);
-					
-					$('#customersGrid').jqxGrid('addfilter', 'firstName', firstNameFilterGroup);
-					$('#customersGrid').jqxGrid('applyFilters');
-				}
-				
-				//show the clear filter option
-				$('#clearSearchDiv').show();								
-			} else {
-				var n = noty({
-						layout: 'center',
-						type: 'error', 
-						text: '<h3>Provide a Search Value</h3>',
-						timeout: 2500
-					});
-			}
+			applyFilter();
 		});
 		
 		$('#clearButton').jqxButton({
@@ -69,6 +34,7 @@ $(document).ready(function () {
 			$("#customersGrid").jqxGrid('removefilter', 'firstName');
 			$("#customersGrid").jqxGrid('removefilter', 'lastName');
 			$("#customersGrid").jqxGrid('applyfilters');
+			$('#searchBox').html('');
 			$('#clearSearchDiv').hide();
 		});
 		
@@ -115,7 +81,7 @@ $(document).ready(function () {
 		$("#state").height(defaultHeight);
 		$("#zip").width(75);
 		$("#zip").height(defaultHeight);
-		$("#phoneNumber").width(75);
+		$("#phoneNumber").width(100);
 		$("#phoneNumber").height(defaultHeight);
 		$("#ethnicity").width(100);
 		$("#ethnicity").height(defaultHeight);
@@ -141,7 +107,7 @@ $(document).ready(function () {
 		var editRow = -1;
 		// initialize jqxGrid
 		$("#customersGrid").jqxGrid({
-			width: '65%',
+			width: 1310,
 			source: dataAdapter,                
 			pageable: true,
 			autoheight: true,
@@ -159,9 +125,9 @@ $(document).ready(function () {
 			  { text: 'State', datafield: 'state', align: 'center',  width: 60, cellsalign: 'center'  },
 			  { text: 'Zip', datafield: 'zip', align: 'center',  width: 60, cellformat: 'n', cellsalign: 'center'  },
 			  { text: 'Adults', datafield: 'numOfAdults', align: 'center', width: 75, cellsalign: 'center'  },
-			  { text: 'Kids', datafield: 'numOfKids', align: 'center', width: 75, cellsalign: 'center' },
-			  { text: 'Ethnicity', datafield: 'ethnicity', align: 'center', width: 75, cellsalign: 'center' },
-			  { text: 'BCC Attendee', datafield: 'isAttendee', columntype: 'checkbox', align: 'center', width: 75, cellsalign: 'center' },
+			  { text: 'Kids', datafield: 'numOfKids', align: 'center', width: 65, cellsalign: 'center' },
+			  { text: 'Ethnicity', datafield: 'ethnicity', align: 'center', width: 150, cellsalign: 'center' },
+			  { text: 'BCC Attendee', datafield: 'isAttendee', columntype: 'checkbox', align: 'center', width: 110, cellsalign: 'center' },
 			  { text: 'Service', datafield: 'service', align: 'center', width: 75, cellsalign: 'center' }
 			]
 		});
@@ -265,6 +231,49 @@ $(document).ready(function () {
 			});
 		});		
 });
+
+function applyFilter() {
+	var lastNameFilterGroup = new $.jqx.filter();
+	var firstNameFilterGroup = new $.jqx.filter();
+	var searchValue = $('#searchBox').val();
+	var firstName = '';
+	var lastName = '';
+	
+	if(searchValue != null && searchValue != "") {
+		var names = searchValue.split(' ');
+		
+		if(names.length == 1) {
+			lastName = names[0];
+			
+			var lastNameFilter = lastNameFilterGroup.createfilter('stringfilter', lastName, filterCondition);
+			lastNameFilterGroup.addfilter(or_filter_operator, lastNameFilter);
+			$('#customersGrid').jqxGrid('addfilter', 'lastName', lastNameFilterGroup);
+			$('#customersGrid').jqxGrid('applyFilters');
+		} else {
+			firstName = names[0];
+			lastName = names[1];
+
+			var lastNameFilter = lastNameFilterGroup.createfilter('stringfilter', lastName, filterCondition);
+			lastNameFilterGroup.addfilter(or_filter_operator, lastNameFilter);
+			
+			var firstNameFilter = firstNameFilterGroup.createfilter('stringfilter', firstName, filterCondition);
+			firstNameFilterGroup.addfilter(or_filter_operator, firstNameFilter);
+			
+			$('#customersGrid').jqxGrid('addfilter', 'firstName', firstNameFilterGroup);
+			$('#customersGrid').jqxGrid('applyFilters');
+		}
+		
+		//show the clear filter option
+		$('#clearSearchDiv').show();								
+	} else {
+		var n = noty({
+				layout: 'center',
+				type: 'error', 
+				text: '<h3>Provide a Search Value</h3>',
+				timeout: 2500
+			});
+	}
+}
 
 function setSelectedIndex(id, value) {
 	var s = document.getElementById(id);

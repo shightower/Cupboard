@@ -41,11 +41,11 @@ public class OrderJpa implements Serializable, Order {
 	@Column(name="PENDING_ORDER", nullable = false)
 	private int isPending;
 	
-	@Column(name="ORDER_TYPE, nullable = false")
+	@Column(name="ORDER_TYPE", nullable = false)
 	private String orderType;
 
 	@ManyToOne(targetEntity=CustomerJpa.class, fetch=FetchType.EAGER)
-	@JoinColumn(name="CUS_NUM")
+	@JoinColumn(name="CUS_NUM", nullable = false)
 	private CustomerJpa customer;
 	
 	public OrderJpa() {

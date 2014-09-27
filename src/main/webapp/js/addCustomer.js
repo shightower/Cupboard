@@ -13,7 +13,7 @@ $(document).ready(function () {
 			if(this.value === YES) {
 				$('#serviceDiv').html(htmlStr);
 			} else {
-				$('#serviceDiv').html('');
+				$('#serviceDiv').html('N/A');
 			}
 		});
 		

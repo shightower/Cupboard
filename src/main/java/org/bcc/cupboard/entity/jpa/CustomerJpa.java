@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import org.bcc.cupboard.entity.Customer;
 
 @Entity
-@Table(name = "CUSTOMER")
+@Table(name = "CUSTOMERS")
 public class CustomerJpa implements Serializable, Customer {
 	private static final long serialVersionUID = 5808450971871741014L;
 	
@@ -44,7 +44,7 @@ public class CustomerJpa implements Serializable, Customer {
 	@Column(name="CUS_ZIP", nullable = false)
 	private String zip;	
 	
-	@Column(name="CUS_PHONE")
+	@Column(name="CUS_PHONE", nullable = false)
 	private String phoneNumber;	
 	
 	@Column(name="CUS_NUM_ADULT", nullable = false)
@@ -65,10 +65,10 @@ public class CustomerJpa implements Serializable, Customer {
 	@Column(name="ETHNICITY", nullable = false)
 	private String ethnicity;
 	
-	@Column(name="Service")
+	@Column(name="Service", nullable = false)
 	private String service;	
 
-	@Column(name="IS_ATTENDEE")
+	@Column(name="IS_ATTENDEE", nullable = false)
 	private int isAttendee;
 	
 	public CustomerJpa() {
