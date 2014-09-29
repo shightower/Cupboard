@@ -195,23 +195,21 @@ public class OrderService {
 	@GET
 	@Path("report/regular")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response generateRegularOrderReport(@QueryParam("startDate") Date startDate, @QueryParam("endStart") Date endDate) {
+	public Response generateRegularOrderReport(@QueryParam("startDate") Date startDate, @QueryParam("endDate") Date endDate) {
 		ResponseBuilder rb = Response.status(Status.OK);
-		DateTime now = DateTime.now();
-		DateTime then = now.minusDays(120);
 		
 		try {
 			ReportDto reportDto = new ReportDto();
-			List<OrderJpa> orders = orderDao.generateOrderReport(then.toDate(), now.toDate());
+			List<OrderJpa> orders = orderDao.generateOrderReport(startDate, endDate);
 			
 			int familyTotal = orders.size();
-			int weightTotal = sum(orders, on(OrderJpa.class).getOrderWeight());
-			int totalAdults = sum(orders, on(OrderJpa.class).getCustomer().getNumOfAdults());
-			int totalKids = sum(orders, on(OrderJpa.class).getCustomer().getNumOfKids());
+			Number weightTotal = sum(orders, on(OrderJpa.class).getOrderWeight());
+			Number totalAdults = sum(orders, on(OrderJpa.class).getCustomer().getNumOfAdults());
+			Number totalKids = sum(orders, on(OrderJpa.class).getCustomer().getNumOfKids());
 			reportDto.setTotalFamilies(familyTotal);
-			reportDto.setTotalPounds(weightTotal);
-			reportDto.setTotalAdults(totalAdults);
-			reportDto.setTotalKids(totalKids);
+			reportDto.setTotalPounds(weightTotal.intValue());
+			reportDto.setTotalAdults(totalAdults.intValue());
+			reportDto.setTotalKids(totalKids.intValue());
 			
 			//Determine Totals based on race
 			Group<OrderJpa> groupedByEthnicity = group(orders, by(on(OrderJpa.class).getCustomer().getEthnicity()));			

@@ -59,6 +59,13 @@ public class CustomerService {
 			customerJpa.setZip(zip);
 			customerJpa.setNumOfAdults(Integer.valueOf(numOfAdults));
 			customerJpa.setNumOfKids(Integer.valueOf(numOfKids));
+			
+			if(!phoneNumber.contains("-")) {
+				StringBuilder sb = new StringBuilder(phoneNumber);
+				sb.insert(3, "-");
+				sb.insert(7, "-");
+			}
+			
 			customerJpa.setPhoneNumber(phoneNumber);
 			customerJpa.setEthnicity(ethnicity);
 			customerJpa.setIsAttendee(attendee);
@@ -168,7 +175,7 @@ public class CustomerService {
 			@QueryParam("zip") String zip,
 			@QueryParam("numOfKids") String numOfKids,
 			@QueryParam("numOfAdults") String numOfAdults,
-			@QueryParam("phoneNumber") String phone,
+			@QueryParam("phoneNumber") String phoneNumber,
 			@QueryParam("ethnicity") String ethnicity,
 			@QueryParam("isAttendee") int attendee,
 			@QueryParam("service") String service) {
@@ -186,7 +193,14 @@ public class CustomerService {
 				customerJpa.setZip(zip);
 				customerJpa.setNumOfAdults(Integer.valueOf(numOfAdults));
 				customerJpa.setNumOfKids(Integer.valueOf(numOfKids));
-				customerJpa.setPhoneNumber(phone);
+				
+				if(!phoneNumber.contains("-")) {
+					StringBuilder sb = new StringBuilder(phoneNumber);
+					sb.insert(3, "-");
+					sb.insert(7, "-");
+				}
+				
+				customerJpa.setPhoneNumber(phoneNumber);
 				customerJpa.setEthnicity(ethnicity);
 				customerJpa.setIsAttendee(attendee);
 				customerJpa.setService(service);

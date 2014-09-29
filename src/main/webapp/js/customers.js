@@ -77,13 +77,13 @@ $(document).ready(function () {
 		$("#street").height(defaultHeight);
 		$("#city").width(100);
 		$("#city").height(defaultHeight);
-		$("#state").width(100);
+		$("#state").width(125);
 		$("#state").height(defaultHeight);
 		$("#zip").width(75);
 		$("#zip").height(defaultHeight);
 		$("#phoneNumber").width(100);
 		$("#phoneNumber").height(defaultHeight);
-		$("#ethnicity").width(100);
+		$("#ethnicity").width(150);
 		$("#ethnicity").height(defaultHeight);
 		$("#isAttendee").width(75);
 		$("#isAttendee").height(defaultHeight);
@@ -107,7 +107,7 @@ $(document).ready(function () {
 		var editRow = -1;
 		// initialize jqxGrid
 		$("#customersGrid").jqxGrid({
-			width: 1310,
+			width: '75%',
 			source: dataAdapter,                
 			pageable: true,
 			autoheight: true,
@@ -118,17 +118,13 @@ $(document).ready(function () {
 			columns: [
 			  { text: 'Id', datafield: 'id', hidden: true},
 			  { text: 'First Name', datafield: 'firstName', filterable: true, align: 'center', width: 120, pinned: true },
-			  { text: 'Last Name', datafield: 'lastName', filterable: true, align: 'center', width: 145, pinned: true },
+			  { text: 'Last Name', datafield: 'lastName', filterable: true, align: 'center', width: 140, pinned: true },
 			  { text: 'Phone Number', datafield: 'phoneNumber', align: 'center', width: 125 },
-			  { text: 'Street', datafield: 'street', align: 'center', minwidth: 200},
+			  { text: 'Street', datafield: 'street', align: 'center', minwidth: 250},
 			  { text: 'City', datafield: 'city', align: 'center', width: 125  },
-			  { text: 'State', datafield: 'state', align: 'center',  width: 60, cellsalign: 'center'  },
-			  { text: 'Zip', datafield: 'zip', align: 'center',  width: 60, cellformat: 'n', cellsalign: 'center'  },
 			  { text: 'Adults', datafield: 'numOfAdults', align: 'center', width: 75, cellsalign: 'center'  },
 			  { text: 'Kids', datafield: 'numOfKids', align: 'center', width: 65, cellsalign: 'center' },
-			  { text: 'Ethnicity', datafield: 'ethnicity', align: 'center', width: 150, cellsalign: 'center' },
-			  { text: 'BCC Attendee', datafield: 'isAttendee', columntype: 'checkbox', align: 'center', width: 110, cellsalign: 'center' },
-			  { text: 'Service', datafield: 'service', align: 'center', width: 75, cellsalign: 'center' }
+			  { text: 'BCC Attendee', datafield: 'isAttendee', columntype: 'checkbox', align: 'center', width: 110, cellsalign: 'center' }
 			]
 		});
 		
@@ -165,7 +161,7 @@ $(document).ready(function () {
 		
 		$('#popupWindow').jqxWindow({
 			width: 400,
-			height: 550,
+			height: 650,
 			resizable: false,
 			isModal: true,
 			autoOpen: false,

@@ -36,9 +36,9 @@
 			</li>
 			<li>Reports
 				<ul>
-					<li><a href="">Custom</a></li>
-					<li><a href="">Monthly</a></li>
-					<li><a href="">Yearly</a></li>
+					<li><a href="customReport.html">Custom</a></li>
+					<li><a href="monthlyReport.html">Monthly</a></li>
+					<li><a href="yearlyReport.html">Yearly</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -49,33 +49,47 @@
 	</div>
 	<!-- End of Common Content <div id='bccMemberChart' class="pieChartDiv"></div>-->
 	
-	<table class="reportSummaryTable">
-		<th colspan="2"><h2>Report for 01/01/2014 - 01/31/2014</h2></th>
-		<tr>
-			<td>Total Families Served:</td>
-			<td>Total Weight:</td>
-		</tr>
-		<tr>
-			<td>Total BCC Members Served:</td>
-			<td>Total Non-BCC Members Served:</td>
-		</tr>
-		<tr>
-			<td>Total Adults Served:</td>
-			<td>Total Kids Served:</td>
-		</tr>
-	</table>
+	<div style="width: 600px;" class="centeredBlock">
+		<div id="startDateSelection" class="inlineBlock"></div>
+		<h1 class="inlineBlock" style="font-size: 1.5em;" > - To - </h1>
+		<div id="endDateSelection" class="inlineBlock"></div>
+		<br/>
+	</div>
 	
-	<table class="tableOfGraphs">
-		<tr>
-			<td id='bccMemberChart'/>
-			<td id='personsChart' />
-		</tr>
-		<tr>
-			<td id='attendeeChart' />
-			<td id='bccServiceChart' />
-		</tr>
-	</table>
+	<div style="width: 220px;" class="centeredBlock">
+		<input type="button" value="Generate Report" id="generateReportButton"/>
+	</div>
 	
+	<div class="bottomPadding">&nbsp</div>	
+	
+	<div id="reportSummaryDiv">
+		<table class="reportSummaryTable">
+			<th colspan="2"><u><center>Regular Order Summary</center></u></th>
+			<tr>
+				<td id="totalFamilies"></td>
+				<td id="totalWeight"></td>
+			</tr>
+			<tr>
+				<td id="totalBccAttendees"></td>
+				<td id="totalNonBccAttendees"></td>
+			</tr>
+			<tr>
+				<td id="totalAdults"></td>
+				<td id="totalKids"></td>
+			</tr>
+		</table>
+		
+		<table class="tableOfGraphs">
+			<tr>
+				<td id='bccMemberChart'/>
+				<td id='personsChart' />
+			</tr>
+			<tr>
+				<td id='attendeeChart' />
+				<td id='bccServiceChart' />
+			</tr>
+		</table>
+	</div>
 </div>
 </body>
 </html>
