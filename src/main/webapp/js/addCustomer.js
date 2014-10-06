@@ -29,10 +29,12 @@ $(document).ready(function () {
 						layout: 'centerLeft',
 						type: 'success', 
 						text: '<h3>Added Customer</h3>',
-						timeout: 3000
+						timeout: 1500
 					});						
 					
 					$('#addCustForm').find('input[type=text]').val('');
+					$('#state').val('Maryland');
+					$('#addCustForm').find('input[type=number]').val(0);
 				},
 				error: function(xhr, status) {
 					alert('failure. \n' + xhr);

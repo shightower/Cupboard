@@ -3,17 +3,14 @@
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 2em;
+	background: url('../images/table_bg.png');
+	background-size: auto;
 }
 
 .reportSummaryTable td {
 	border: 1px solid black;
-	text-align: left;
 	width: 50%;
 	font-size: 1.5em;
-}
-
-.reportSummaryTable th {
-	font-size: 2em;
 }
 
 .tableOfGraphs {
@@ -30,4 +27,3 @@
 .tableOfGraphs td {
 	width: 50%;
 }
-

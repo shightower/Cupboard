@@ -199,59 +199,7 @@ public class OrderService {
 		ResponseBuilder rb = Response.status(Status.OK);
 		
 		try {
-			ReportDto reportDto = new ReportDto();
-			List<OrderJpa> orders = orderDao.generateOrderReport(startDate, endDate);
-			
-			int familyTotal = orders.size();
-			Number weightTotal = sum(orders, on(OrderJpa.class).getOrderWeight());
-			Number totalAdults = sum(orders, on(OrderJpa.class).getCustomer().getNumOfAdults());
-			Number totalKids = sum(orders, on(OrderJpa.class).getCustomer().getNumOfKids());
-			reportDto.setTotalFamilies(familyTotal);
-			reportDto.setTotalPounds(weightTotal.intValue());
-			reportDto.setTotalAdults(totalAdults.intValue());
-			reportDto.setTotalKids(totalKids.intValue());
-			
-			//Determine Totals based on race
-			Group<OrderJpa> groupedByEthnicity = group(orders, by(on(OrderJpa.class).getCustomer().getEthnicity()));			
-			for(String race : groupedByEthnicity.keySet()){
-				EthnicityReportDto ethnicityReport = new EthnicityReportDto();
-				ethnicityReport.setEthnicity(race);
-				
-				List<OrderJpa> raceGroup = groupedByEthnicity.find(race);
-				ethnicityReport.setTotal(raceGroup.size());
-				reportDto.addRaceReports(ethnicityReport);
-			}
-			
-			//Determine totals based of if they attend Bridgeway
-			Group<OrderJpa> groupedByAttendee = group(orders, by(on(OrderJpa.class).getCustomer().getIsAttendee()));
-			List<OrderJpa> nonBccAttendees = groupedByAttendee.find(0);
-			List<OrderJpa> bccAttendees = groupedByAttendee.find(1);
-			reportDto.setTotalBccAttendees(bccAttendees.size());
-			reportDto.setTotalNonBccAttendees(nonBccAttendees.size());
-			
-			
-			//Determine totals based on which service the customer attends
-			Group<OrderJpa> groupedByService = group(orders, by(on(OrderJpa.class).getCustomer().getService()));			
-			for(String service : groupedByService.keySet()) {
-				BccServiceReportDto serviceDto = new BccServiceReportDto();
-				List<OrderJpa> serviceGroup = groupedByService.find(service);
-				serviceDto.setService(service);
-				serviceDto.setTotal(serviceGroup.size());
-				reportDto.addBccServiceReport(serviceDto);
-			}
-			
-			//Converts JPAs to Beans
-			List<OrderBean> beans = new ArrayList<OrderBean>();
-			for(OrderJpa jpa : orders) {
-				OrderBean bean = new OrderBean(jpa);
-				beans.add(bean);
-			}
-			
-			EntityWrapper<ReportDto> wrapper = new EntityWrapper<ReportDto>();
-			List<ReportDto> reports = new ArrayList<ReportDto>();
-			reports.add(reportDto);
-			wrapper.setEntities(reports);
-			wrapper.setResultCount(reports.size());
+			EntityWrapper<ReportDto> wrapper = generateReport(startDate, endDate, false);
 			rb.entity(wrapper);
 		} catch(Exception ex) {
 			Log.error("Error generating regular order report", ex);
@@ -260,6 +208,90 @@ public class OrderService {
 		}
 		
 		return rb.build();
+	}
+	
+	@GET
+	@Path("report/tefap")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response generateTefapOrderReport(@QueryParam("startDate") Date startDate, @QueryParam("endDate") Date endDate) {
+		ResponseBuilder rb = Response.status(Status.OK);
+		
+		try {
+			EntityWrapper<ReportDto> wrapper = generateReport(startDate, endDate, true);
+			rb.entity(wrapper);
+		} catch(Exception ex) {
+			Log.error("Error generating regular order report", ex);
+			rb = Response.status(Status.BAD_REQUEST);
+			rb.entity("Error generating regular order report");
+		}
+		
+		return rb.build();
+	}
+	
+	public EntityWrapper<ReportDto> generateReport(Date startDate, Date endDate, boolean isTefapReport) {
+		
+		ReportDto reportDto = new ReportDto();
+		List<OrderJpa> orders = new ArrayList<OrderJpa>();
+		
+		if(isTefapReport) {
+			orders = orderDao.generateTefapReport(startDate, endDate);
+		} else {
+			orders = orderDao.generateOrderReport(startDate, endDate);
+		}
+
+		int familyTotal = orders.size();
+		Number weightTotal = sum(orders, on(OrderJpa.class).getOrderWeight());
+		Number totalAdults = sum(orders, on(OrderJpa.class).getCustomer().getNumOfAdults());
+		Number totalKids = sum(orders, on(OrderJpa.class).getCustomer().getNumOfKids());
+		Number totalTefapCount = sum(orders, on(OrderJpa.class).getTefapCount());
+		reportDto.setTotalFamilies(familyTotal);
+		reportDto.setTotalPounds(weightTotal.intValue());
+		reportDto.setTotalAdults(totalAdults.intValue());
+		reportDto.setTotalKids(totalKids.intValue());
+		reportDto.setTotalTefapCount(totalTefapCount.longValue());
+
+		//Determine Totals based on race
+		Group<OrderJpa> groupedByEthnicity = group(orders, by(on(OrderJpa.class).getCustomer().getEthnicity()));			
+		for(String race : groupedByEthnicity.keySet()){
+			EthnicityReportDto ethnicityReport = new EthnicityReportDto();
+			ethnicityReport.setEthnicity(race);
+
+			List<OrderJpa> raceGroup = groupedByEthnicity.find(race);
+			ethnicityReport.setTotal(raceGroup.size());
+			reportDto.addRaceReports(ethnicityReport);
+		}
+
+		//Determine totals based of if they attend Bridgeway
+		Group<OrderJpa> groupedByAttendee = group(orders, by(on(OrderJpa.class).getCustomer().getIsAttendee()));
+		List<OrderJpa> nonBccAttendees = groupedByAttendee.find(0);
+		List<OrderJpa> bccAttendees = groupedByAttendee.find(1);
+		reportDto.setTotalBccAttendees(bccAttendees.size());
+		reportDto.setTotalNonBccAttendees(nonBccAttendees.size());
+
+
+		//Determine totals based on which service the customer attends
+		Group<OrderJpa> groupedByService = group(orders, by(on(OrderJpa.class).getCustomer().getService()));			
+		for(String service : groupedByService.keySet()) {
+			BccServiceReportDto serviceDto = new BccServiceReportDto();
+			List<OrderJpa> serviceGroup = groupedByService.find(service);
+			serviceDto.setService(service);
+			serviceDto.setTotal(serviceGroup.size());
+			reportDto.addBccServiceReport(serviceDto);
+		}
+
+		//Converts JPAs to Beans
+		List<OrderBean> beans = new ArrayList<OrderBean>();
+		for(OrderJpa jpa : orders) {
+			OrderBean bean = new OrderBean(jpa);
+			beans.add(bean);
+		}
+
+		EntityWrapper<ReportDto> wrapper = new EntityWrapper<ReportDto>();
+		List<ReportDto> reports = new ArrayList<ReportDto>();
+		reports.add(reportDto);
+		wrapper.setEntities(reports);
+		wrapper.setResultCount(reports.size());
+		return wrapper;
 	}
 	
 	private Response createNewOrder(int customerId, String orderType) {

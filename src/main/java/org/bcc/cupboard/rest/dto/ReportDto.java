@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ReportDto implements Serializable {
 	private static final long serialVersionUID = -3164787108473530740L;
 
+	private long totalTefapCount;
 	private long totalFamilies;
 	private long totalKids;
 	private long totalAdults;
@@ -94,6 +95,14 @@ public class ReportDto implements Serializable {
 
 	public void setRaceReports(List<EthnicityReportDto> raceReports) {
 		this.raceReports = raceReports;
+	}
+
+	public long getTotalTefapCount() {
+		return totalTefapCount;
+	}
+
+	public void setTotalTefapCount(long totalTefapCount) {
+		this.totalTefapCount = totalTefapCount;
 	}
 	
 }

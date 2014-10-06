@@ -13,6 +13,7 @@
 <script type="text/javascript" src="js/jqx-all.js"></script>
 <script type="text/javascript" src="js/cupboard.js"></script>
 <script type="text/javascript" src="js/reports.js"></script>
+<script type="text/javascript" src="js/tefapReport.js"></script>
 </head>
 <body>
 <div id='content' class='content centeredBlock'>
@@ -25,7 +26,7 @@
 			<li>Customers
 				<ul>
 					<li><a id="addCustFrame" data-fancybox-type="iframe" href="AddCustomerIframe.html">New</a></li>
-					<li><a href="#">Current</a></li>
+					<li><a href="CurrentCustomers.html">Current</a></li>
 				</ul>
 			</li>
 			<li>Orders
@@ -36,9 +37,8 @@
 			</li>
 			<li>Reports
 				<ul>
-					<li><a href="customReport.html">Custom</a></li>
-					<li><a href="monthlyReport.html">Monthly</a></li>
-					<li><a href="yearlyReport.html">Yearly</a></li>
+					<li><a href="regularReport.html">Regular Report</a></li>
+					<li><a href="#">TEFAP Report</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -57,14 +57,19 @@
 	</div>
 	
 	<div style="width: 220px;" class="centeredBlock">
-		<input type="button" value="Generate Report" id="generateReportButton"/>
+		<input type="button" value="Generate Report" id="generateTefapReportButton"/>
 	</div>
 	
 	<div class="bottomPadding">&nbsp</div>	
 	
 	<div id="reportSummaryDiv">
 		<table class="reportSummaryTable">
-			<th colspan="2"><u><center>Regular Order Summary</center></u></th>
+			<tr>
+				<td colspan="2" style="text-align: center;">TEFAP Order Summary</td>
+			</tr>
+			<tr>
+				<td id="totalTefapCount"></td>
+			</tr>
 			<tr>
 				<td id="totalFamilies"></td>
 				<td id="totalWeight"></td>
@@ -79,6 +84,7 @@
 			</tr>
 		</table>
 		
+		<!--
 		<table class="tableOfGraphs">
 			<tr>
 				<td id='bccMemberChart'/>
@@ -89,7 +95,10 @@
 				<td id='bccServiceChart' />
 			</tr>
 		</table>
+		-->
 	</div>
+	
+	<div class="bottomPadding">&nbsp</div>
 </div>
 </body>
 </html>

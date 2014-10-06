@@ -34,10 +34,9 @@ $(document).ready(function () {
 		$("#addCustFrame").fancybox({
 			title		: 'Customer Information',
 			maxWidth	: 450,
-			maxHeight	: 450,
 			fitToView	: false,
 			width		: '40%',
-			height		: '50%',
+			height		: '75%',
 			autoSize	: false,
 			closeClick	: false,
 			openEffect	: 'elastic',

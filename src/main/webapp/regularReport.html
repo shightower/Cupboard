@@ -1,0 +1,101 @@
+<html>
+<head>
+<title></title>
+<link rel="stylesheet" href="css/jqx.base.css" type="text/css"/>
+<link rel="stylesheet" href="css/jqx.ui-sunny.css" type="text/css"/>
+<link rel="stylesheet" href="css/reports.css" type="text/css"/>
+<link rel="stylesheet" href="css/cupboard.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.corner.js"></script>
+<script type="text/javascript" src="js/jquery.noty.packaged.min.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="js/jqx-all.js"></script>
+<script type="text/javascript" src="js/cupboard.js"></script>
+<script type="text/javascript" src="js/reports.js"></script>
+<script type="text/javascript" src="js/regularReport.js"></script>
+</head>
+<body>
+<div id='content' class='content centeredBlock'>
+	<!-- Common Content, do not change -->
+	<div class='logo' id='logo'>
+	</div>
+	<div id='menuBar'>
+		<ul>
+			<li><a href="index.html">Welcome</a></li>
+			<li>Customers
+				<ul>
+					<li><a id="addCustFrame" data-fancybox-type="iframe" href="AddCustomerIframe.html">New</a></li>
+					<li><a href="CurrentCustomers.html">Current</a></li>
+				</ul>
+			</li>
+			<li>Orders
+				<ul>
+					<li><a href="AddOrder.html">Add</a></li>
+					<li><a href="PendingOrders.html">Pending</a></li>
+				</ul>
+			</li>
+			<li>Reports
+				<ul>
+					<li><a href="#">Regular Report</a></li>
+					<li><a href="tefapReport.html">TEFAP Report</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	
+	<div class='titleDiv'>
+		<p id='pageTitle'>Cupboard Report Summary</p>
+	</div>
+	<!-- End of Common Content <div id='bccMemberChart' class="pieChartDiv"></div>-->
+	
+	<div style="width: 600px;" class="centeredBlock">
+		<div id="startDateSelection" class="inlineBlock"></div>
+		<h1 class="inlineBlock" style="font-size: 1.5em;" > - To - </h1>
+		<div id="endDateSelection" class="inlineBlock"></div>
+		<br/>
+	</div>
+	
+	<div style="width: 220px;" class="centeredBlock">
+		<input type="button" value="Generate Report" id="generateReportButton"/>
+	</div>
+	
+	<div class="bottomPadding">&nbsp</div>	
+	
+	<div id="reportSummaryDiv">
+		<table class="reportSummaryTable">
+			<tr>
+				<td colspan="2" style="text-align: center;">Regular Order Summary</td>
+			</tr>
+			<tr>
+				<td id="totalFamilies"></td>
+				<td id="totalWeight"></td>
+			</tr>
+			<tr>
+				<td id="totalBccAttendees"></td>
+				<td id="totalNonBccAttendees"></td>
+			</tr>
+			<tr>
+				<td id="totalAdults"></td>
+				<td id="totalKids"></td>
+			</tr>
+		</table>
+		
+		<!--
+		<table class="tableOfGraphs">
+			<tr>
+				<td id='bccMemberChart'/>
+				<td id='personsChart' />
+			</tr>
+			<tr>
+				<td id='attendeeChart' />
+				<td id='bccServiceChart' />
+			</tr>
+		</table>
+		-->
+	</div>
+	
+	<div class="bottomPadding">&nbsp</div>
+</div>
+</body>
+</html>

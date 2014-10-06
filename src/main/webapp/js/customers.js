@@ -107,7 +107,7 @@ $(document).ready(function () {
 		var editRow = -1;
 		// initialize jqxGrid
 		$("#customersGrid").jqxGrid({
-			width: '75%',
+			width: 1010,
 			source: dataAdapter,                
 			pageable: true,
 			autoheight: true,
