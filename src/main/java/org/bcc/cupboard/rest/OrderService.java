@@ -338,13 +338,9 @@ public class OrderService {
 		int day = currentOrderDate.getDayOfWeek();
 		boolean isRestrictedDay = false;
 		
-		String[] restrictedDays = restrictionDays.split(",");
 		
-		for(String restrictedDay : restrictedDays) {
-			if(Long.valueOf(restrictedDay) == day) {
-				isRestrictedDay = true;
-				break;
-			}
+		if(restrictionDays.contains(Integer.toString(day))) {
+			isRestrictedDay = true;
 		}
 		
 		int waitingPeriod;
